@@ -19,4 +19,8 @@ use Illuminate\Support\Facades\Route;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
+require __DIR__.'/users.php';
+require __DIR__.'/merchants.php';
+require __DIR__.'/clients.php';
+require __DIR__.'/api.php';
 require __DIR__.'/auth.php';
