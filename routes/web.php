@@ -9,15 +9,15 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 //     return view('welcome');
 // });
 
-        Route::group(
-            [
-                'prefix' => LaravelLocalization::setLocale(),
-                'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
-            ], function() {
+        // Route::group(
+        //     [
+        //         'prefix' => LaravelLocalization::setLocale(),
+        //         'middleware' => ['auth','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+        //     ], function() {
 
-                Route::get('/Dashboard/{page}', [AdminController::class, 'index']);
+        //         Route::get('/Dashboard/{page}', [AdminController::class, 'index']);
 
-            });
+        //     });
 
 // Route::get('/dashboard', function () {
 //     return view('welcome');
@@ -33,4 +33,3 @@ require __DIR__.'/users.php';
 require __DIR__.'/merchants.php';
 require __DIR__.'/clients.php';
 require __DIR__.'/api.php';
-require __DIR__.'/auth.php';
