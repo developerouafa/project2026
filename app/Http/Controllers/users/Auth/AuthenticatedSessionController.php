@@ -26,32 +26,22 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        try{
-            DB::beginTransaction();
-
-            $request->authenticate();
-            $request->session()->regenerate();
-            $request->authenticate();
-            $request->session()->regenerate();
-            if(Auth::user()->account_state == "active"){
-                return redirect()->intended('/');
-            }
-            else{
-                $id = Auth::user()->id;
-                $user = User::findorFail($id);
-                $user->update([
-                    'can_login' => 0,
-                ]);
-                Auth::guard('users')->logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-                return redirect('/');
-            }
-
+        $request->authenticate();
+        $request->session()->regenerate();
+        $request->authenticate();
+        $request->session()->regenerate();
+        if(Auth::user()->account_state == "active"){
+            return redirect()->intended('/');
         }
-        catch(\Exception $exception){
-            DB::rollBack();
-            toastr()->error(trans('Dashboard/messages.error'));
+        else{
+            $id = Auth::user()->id;
+            $user = User::findorFail($id);
+            $user->update([
+                'can_login' => 0,
+            ]);
+            Auth::guard('users')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
             return redirect('/');
         }
     }
