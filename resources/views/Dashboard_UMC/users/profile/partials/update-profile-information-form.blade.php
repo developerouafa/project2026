@@ -10,7 +10,7 @@
                             <label class="form-label">{{__('Dashboard/profile.name')}}</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="name_{{app()->getLocale()}}" required="" class="form-control" value="{{Auth::user()->name}}"  autofocus autocomplete="name" >
+                            <input type="text" name="name" required="" class="form-control" value="{{Auth::user()->name}}"  autofocus autocomplete="name" >
                             <x-input-error class="mt-2" :messages="$errors->get('name_{{app()->getLocale()}}')" />
                         </div>
                     </div>
