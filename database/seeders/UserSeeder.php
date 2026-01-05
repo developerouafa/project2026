@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
             'name' => ['en' => 'ouafa', 'ar' => 'وفاء'],
             'phone' => '0582201021',
             'email' => 'ProjectTree@gmail.com',
-            'password' => Hash::make('2026tar@gmail.com')
+            'password' => Hash::make('2026target'),
+            'account_state' => 'active',
         ]);
     }
 }

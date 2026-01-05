@@ -26,15 +26,11 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
-
-        return redirect()->intended(route('dashboard', absolute: false));
-
         $request->authenticate();
         $request->session()->regenerate();
-        if(Auth::user()->account_state == "1"){
-            return redirect()->intended('/dashboard');
+        if(Auth::user()->account_state == "active"){
+            return redirect()->intended('/');
         }
         else{
             $id = Auth::user()->id;
@@ -42,12 +38,11 @@ class AuthenticatedSessionController extends Controller
             $user->update([
                 'can_login' => 0,
             ]);
-            Auth::guard('users')->logout();
+            Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect('/');
         }
-
     }
 
     /**

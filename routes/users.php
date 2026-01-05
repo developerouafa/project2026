@@ -5,17 +5,18 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
+                Route::get('/Dashboard/{page}', [AdminController::class, 'index']);
 
         Route::group(
             [
                 'prefix' => LaravelLocalization::setLocale(),
-                'middleware' => ['auth', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+                'middleware' => ['auth', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'can_login', 'xss']
             ], function() {
 
-                Route::get('/Dashboard/{page}', [AdminController::class, 'index']);
+                Route::get('/', function () {
+                    return view('Dashboard_UMC.users.index');
+                });
 
             });
 
