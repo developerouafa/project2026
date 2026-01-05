@@ -40,18 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'web',
         ],
-        'users' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'usersauth' => [
-            'driver' => 'session',
-            'provider' => 'usersauth',
-        ],
-        'api' => [
-            'driver' => 'sanctum',
-            'provider' => 'api_users',
-        ],
         'merchants' => [
             'driver' => 'session',
             'provider' => 'merchants',
@@ -80,21 +68,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'usersauth' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'api_users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
         'merchants' => [
             'driver' => 'eloquent',
-            'model' => App\Models\merchants::class,
+            'model' => App\Models\Merchant::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

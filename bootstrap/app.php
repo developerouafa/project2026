@@ -29,9 +29,17 @@ return Application::configure(basePath: dirname(__DIR__))
 
             // Can Login Middleware
             'can_login' => \App\Http\Middleware\can_login::class,
+            'can_login_merchants' => \App\Http\Middleware\can_login_merchants::class,
 
             // XSS Middleware
             'xss' => \App\Http\Middleware\XSS::class,
+
+            // User Authentication Middleware
+            'user.auth' => \App\Http\Middleware\RedirectIfNotUser::class,
+
+            // Merchant Authentication Middleware
+            'merchant.auth' => \App\Http\Middleware\RedirectIfNotMerchant::class,
+
         ]);
 
         $middleware->group('api', [

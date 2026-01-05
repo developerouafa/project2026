@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
-class merchants extends Authenticatable
+class Merchant extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes, HasApiTokens, HasTranslations, HasRoles;
 
@@ -18,7 +19,9 @@ class merchants extends Authenticatable
         'name',
         'phone',
         'email',
+        'email_verified_at',
         'password',
+        'image',
         'can_login',
         'account_state',
     ];

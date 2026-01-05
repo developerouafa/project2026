@@ -20,13 +20,13 @@
 		@include('Dashboard_UMC/layouts.main-sidebar')
 		<!-- main-content -->
 		<div class="main-content app-content">
-            {{-- @if(\Auth::guard('users')->check()) --}}
+            @if(\Auth::guard('web')->check())
                 @include('Dashboard_UMC.layouts.main-header.users-main-header')
-            {{-- @endif --}}
+            @endif
 
-            {{-- @if(\Auth::guard('merchants')->check())
-                @include('Dashboard.layouts.main-header.merchants-main-header')
-            @endif --}}
+            @if(\Auth::guard('merchants')->check())
+                @include('Dashboard_UMC.layouts.main-header.merchants-main-header')
+            @endif
 
             {{-- @if(\Auth::guard('clients')->check())
                 @include('Dashboard.layouts.main-header.clients-main-header')

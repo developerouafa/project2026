@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
             $user->update([
                 'can_login' => 0,
             ]);
-            Auth::guard('users')->logout();
+            Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect('/');
@@ -57,7 +57,7 @@ class AuthenticatedSessionController extends Controller
             'can_login' => 0,
         ]);
 
-        Auth::guard('users')->logout();
+        Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 

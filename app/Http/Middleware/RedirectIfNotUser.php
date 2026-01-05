@@ -2,13 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class can_login
+class RedirectIfNotUser
 {
     /**
      * Handle an incoming request.
@@ -17,13 +16,10 @@ class can_login
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::guard('web')->check()){
-            $id = Auth::user()->id;
-            $user = User::findorFail($id);
-            $user->update([
-                'can_login' => 1,
-            ]);
+        if (!Auth::guard('users')->check()) {
+            return redirect()->route('login');
         }
+
         return $next($request);
     }
 }

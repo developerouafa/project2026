@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
+use App\Models\merchants;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class can_login
+class can_login_merchants
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,9 @@ class can_login
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::guard('web')->check()){
+        if(Auth::guard('merchants')->check()){
             $id = Auth::user()->id;
-            $user = User::findorFail($id);
+            $user = merchants::findorFail($id);
             $user->update([
                 'can_login' => 1,
             ]);
