@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'phone' => '0582201021',
             'email' => 'ProjectTree@gmail.com',
             'password' => Hash::make('2026target'),
-            'account_state' => 'active',
+            'account_state' => 'aaaa',
         ]);
     }
 }

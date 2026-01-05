@@ -17,7 +17,7 @@ class can_login
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::guard('web')->check()){
+        if(Auth::guard('users')->check()){
             $id = Auth::user()->id;
             $user = User::findorFail($id);
             $user->update([
