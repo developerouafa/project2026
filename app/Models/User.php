@@ -15,7 +15,6 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes, HasApiTokens, HasTranslations, HasRoles;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +29,8 @@ class User extends Authenticatable
         'can_login',
         'account_state',
     ];
+
+    public array $translatable = ['name'];
 
     /**
      * The attributes that should be hidden for serialization.
