@@ -52,6 +52,10 @@ return [
             'driver' => 'sanctum',
             'provider' => 'api_users',
         ],
+        'merchants' => [
+            'driver' => 'session',
+            'provider' => 'merchants',
+        ],
     ],
 
     /*
@@ -87,6 +91,10 @@ return [
         'api_users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'merchants' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\merchants::class,
         ],
         // 'users' => [
         //     'driver' => 'database',
