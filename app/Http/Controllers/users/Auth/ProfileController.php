@@ -33,18 +33,10 @@ class ProfileController extends Controller
             $user_id = Auth::user()->id;
             $user = User::findOrFail($user_id);
                 DB::beginTransaction();
-                // if(App::isLocale('en')){
-                //     $user->update([
-                //         'name' =>  $request->name_en,
-                //         'phone' => $request->phone,
-                //     ]);
-                // }
-                // elseif(App::isLocale('ar')){
                     $user->update([
                         'name' =>  $request->name,
                         'phone' => $request->phone,
                     ]);
-                // }
                 DB::commit();
                 toastr()->success(trans('Dashboard/messages.edit'));
                 return redirect()->route('profile.edit');

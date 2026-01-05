@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\users\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\UploadImageTraitt;
 use Illuminate\Support\Facades\Auth;

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ImageuserController;
+use App\Http\Controllers\users\Auth\ImageuserController;
 use App\Http\Controllers\users\Auth\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
