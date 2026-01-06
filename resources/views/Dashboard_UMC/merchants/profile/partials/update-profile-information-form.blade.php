@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" autocomplete="off">
+        <form method="post" action="{{ route('profilemerchant.update') }}" class="mt-6 space-y-6" autocomplete="off">
             @csrf
             @method('patch')
             <div class="mb-4 main-content-label">{{__('Dashboard/profile.personalinformation')}}</div>
@@ -10,7 +10,7 @@
                             <label class="form-label">{{__('Dashboard/profile.name')}}</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="name" required="" class="form-control" value="{{Auth::user()->name}}"  autofocus autocomplete="name" >
+                            <input type="text" name="name" required="" class="form-control" value="{{Auth::guard('merchants')->user()->name}}"  autofocus autocomplete="name" >
                             <x-input-error class="mt-2" :messages="$errors->get('name_{{app()->getLocale()}}')" />
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                             <label class="form-label">{{__('Dashboard/profile.phone')}}</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="phone" class="form-control" value="{{Auth::user()->phone}}" autofocus autocomplete="phone" >
+                            <input type="text" name="phone" class="form-control" value="{{Auth::guard('merchants')->user()->phone}}" autofocus autocomplete="phone" >
                             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                         </div>
                     </div>

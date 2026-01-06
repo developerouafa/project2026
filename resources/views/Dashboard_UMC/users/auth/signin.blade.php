@@ -64,7 +64,7 @@
                                                 {{--form user--}}
                                                 <div>
                                                     <h2>{{trans('Dashboard/login_trans.admin')}}</h2>
-                                                    <form method="POST" action="{{ route('login') }}">
+                                                    <form method="POST" action="{{ route('loginusers') }}">
                                                         @csrf
                                                         <div class="form-group">
                                                             <label>{{trans('Dashboard/login_trans.Email')}}</label> <input  class="form-control" placeholder="{{__('Dashboard/users.email')}}" type="email" name="email" :value="old('email')" required autofocus>

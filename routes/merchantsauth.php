@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\merchants\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\merchants\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\merchants\Auth\PasswordController;
 use App\Http\Controllers\merchants\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -22,6 +24,13 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 });
 
                 Route::middleware('merchant.auth')->group(function () {
+
+                    // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
+                    //             ->name('password.confirm');
+
+                    // Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+
+                    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
                     Route::post('logout/merchants', [AuthenticatedSessionController::class, 'destroy'])->name('logout.merchants');
                 });

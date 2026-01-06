@@ -15,7 +15,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                         ->name('login');
 
-                    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+                    Route::post('loginusers', [AuthenticatedSessionController::class, 'store'])->name('loginusers');
 
                 });
 

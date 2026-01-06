@@ -25,7 +25,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                         Route::controller(ProfileController::class)->group(function() {
                             Route::get('/profile', 'edit')->name('profile.edit');
                             Route::patch('/profile', 'updateprofile')->name('profile.update');
-                            Route::delete('/profile', 'destroy')->name('profile.destroy');
                         });
 
                         Route::controller(ImageuserController::class)->group(function() {

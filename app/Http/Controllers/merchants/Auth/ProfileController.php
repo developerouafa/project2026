@@ -4,9 +4,11 @@ namespace App\Http\Controllers\merchants\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Merchant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -25,17 +27,25 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function updateprofile(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        try{
+            $user_id = Auth::guard('merchants')->user()->id;
+            $user = Merchant::findOrFail($user_id);
+                DB::beginTransaction();
+                    $user->update([
+                        'name' =>  $request->name,
+                        'phone' => $request->phone,
+                    ]);
+                DB::commit();
+                toastr()->success(trans('Dashboard/messages.edit'));
+                return redirect()->route('profilemerchant.edit');
+        }catch(\Exception $execption){
+            DB::rollBack();
+            toastr()->error(trans('Dashboard/messages.error'));
+            return redirect()->route('profilemerchant.edit');
         }
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**
@@ -43,19 +53,19 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+            $merchant = Auth::guard('merchants')->user();
 
-        $user = $request->user();
+            // حذف حساب التاجر
+            $merchant->delete();
 
-        Auth::logout();
+            // تسجيل الخروج
+            Auth::guard('merchants')->logout();
 
-        $user->delete();
+            // تنظيف الجلسة
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            return Redirect::to('/merchants');
 
-        return Redirect::to('/');
     }
 }
