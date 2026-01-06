@@ -45,50 +45,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->regenerateToken();
             return redirect('/merchants');
         }
-
-
-        // if ($request->authenticate()) {
-        //     $request->session()->regenerate();
-        //     if(Auth::guard('merchants')->user()->account_state == "active"){
-        //         return redirect()->intended('/merchants');
-        //     }
-        //     else{
-        //         $id = Auth::guard('merchants')->id();
-        //         $merchant = Merchant::findorFail($id);
-        //         $merchant->update([
-        //             'can_login' => 0,
-        //         ]);
-        //         Auth::guard('merchants')->logout();
-        //         $request->session()->invalidate();
-        //         $request->session()->regenerateToken();
-        //         return redirect('/');
-        //     }
-        // }
-        // return redirect()->back()->withErrors(['name' => (trans('Dashboard/messages.error'))]);
-
-
     }
-// public function store(Request $request)
-// {
-//     $request->authenticate();
-//     $request->session()->regenerate();
-
-//     $merchant = Auth::guard('merchants')->user();
-
-//     if ($merchant->account_state === 'active') {
-//         return redirect()->intended('/merchants');
-//     }
-
-//     // الحساب غير مفعل
-//     Auth::guard('merchants')->logout();
-//     $request->session()->invalidate();
-//     $request->session()->regenerateToken();
-
-//     return redirect('/merchants/login')
-//         ->withErrors([
-//             'email' => 'حسابك غير مفعّل حالياً.',
-//         ]);
-// }
 
     /**
      * Destroy an authenticated session.
@@ -100,14 +57,9 @@ class AuthenticatedSessionController extends Controller
         $merchant->update([
             'can_login' => 0,
         ]);
-
         Auth::guard('merchants')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        return redirect('/merchants');
-
+        return redirect()->intended('/merchants');
     }
 }

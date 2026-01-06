@@ -10,7 +10,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
         Route::group(
             [
                 'prefix' => LaravelLocalization::setLocale(),
-                'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'can_login_merchants', 'xss']
+                'middleware' => ['merchant.auth', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'can_login_merchants', 'xss']
             ], function() {
 
                 Route::get('/merchants', function () {
