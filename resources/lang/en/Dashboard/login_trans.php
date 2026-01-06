@@ -7,6 +7,8 @@ return [
     'Choose_list' =>'Choose from the list',
     'admin' =>'User',
     'SignIn' => 'Sign In',
+    'register' => 'First time login? Register here',
+    'login' => 'Login',
     'Email' => 'Email',
     'Password' => 'Password',
     'logout' => "Logout",

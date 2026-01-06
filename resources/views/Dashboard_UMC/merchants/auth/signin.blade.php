@@ -60,22 +60,55 @@
                                                         </ul>
                                                     </div>
                                                 @endif
-
-                                                {{--form user--}}
-                                                <div>
-                                                    <h2>{{trans('Dashboard/login_trans.admin')}}</h2>
-                                                    <form method="POST" action="{{ route('login') }}">
-                                                        @csrf
-                                                        <div class="form-group">
-                                                            <label>{{trans('Dashboard/login_trans.Email')}}</label> <input  class="form-control" placeholder="{{__('Dashboard/users.email')}}" type="email" name="email" :value="old('email')" required autofocus>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>{{trans('Dashboard/login_trans.Password')}}</label> <input class="form-control" placeholder="{{__('Dashboard/users.password')}}" type="password" name="password" required autocomplete="current-password" >
-                                                        </div>
-                                                        <button type="submit" class="btn btn-main-primary btn-block">{{trans('Dashboard/login_trans.SignIn')}}</button>
-                                                    </form>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlSelect1">{{trans('Dashboard/login_trans.Select_Enter')}}</label>
+                                                    <select class="form-control" id="sectionChooser">
+                                                        <option value="" selected disabled>{{trans('Dashboard/login_trans.Choose_list')}}</option>
+                                                        <option value="Register">{{trans('Dashboard/login_trans.register')}}</option>
+                                                        <option value="Login">{{trans('Dashboard/login_trans.login')}}</option>
+                                                    </select>
                                                 </div>
+                                                {{--form Register--}}
+                                                    <div class="panel" id="Register">
+                                                        <h2>{{trans('Dashboard/login_trans.register')}}</h2>
+                                                        <form method="POST" action="{{ route('registerstore.merchants') }}">
+                                                            @csrf
 
+                                                            <div class="form-group">
+                                                                <label>{{trans('Dashboard/users.name')}}</label>
+                                                                <input  class="form-control" placeholder="{{__('Dashboard/users.name')}}" type="name" name="name" :value="old('name')" required autofocus>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>{{trans('Dashboard/login_trans.Email')}}</label>
+                                                                <input  class="form-control" placeholder="{{__('Dashboard/users.email')}}" type="email" name="email" :value="old('email')" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>{{trans('Dashboard/login_trans.Password')}}</label>
+                                                                <input class="form-control" placeholder="{{__('Dashboard/users.password')}}" type="password" name="password" required autocomplete="current-password" >
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>{{trans('Dashboard/users.confirmpassword')}}</label>
+                                                                <input class="form-control" placeholder="{{__('Dashboard/users.confirmpassword')}}" type="password" name="password_confirmation" required autocomplete="current-password" >
+                                                            </div>
+                                                            <button type="submit" class="btn btn-main-primary btn-block">{{trans('Dashboard/login_trans.SignIn')}}</button>
+                                                        </form>
+                                                    </div>
+
+                                                {{--form Login--}}
+                                                    <div class="panel" id="Login">
+                                                        <h2>{{trans('Dashboard/login_trans.login')}}</h2>
+                                                        <form method="POST" action="{{ route('login.merchants') }}">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label>{{trans('Dashboard/login_trans.Email')}}</label> <input  class="form-control" placeholder="{{__('Dashboard/users.email')}}" type="email" name="email" :value="old('email')" required autofocus>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>{{trans('Dashboard/login_trans.Password')}}</label> <input class="form-control" placeholder="{{__('Dashboard/users.password')}}" type="password" name="password" required autocomplete="current-password" >
+                                                            </div>
+                                                            <button type="submit" class="btn btn-main-primary btn-block">{{trans('Dashboard/login_trans.SignIn')}}</button>
+                                                        </form>
+                                                    </div>
 											</div>
 										</div>
 									</div>
@@ -86,4 +119,14 @@
 				</div><!-- End -->
 			</div>
 		</div>
+@endsection
+@section('js')
+    <script>
+        $('#sectionChooser').change(function(){
+            var myID = $(this).val();
+            $('.panel').each(function(){
+                myID === $(this).attr('id') ? $(this).show() : $(this).hide();
+            });
+        });
+    </script>
 @endsection

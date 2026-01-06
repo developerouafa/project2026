@@ -75,7 +75,7 @@
 								<div class="dropdown-menu">
 									<div class="menu-header-content bg-primary text-right">
 										<div class="d-flex">
-											<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Messages Users</h6>
+											<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Messages</h6>
 											<span class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All Read</span>
 										</div>
 										<p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">You have 4 unread messages</p>
@@ -264,7 +264,7 @@
                                                 </div>
                                             </div>
                                             <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bx bx-user-circle"></i>{{__('Dashboard/profile.Update Profile')}}</a>
-                                            <a class="dropdown-item" href=""><i class="bx bx-cog"></i> Edit Profile</a>
+                                            <a class="dropdown-item" href=""><i class="bx bx-cog"></i> Edit Profile Users</a>
                                             <a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>Inbox</a>
                                             <a class="dropdown-item" href=""><i class="bx bx-envelope"></i>Messages</a>
                                             <a class="dropdown-item" href=""><i class="bx bx-slider-alt"></i> Account Settings</a>

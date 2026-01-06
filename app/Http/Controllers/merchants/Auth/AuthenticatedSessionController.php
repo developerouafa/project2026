@@ -14,13 +14,10 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    // public function create(): View
-    // {
-    //     return view('auth.login');
-    // }
-    public function create()
+    public function create(): View
     {
         return view('Dashboard_UMC.merchants.auth.signin');
+
     }
 
     /**
@@ -32,7 +29,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // return redirect()->intended(route('merchantsdash', absolute: false));
+            return redirect()->intended('/merchantsdash');
+
     }
 
     /**

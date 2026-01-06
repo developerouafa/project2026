@@ -29,5 +29,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
+// require __DIR__.'/auth.php';
 require __DIR__.'/users.php';
 require __DIR__.'/merchants.php';

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\merchants\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\merchants\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -12,12 +13,16 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
                 Route::middleware('guest')->group(function () {
 
+                    Route::get('register/merchants', [RegisteredUserController::class, 'create'])->name('register.merchants');
+                    Route::post('register', [RegisteredUserController::class, 'store'])->name('registerstore.merchants');
+
                     Route::get('login/merchants', [AuthenticatedSessionController::class, 'create'])->name('login.merchants');
-                    Route::post('login/merchants', [AuthenticatedSessionController::class, 'store'])->name('login.merchants');
+                    Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
                 });
 
-                Route::middleware('auth:merchants')->group(function () {
+                Route::middleware('merchant.auth')->group(function () {
+
                     Route::post('logout/merchants', [AuthenticatedSessionController::class, 'destroy'])->name('logout.merchants');
                 });
             });
