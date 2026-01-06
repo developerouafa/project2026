@@ -95,7 +95,7 @@ class ImageuserController extends Controller
                     'image' => ''
                 ]);
             $image = $tableimageuser->image;
-            if(!$image) abort(404);
+            // if(!$image) abort(404);
             unlink(public_path('storage/'.$image));
             DB::commit();
             toastr()->success(trans('Dashboard/messages.delete'));

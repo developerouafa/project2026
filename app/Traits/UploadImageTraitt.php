@@ -14,6 +14,13 @@ trait UploadImageTraitt
         return $path;
     }
 
+    public function uploadImagemr(Request $request, $folderName){
+        $image = $request->file('imagemerchant')->getClientOriginalName();
+        // hash
+        $path = $request->file('imagemerchant')->store($folderName, 'public');
+        return $path;
+    }
+
     public function uploadImageproducts(Request $request, $folderName){
         $image = $request->file('image')->getClientOriginalName();
         // hash
