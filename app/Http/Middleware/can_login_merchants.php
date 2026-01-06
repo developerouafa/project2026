@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Merchant;
 use App\Models\merchants;
 use Closure;
 use Illuminate\Http\Request;
@@ -18,8 +19,8 @@ class can_login_merchants
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::guard('merchants')->check()){
-            $id = Auth::user()->id;
-            $user = merchants::findorFail($id);
+            $id = Auth::guard('merchants')->user()->id;
+            $user = Merchant::findorFail($id);
             $user->update([
                 'can_login' => 1,
             ]);

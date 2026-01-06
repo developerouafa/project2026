@@ -98,7 +98,7 @@
                                                 {{--form Login--}}
                                                     <div class="panel" id="Login">
                                                         <h2>{{trans('Dashboard/login_trans.login')}}</h2>
-                                                        <form method="POST" action="{{ route('login.merchants') }}">
+                                                        <form method="POST" action="{{ route('loginstore.merchants') }}">
                                                             @csrf
                                                             <div class="form-group">
                                                                 <label>{{trans('Dashboard/login_trans.Email')}}</label> <input  class="form-control" placeholder="{{__('Dashboard/users.email')}}" type="email" name="email" :value="old('email')" required autofocus>

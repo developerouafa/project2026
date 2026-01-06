@@ -19,7 +19,7 @@ class MerchantSeeder extends Seeder
             'name' => ['en' => 'merchant', 'ar' => 'تاجر'],
             'phone' => '0682201021',
             'email' => 'merchant@gmail.com',
-            'password' => Hash::make('2026target'),
+            'password' => Hash::make('12345678'),
         ]);
     }
 }
