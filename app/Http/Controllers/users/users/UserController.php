@@ -19,7 +19,7 @@ class UserController extends Controller
     //* Page Show Users (Except the user who is logged in) & (Except for the Super Admin)
     public function index(Request $request)
     {
-        $users = User::orderBy('id','DESC')->whereNot('id', '1')->whereNot('id', Auth::user()->id)->paginate(5);
+        $users = User::orderBy('id','DESC')->whereNot('id', '1')->where('id', '!=', Auth::user()->id)->paginate(5);
         return view('Dashboard_UMC.users.users.show_users',compact('users'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -73,16 +73,15 @@ class UserController extends Controller
     //* Update User
     public function update(Request $request, $id)
     {
-        // // Validation
+        // Validation
         $request->validate([
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+            'password' => 'same:password_confirmation',
             'roles' => 'required',
-            'name_'.app()->getLocale() => 'required',
+            'name' => 'required',
             ],[
                 'email.required' =>__('Dashboard/users.emailrequired'),
                 'email.unique' =>__('Dashboard/users.emailunique'),
-                'password.required' =>__('Dashboard/users.passwordrequired'),
                 'password.same' =>__('Dashboard/users.passwordsame'),
                 'roles.required' =>__('Dashboard/users.rolesnamerequired'),
                 'name.required' => __('Dashboard/users.namerequired')
@@ -94,10 +93,9 @@ class UserController extends Controller
                 $user = User::find($id);
                 $password = $user->password;
 
-                if(App::isLocale('en')){
                     if(!empty($input['password'])){
                         $user->update([
-                            'name' => $request->name_en,
+                            'name' => $request->name,
                             'phone' => $request->phone,
                             'email' => $request->email,
                             'Status' => $request->Status,
@@ -105,33 +103,13 @@ class UserController extends Controller
                         ]);
                     }else{
                         $user->update([
-                            'name' => $request->name_en,
+                            'name' => $request->name,
                             'phone' => $request->phone,
                             'email' => $request->email,
                             'Status' => $request->Status,
                             'password' => $password,
                         ]);
                     }
-                }
-                elseif(App::isLocale('ar')){
-                    if(!empty($input['password'])){
-                        $user->update([
-                            'name' => $request->name_ar,
-                            'phone' => $request->phone,
-                            'email' => $request->email,
-                            'Status' => $request->Status,
-                            'password' => Hash::make($request->password),
-                        ]);
-                    }else{
-                        $user->update([
-                            'name' => $request->name_ar,
-                            'phone' => $request->phone,
-                            'email' => $request->email,
-                            'Status' => $request->Status,
-                            'password' => $password,
-                        ]);
-                    }
-                }
 
                 DB::table('model_has_roles')->where('model_id',$id)->delete();
                 $user->assignRole($request->input('roles'));
@@ -174,12 +152,13 @@ class UserController extends Controller
             try{
                 $id = $request->user_id;
                 $tableimageuser = User::where('id',$id)->first();
+                DB::beginTransaction();
                 if(!empty($tableimageuser->image)){
                     if ($tableimageuser->image && Storage::disk('public')->exists($tableimageuser->image)) {
                         Storage::disk('public')->delete($tableimageuser->image);
                     }
                 }
-                DB::beginTransaction();
+
                     User::onlyTrashed()->find($request->id)->forcedelete();
                 DB::commit();
                 toastr()->success(__('Dashboard/messages.delete'));
@@ -194,16 +173,23 @@ class UserController extends Controller
         if($request->page_id==2){
             try{
                 $delete_select_id = explode(",", $request->delete_select_id);
-                $tableimageuser = User::where('id',$delete_select_id)->first();
-                if(!empty($tableimageuser->image)){
-                    if ($tableimageuser->image && Storage::disk('public')->exists($tableimageuser->image)) {
-                        Storage::disk('public')->delete($tableimageuser->image);
-                    }
-                }
                 DB::beginTransaction();
-                foreach($delete_select_id as $dl){
-                    User::where('id', $dl)->withTrashed()->forceDelete();
-                }
+
+                    $users = User::withTrashed()
+                    ->whereIn('id', $delete_select_id)
+                    ->get();
+
+                    foreach ($users as $user) {
+
+                        // حذف الصورة إذا كانت موجودة
+                        if (!empty($user->image) && Storage::disk('public')->exists($user->image)) {
+                            Storage::disk('public')->delete($user->image);
+                        }
+
+                        // حذف المستخدم نهائياً
+                        $user->forceDelete();
+                    }
+
                 DB::commit();
                 toastr()->success(trans('Dashboard/messages.delete'));
                 return redirect()->route('Users.softdeleteusers');
@@ -520,26 +506,31 @@ class UserController extends Controller
 
     public function softusers(Request $request)
     {
-        // $users = User::onlyTrashed()->latest()->whereNot('id', '1')->whereNot('id', auth()->user()->id)->paginate(5);
-        // return view('Dashboard/dashboard_user/users.softdeletesusers',compact('users'))->with('i', ($request->input('page', 1) - 1) * 5);
+        $users = User::onlyTrashed()->latest()->whereNot('id', '1')->whereNot('id', Auth::user()->id)->paginate(5);
+        return view('Dashboard_UMC.users.users.softdeletesusers',compact('users'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     //* Delete All Users (Except the user who is logged in) & (Except for the Super Admin)
     public function deleteallusers(){
-        // DB::table('users')->whereNull('deleted_at')->whereNot('id', '1')->whereNot('id', auth()->user()->id)->delete();
-        // return redirect()->route('users.index');
+        DB::table('users')->whereNull('deleted_at')->whereNot('id', '1')->whereNot('id', Auth::user()->id)->delete();
+        return redirect()->route('users.index');
     }
 
     //* Delete All Users Sofdelete (Except the user who is logged in) & (Except for the Super Admin)
     public function deletealluserssoftdelete(){
-        // DB::table('users')->whereNotNull('deleted_at')->whereNot('id', '1')->whereNot('id', auth()->user()->id)->delete();
-        // $img = imageuser::get();
-        // if($img){
-        //     $img->delete();
-        //     $image = $img->mainimage;
-        //     if(!$image) abort(404);
-        //     unlink(public_path('storage/'.$image));
-        // }
-        // return redirect()->route('Users.softdeleteusers');
+        DB::table('users')->whereNotNull('deleted_at')->where('id', '!=', 1)->where('id', '!=', Auth::id())->delete();
+
+        $users = User::onlyTrashed()
+            ->where('id', '!=', 1)
+            ->where('id', '!=', Auth::id())
+            ->get();
+
+        foreach ($users as $user) {
+            // حذف الصورة إذا كانت موجودة
+            if ($user->image && Storage::disk('public')->exists($user->image)) {
+                Storage::disk('public')->delete($user->image);
+            }
+        }
+        return redirect()->route('Users.softdeleteusers');
     }
 }

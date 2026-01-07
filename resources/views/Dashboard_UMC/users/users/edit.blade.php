@@ -1,4 +1,4 @@
-@extends('Dashboard/layouts.master')
+@extends('Dashboard_UMC.layouts.master')
 @section('title')
     {{__('Dashboard/users.modifyauser')}}
 @endsection
@@ -52,7 +52,7 @@
                                 <div class="row mg-b-20">
                                     <div class="parsley-input col-md-6" id="fnWrapper">
                                         <label>{{__('Dashboard/users.name')}}  <span class="tx-danger">*</span></label>
-                                        <input value="{{$user->name}}" class="form-control" required name="name_{{app()->getLocale()}}" type="text" autocomplete="name_{{app()->getLocale()}}" >
+                                        <input value="{{$user->name}}" class="form-control" required name="name" type="text" autocomplete="name_{{app()->getLocale()}}" >
                                     </div>
                                     <div class="parsley-input col-md-6" id="fnWrapper">
                                         <label>{{__('Dashboard/users.phone')}}  <span class="tx-danger">*</span></label>

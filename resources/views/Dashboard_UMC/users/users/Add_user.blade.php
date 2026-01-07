@@ -1,4 +1,4 @@
-@extends('Dashboard/layouts.master')
+@extends('Dashboard_UMC.layouts.master')
 @section('title')
     {{__('Dashboard/users.addauser')}}
 @endsection
