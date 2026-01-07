@@ -1,6 +1,8 @@
 
 <?php
 
+use App\Http\Controllers\clients\Auth\ImageclientController;
+use App\Http\Controllers\clients\Auth\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -17,19 +19,19 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
                 //############################# Start Partie Profile Client ##########################################
 
-                    // Route::group(['prefix' => 'Profile'], function(){
-                    //     Route::controller(ProfileController::class)->group(function() {
-                    //         Route::get('/profileclient', 'edit')->name('profileclient.edit');
-                    //         Route::patch('/profileclientu', 'updateprofile')->name('profileclient.update');
-                    //         Route::delete('/profileclientd', 'destroy')->name('profileclient.destroy');
-                    //     });
+                    Route::group(['prefix' => 'Profile'], function(){
+                        Route::controller(ProfileController::class)->group(function() {
+                            Route::get('/profileclient', 'edit')->name('profileclient.edit');
+                            Route::patch('/profileclientu', 'updateprofile')->name('profileclient.update');
+                            Route::delete('/profileclientd', 'destroy')->name('profileclient.destroy');
+                        });
 
-                    //     Route::controller(ImageclientController::class)->group(function() {
-                    //         Route::post('/imageclients', 'store')->name('imageclient.store');
-                    //         Route::patch('/imageclientu', 'update')->name('imageclient.update');
-                    //         Route::get('/imageclientd', 'destroy')->name('imageclient.delete');
-                    //     });
-                    // });
+                        Route::controller(ImageclientController::class)->group(function() {
+                            Route::post('/imageclients', 'store')->name('imageclient.store');
+                            Route::patch('/imageclientu', 'update')->name('imageclient.update');
+                            Route::get('/imageclientd', 'destroy')->name('imageclient.delete');
+                        });
+                    });
                 //############################# end Partie Profile Client ######################################
 
             });

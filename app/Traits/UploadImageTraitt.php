@@ -21,6 +21,13 @@ trait UploadImageTraitt
         return $path;
     }
 
+    public function uploadImagecl(Request $request, $folderName){
+        $image = $request->file('imageclient')->getClientOriginalName();
+        // hash
+        $path = $request->file('imageclient')->store($folderName, 'public');
+        return $path;
+    }
+
     public function uploadImageproducts(Request $request, $folderName){
         $image = $request->file('image')->getClientOriginalName();
         // hash
