@@ -1,7 +1,6 @@
 
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\merchants\Auth\ImagemerchantController;
 use App\Http\Controllers\merchants\Auth\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +17,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     return view('Dashboard_UMC.merchants.index');
                 });
 
-                //############################# Start Partie Profile User ##########################################
+                //############################# Start Partie Profile Merchant ##########################################
 
                     Route::group(['prefix' => 'Profile'], function(){
                         Route::controller(ProfileController::class)->group(function() {
@@ -33,7 +32,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                             Route::get('/imagemerchantd', 'destroy')->name('imagemerchant.delete');
                         });
                     });
-                //############################# end Partie Profile User ######################################
+                //############################# end Partie Profile Merchant ######################################
 
             });
 
