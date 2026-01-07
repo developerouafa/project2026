@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\merchants\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\merchants\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\merchants\Auth\PasswordController;
-use App\Http\Controllers\merchants\Auth\RegisteredUserController;
+use App\Http\Controllers\merchants\Auth\RegisteredMerchantController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -15,8 +14,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
                 Route::middleware('guest')->group(function () {
 
-                    Route::get('register/merchants', [RegisteredUserController::class, 'create'])->name('register.merchants');
-                    Route::post('register', [RegisteredUserController::class, 'store'])->name('registerstore.merchants');
+                    Route::get('register/merchants', [RegisteredMerchantController::class, 'create'])->name('register.merchants');
+                    Route::post('register', [RegisteredMerchantController::class, 'store'])->name('registerstore.merchants');
 
                     Route::get('login/merchants', [AuthenticatedSessionController::class, 'create'])->name('login.merchants');
                     Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('loginstore.merchants');

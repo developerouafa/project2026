@@ -4,7 +4,6 @@ namespace App\Http\Controllers\merchants\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Merchant;
-use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
+class RegisteredMerchantController extends Controller
 {
     /**
      * Display the registration view.

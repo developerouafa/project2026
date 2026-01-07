@@ -28,9 +28,9 @@
                 @include('Dashboard_UMC.layouts.main-header.merchants-main-header')
             @endif
 
-            {{-- @if(\Auth::guard('clients')->check())
-                @include('Dashboard.layouts.main-header.clients-main-header')
-            @endif --}}
+            @if(\Auth::guard('clients')->check())
+                @include('Dashboard_UMC.layouts.main-header.clients-main-header')
+            @endif
 
                 <!-- container -->
                 <div class="container-fluid">

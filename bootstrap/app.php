@@ -44,7 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'merchant.auth' => \App\Http\Middleware\RedirectIfNotMerchant::class,
 
             // Client Authentication Middleware
-            // 'client.auth' => \App\Http\Middleware\RedirectIfNotClient::class,
+            'client.auth' => \App\Http\Middleware\RedirectIfNotClient::class,
 
         ]);
 
