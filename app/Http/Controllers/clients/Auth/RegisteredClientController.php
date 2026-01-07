@@ -27,7 +27,7 @@ class RegisteredClientController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -40,8 +40,7 @@ class RegisteredClientController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        // event(new Registered($client));
+        // // event(new Registered($client));
         Auth::guard('clients')->login($client);
         return redirect()->intended('/clients');
     }
