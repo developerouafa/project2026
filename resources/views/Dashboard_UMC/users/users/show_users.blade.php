@@ -127,7 +127,7 @@
                                             </td>
                                         </tr>
                                         {{-- @can('Delete Group Users') --}}
-                                            @include('Dashboard.dashboard_user.users.delete_select')
+                                            @include('Dashboard_UMC.users.users.delete_select')
                                         {{-- @endcan --}}
                                     @endforeach
                                 </tbody>

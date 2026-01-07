@@ -44,7 +44,10 @@
                             </div>
                         </div><br>
 
-                        {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
+                        <form action="{{ route('users.update', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+
                             <div class="">
                                 <div class="row mg-b-20">
                                     <div class="parsley-input col-md-6" id="fnWrapper">
@@ -62,7 +65,7 @@
                                 <div class="row mg-b-20">
                                     <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
                                         <label>{{__('Dashboard/users.email')}} <span class="tx-danger">*</span></label>
-                                        {!! Form::text('email', $user->email, array('class' => 'form-control','required')) !!}
+                                        <input type="email" name="email" class="form-control" required value="{{ old('email', $user->email) }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">{{__('Dashboard/users.userolestaus')}}</label>
@@ -87,12 +90,12 @@
                             <div class="row mg-b-20">
                                 <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
                                     <label>{{__('Dashboard/users.password')}} <span class="tx-danger">*</span></label>
-                                    {!! Form::password('password', array('class' => 'form-control')) !!}
+                                    <input type="password" name="password" class="form-control">
                                 </div>
 
                                 <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
                                     <label>{{__('Dashboard/users.currentpassword')}} <span class="tx-danger">*</span></label>
-                                    {!! Form::password('confirm-password', array('class' => 'form-control')) !!}
+                                    <input type="password" name="password_confirmation" class="form-control">
                                 </div>
                             </div>
 
@@ -100,15 +103,21 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>{{__('Dashboard/users.usertype')}}</strong>
-                                        {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple'))
-                                        !!}
+                                        <select name="roles[]" class="form-control" multiple>
+                                            @foreach($roles as $id => $roleName)
+                                                <option value="{{ $id }}"
+                                                    {{ in_array($id, old('roles', $userRole ?? [])) ? 'selected' : '' }}>
+                                                    {{ $roleName }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="mg-t-30">
                                 <button class="btn btn-main-primary pd-x-20" type="submit">{{__('Dashboard/users.update')}}</button>
                             </div>
-                        {!! Form::close() !!}
+                        </form>
                     </div>
                 </div>
             </div>

@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class UserController extends Controller
 {
@@ -71,258 +74,255 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         // // Validation
-        // $this->validate($request, [
-        //     'email' => 'required|email|unique:users,email,'.$id,
-        //     'password' => 'same:confirm-password',
-        //     'roles' => 'required',
-        //     'name_'.app()->getLocale() => 'required',
-        //     ],[
-        //         'email.required' =>__('Dashboard/users.emailrequired'),
-        //         'email.unique' =>__('Dashboard/users.emailunique'),
-        //         'password.required' =>__('Dashboard/users.passwordrequired'),
-        //         'password.same' =>__('Dashboard/users.passwordsame'),
-        //         'roles.required' =>__('Dashboard/users.rolesnamerequired'),
-        //         'name.required' => __('Dashboard/users.namerequired')
-        //     ]);
-        // try{
-        //     DB::beginTransaction();
+        $request->validate([
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'same:confirm-password',
+            'roles' => 'required',
+            'name_'.app()->getLocale() => 'required',
+            ],[
+                'email.required' =>__('Dashboard/users.emailrequired'),
+                'email.unique' =>__('Dashboard/users.emailunique'),
+                'password.required' =>__('Dashboard/users.passwordrequired'),
+                'password.same' =>__('Dashboard/users.passwordsame'),
+                'roles.required' =>__('Dashboard/users.rolesnamerequired'),
+                'name.required' => __('Dashboard/users.namerequired')
+            ]);
 
-        //         $user = User::find($id);
-        //         $password = $user->password;
+        try{
+            DB::beginTransaction();
 
-        //         if(App::isLocale('en')){
-        //             if(!empty($input['password'])){
-        //                 $user->update([
-        //                     'name' => $request->name_en,
-        //                     'phone' => $request->phone,
-        //                     'email' => $request->email,
-        //                     'Status' => $request->Status,
-        //                     'password' => Hash::make($request->password),
-        //                 ]);
-        //             }else{
-        //                 $user->update([
-        //                     'name' => $request->name_en,
-        //                     'phone' => $request->phone,
-        //                     'email' => $request->email,
-        //                     'Status' => $request->Status,
-        //                     'password' => $password,
-        //                 ]);
-        //             }
-        //         }
-        //         elseif(App::isLocale('ar')){
-        //             if(!empty($input['password'])){
-        //                 $user->update([
-        //                     'name' => $request->name_ar,
-        //                     'phone' => $request->phone,
-        //                     'email' => $request->email,
-        //                     'Status' => $request->Status,
-        //                     'password' => Hash::make($request->password),
-        //                 ]);
-        //             }else{
-        //                 $user->update([
-        //                     'name' => $request->name_ar,
-        //                     'phone' => $request->phone,
-        //                     'email' => $request->email,
-        //                     'Status' => $request->Status,
-        //                     'password' => $password,
-        //                 ]);
-        //             }
-        //         }
+                $user = User::find($id);
+                $password = $user->password;
 
-        //         DB::table('model_has_roles')->where('model_id',$id)->delete();
-        //         $user->assignRole($request->input('roles'));
+                if(App::isLocale('en')){
+                    if(!empty($input['password'])){
+                        $user->update([
+                            'name' => $request->name_en,
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'Status' => $request->Status,
+                            'password' => Hash::make($request->password),
+                        ]);
+                    }else{
+                        $user->update([
+                            'name' => $request->name_en,
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'Status' => $request->Status,
+                            'password' => $password,
+                        ]);
+                    }
+                }
+                elseif(App::isLocale('ar')){
+                    if(!empty($input['password'])){
+                        $user->update([
+                            'name' => $request->name_ar,
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'Status' => $request->Status,
+                            'password' => Hash::make($request->password),
+                        ]);
+                    }else{
+                        $user->update([
+                            'name' => $request->name_ar,
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'Status' => $request->Status,
+                            'password' => $password,
+                        ]);
+                    }
+                }
 
-        //     DB::commit();
-        //     toastr()->success(__('Dashboard/messages.edit'));
-        //     return redirect()->route('users.index');
-        // }catch(\Exception $execption){
-        //     DB::rollBack();
-        //     toastr()->error(__('Dashboard/messages.error'));
-        //     return redirect()->route('users.update');
-        // }
+                DB::table('model_has_roles')->where('model_id',$id)->delete();
+                $user->assignRole($request->input('roles'));
+
+            DB::commit();
+            toastr()->success(__('Dashboard/messages.edit'));
+            return redirect()->route('users.index');
+        }catch(\Exception $execption){
+            DB::rollBack();
+            toastr()->error(__('Dashboard/messages.error'));
+            return redirect()->route('users.update');
+        }
     }
 
     public function destroy(Request $request)
     {
-        // //! Delete One Request
-        // if($request->page_id==1){
-        //     try{
-        //         $id = $request->user_id;
-        //         $tableimageuser = imageuser::where('user_id',$id)->first();
-        //         if(!empty($tableimageuser)){
-        //             $image = $tableimageuser->image;
-
-        //             if(!$image) abort(404);
-        //             unlink(public_path('storage/'.$image));
-        //         }
-        //         DB::beginTransaction();
-        //             User::find($id)->delete();
-        //         DB::commit();
-        //         toastr()->success(__('Dashboard/messages.delete'));
-        //         return redirect()->route('users.index');
-        //     }catch(\Exception $execption){
-        //         DB::rollBack();
-        //         toastr()->error(__('Dashboard/messages.error'));
-        //         return redirect()->route('users.index');
-        //     }
-        // }
-        // //! Delete One SoftDelete
-        // if($request->page_id==3){
-        //     try{
-        //         $id = $request->user_id;
-        //         $tableimageuser = imageuser::where('user_id',$id)->first();
-        //         if(!empty($tableimageuser)){
-        //             $image = $tableimageuser->image;
-
-        //             if(!$image) abort(404);
-        //             unlink(public_path('storage/'.$image));
-        //         }
-        //         DB::beginTransaction();
-        //             User::onlyTrashed()->find($request->id)->forcedelete();
-        //         DB::commit();
-        //         toastr()->success(__('Dashboard/messages.delete'));
-        //         return redirect()->route('Users.softdeleteusers');
-        //     }catch(\Exception $execption){
-        //         DB::rollBack();
-        //         toastr()->error(__('Dashboard/messages.error'));
-        //         return redirect()->route('Users.softdeleteusers');
-        //     }
-        // }
-        // //! Delete Group SoftDelete
-        // if($request->page_id==2){
-        //     try{
-        //         $delete_select_id = explode(",", $request->delete_select_id);
-        //         $tableimageuser = imageuser::where('user_id',$delete_select_id)->first();
-        //         if(!empty($tableimageuser)){
-        //             $image = $tableimageuser->image;
-
-        //             if(!$image) abort(404);
-        //             unlink(public_path('storage/'.$image));
-        //         }
-        //         DB::beginTransaction();
-        //         foreach($delete_select_id as $dl){
-        //             User::where('id', $dl)->withTrashed()->forceDelete();
-        //         }
-        //         DB::commit();
-        //         toastr()->success(trans('Dashboard/messages.delete'));
-        //         return redirect()->route('Users.softdeleteusers');
-        //     }
-        //     catch(\Exception $exception){
-        //         DB::rollBack();
-        //         toastr()->error(trans('Dashboard/messages.error'));
-        //         return redirect()->route('Users.softdeleteusers');
-        //     }
-        // }
-        // //! Delete Group Request
-        // else{
-        //     try{
-        //         $delete_select_id = explode(",", $request->delete_select_id);
-        //         $tableimageuser = imageuser::where('user_id',$delete_select_id)->first();
-        //         if(!empty($tableimageuser)){
-        //             $image = $tableimageuser->image;
-
-        //             if(!$image) abort(404);
-        //             unlink(public_path('storage/'.$image));
-        //         }
-        //         DB::beginTransaction();
-        //             User::destroy($delete_select_id);
-        //         DB::commit();
-        //         toastr()->success(trans('Dashboard/messages.delete'));
-        //         return redirect()->route('users.index');
-        //     }catch(\Exception $execption){
-        //         DB::rollBack();
-        //         toastr()->error(__('Dashboard/messages.error'));
-        //         return redirect()->route('users.index');
-        //     }
-        // }
+        //! Delete One Request
+        if($request->page_id==1){
+            try{
+                $id = $request->user_id;
+                $tableimageuser = User::where('id',$id)->first();
+                if(!empty($tableimageuser->image)){
+                    if ($tableimageuser->image && Storage::disk('public')->exists($tableimageuser->image)) {
+                        Storage::disk('public')->delete($tableimageuser->image);
+                    }
+                }
+                DB::beginTransaction();
+                    User::find($id)->delete();
+                DB::commit();
+                toastr()->success(__('Dashboard/messages.delete'));
+                return redirect()->route('users.index');
+            }catch(\Exception $execption){
+                DB::rollBack();
+                toastr()->error(__('Dashboard/messages.error'));
+                return redirect()->route('users.index');
+            }
+        }
+        //! Delete One SoftDelete
+        if($request->page_id==3){
+            try{
+                $id = $request->user_id;
+                $tableimageuser = User::where('id',$id)->first();
+                if(!empty($tableimageuser->image)){
+                    if ($tableimageuser->image && Storage::disk('public')->exists($tableimageuser->image)) {
+                        Storage::disk('public')->delete($tableimageuser->image);
+                    }
+                }
+                DB::beginTransaction();
+                    User::onlyTrashed()->find($request->id)->forcedelete();
+                DB::commit();
+                toastr()->success(__('Dashboard/messages.delete'));
+                return redirect()->route('Users.softdeleteusers');
+            }catch(\Exception $execption){
+                DB::rollBack();
+                toastr()->error(__('Dashboard/messages.error'));
+                return redirect()->route('Users.softdeleteusers');
+            }
+        }
+        //! Delete Group SoftDelete
+        if($request->page_id==2){
+            try{
+                $delete_select_id = explode(",", $request->delete_select_id);
+                $tableimageuser = User::where('id',$delete_select_id)->first();
+                if(!empty($tableimageuser->image)){
+                    if ($tableimageuser->image && Storage::disk('public')->exists($tableimageuser->image)) {
+                        Storage::disk('public')->delete($tableimageuser->image);
+                    }
+                }
+                DB::beginTransaction();
+                foreach($delete_select_id as $dl){
+                    User::where('id', $dl)->withTrashed()->forceDelete();
+                }
+                DB::commit();
+                toastr()->success(trans('Dashboard/messages.delete'));
+                return redirect()->route('Users.softdeleteusers');
+            }
+            catch(\Exception $exception){
+                DB::rollBack();
+                toastr()->error(trans('Dashboard/messages.error'));
+                return redirect()->route('Users.softdeleteusers');
+            }
+        }
+        //! Delete Group Request
+        else{
+            try{
+                $delete_select_id = explode(",", $request->delete_select_id);
+                $tableimageuser = User::where('id',$delete_select_id)->first();
+                if(!empty($tableimageuser->image)){
+                    if ($tableimageuser->image && Storage::disk('public')->exists($tableimageuser->image)) {
+                        Storage::disk('public')->delete($tableimageuser->image);
+                    }
+                }
+                DB::beginTransaction();
+                    User::destroy($delete_select_id);
+                DB::commit();
+                toastr()->success(trans('Dashboard/messages.delete'));
+                return redirect()->route('users.index');
+            }catch(\Exception $execption){
+                DB::rollBack();
+                toastr()->error(__('Dashboard/messages.error'));
+                return redirect()->route('users.index');
+            }
+        }
     }
 
     //* Restore One User
     public function restoreusers($id){
-        // try{
-        //     DB::beginTransaction();
-        //         User::withTrashed()->where('id', $id)->restore();
-        //     DB::commit();
-        //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('Users.softdeleteusers');
-        // }catch(\Exception $exception){
-        //     DB::rollBack();
-        //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('Users.softdeleteusers');
-        // }
+        try{
+            DB::beginTransaction();
+                User::withTrashed()->where('id', $id)->restore();
+            DB::commit();
+            toastr()->success(trans('Dashboard/messages.edit'));
+            return redirect()->route('Users.softdeleteusers');
+        }catch(\Exception $exception){
+            DB::rollBack();
+            toastr()->error(trans('message.error'));
+            return redirect()->route('Users.softdeleteusers');
+        }
     }
 
     //* Restore All Users
     public function restoreallusers()
     {
-        // try{
-        //     DB::beginTransaction();
-        //         User::withTrashed()->restore();
-        //     DB::commit();
-        //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('Users.softdeleteusers');
-        // }catch(\Exception $exception){
-        //     DB::rollBack();
-        //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('Users.softdeleteusers');
-        // }
+        try{
+            DB::beginTransaction();
+                User::withTrashed()->restore();
+            DB::commit();
+            toastr()->success(trans('Dashboard/messages.edit'));
+            return redirect()->route('Users.softdeleteusers');
+        }catch(\Exception $exception){
+            DB::rollBack();
+            toastr()->error(trans('message.error'));
+            return redirect()->route('Users.softdeleteusers');
+        }
     }
 
     //* Restore All Select Users
     public function restoreallselectusers(Request $request)
     {
-        // try{
-        //     $restore_select_id = explode(",", $request->restore_select_id);
-        //     DB::beginTransaction();
-        //         foreach($restore_select_id as $rs){
-        //             User::withTrashed()->where('id', $rs)->restore();
-        //         }
-        //     DB::commit();
-        //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('Users.softdeleteusers');
-        // }catch(\Exception $exception){
-        //     DB::rollBack();
-        //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('Users.softdeleteusers');
-        // }
+        try{
+            $restore_select_id = explode(",", $request->restore_select_id);
+            DB::beginTransaction();
+                foreach($restore_select_id as $rs){
+                    User::withTrashed()->where('id', $rs)->restore();
+                }
+            DB::commit();
+            toastr()->success(trans('Dashboard/messages.edit'));
+            return redirect()->route('Users.softdeleteusers');
+        }catch(\Exception $exception){
+            DB::rollBack();
+            toastr()->error(trans('message.error'));
+            return redirect()->route('Users.softdeleteusers');
+        }
     }
 
     //* Active Login User
     public function editstatusactive($id)
     {
-        // try{
-        //     $User = User::findorFail($id);
-        //     DB::beginTransaction();
-        //     $User->update([
-        //         'Status' => 1,
-        //     ]);
-        //     DB::commit();
-        //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('users.index');
-        // }catch(\Exception $exception){
-        //     DB::rollBack();
-        //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('users.index');
-        // }
+        try{
+            $User = User::findorFail($id);
+            DB::beginTransaction();
+            $User->update([
+                'Status' => 1,
+            ]);
+            DB::commit();
+            toastr()->success(trans('Dashboard/messages.edit'));
+            return redirect()->route('users.index');
+        }catch(\Exception $exception){
+            DB::rollBack();
+            toastr()->error(trans('message.error'));
+            return redirect()->route('users.index');
+        }
     }
 
     //* Déactive Login User
     public function editstatusdéactive($id)
     {
-        // try{
-        //     $User = User::findorFail($id);
-        //     DB::beginTransaction();
-        //     $User->update([
-        //         'Status' => 0,
-        //     ]);
-        //     DB::commit();
-        //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('users.index');
-        // }catch(\Exception $exception){
-        //     DB::rollBack();
-        //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('users.index');
-        // }
+        try{
+            $User = User::findorFail($id);
+            DB::beginTransaction();
+            $User->update([
+                'Status' => 0,
+            ]);
+            DB::commit();
+            toastr()->success(trans('Dashboard/messages.edit'));
+            return redirect()->route('users.index');
+        }catch(\Exception $exception){
+            DB::rollBack();
+            toastr()->error(trans('message.error'));
+            return redirect()->route('users.index');
+        }
     }
 
     public function clienttouser($id)
