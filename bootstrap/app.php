@@ -31,6 +31,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'can_login' => \App\Http\Middleware\can_login::class,
             'can_login_merchants' => \App\Http\Middleware\can_login_merchants::class,
 
+            // Can Login Clients Middleware
+            'can_login_clients' => \App\Http\Middleware\can_login_clients::class,
+
             // XSS Middleware
             'xss' => \App\Http\Middleware\XSS::class,
 
@@ -39,6 +42,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
             // Merchant Authentication Middleware
             'merchant.auth' => \App\Http\Middleware\RedirectIfNotMerchant::class,
+
+            // Client Authentication Middleware
+            // 'client.auth' => \App\Http\Middleware\RedirectIfNotClient::class,
 
         ]);
 
