@@ -97,7 +97,6 @@ class UserController extends Controller
                             'name' => $request->name,
                             'phone' => $request->phone,
                             'email' => $request->email,
-                            'Status' => $request->Status,
                             'password' => Hash::make($request->password),
                         ]);
                     }else{
@@ -105,7 +104,6 @@ class UserController extends Controller
                             'name' => $request->name,
                             'phone' => $request->phone,
                             'email' => $request->email,
-                            'Status' => $request->Status,
                             'password' => $password,
                         ]);
                     }

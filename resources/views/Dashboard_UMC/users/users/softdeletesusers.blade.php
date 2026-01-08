@@ -90,7 +90,7 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            @if ($user->UserStatus == 1)
+                                            @if ($user->can_login == 1)
                                                 <span class="label text-success d-flex">
                                                     <div class="dot-label bg-success ml-1"></div>
                                                 </span>

@@ -35,7 +35,7 @@
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                     {{-- @can('Delete All Users softdelete') --}}
-                        <a class="btn btn-danger" href="{{route('Users.deletealluserssoftdelete')}}">{{__('Dashboard/messages.Deleteall')}}</a>
+                        <a class="btn btn-danger" href="{{route('merchant.deleteallmerchantssoftdelete')}}">{{__('Dashboard/messages.Deleteall')}}</a>
                     {{-- @endcan --}}
 
                     {{-- @can('Delete Group Users softdelete') --}}
@@ -43,7 +43,7 @@
                     {{-- @endcan --}}
 
                     {{-- @can('Restore All Users') --}}
-                        <a class="btn btn-info" href="{{route('Users.restoreallusers')}}">{{__('Dashboard/messages.restoreall')}}</a>
+                        <a class="btn btn-info" href="{{route('merchant.restoreallmerchants')}}">{{__('Dashboard/messages.restoreall')}}</a>
                     {{-- @endcan --}}
 
                     {{-- @can('Restore Group Users') --}}
@@ -73,24 +73,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($merchants as $merchant)
                                     <tr>
                                         <td>{{ ++$i }}</td>
                                         {{-- @can('Delete Group Users softdelete') --}}
                                             <td>
-                                                <input type="checkbox" name="delete_select" value="{{$user->id}}" class="delete_select">
+                                                <input type="checkbox" name="delete_select" value="{{$merchant->id}}" class="delete_select">
                                             </td>
                                         {{-- @endcan --}}
                                         {{-- @can('Restore Group Users') --}}
                                             <td>
-                                                <input type="checkbox" name="restore" value="{{$user->id}}" class="delete_select">
+                                                <input type="checkbox" name="restore" value="{{$merchant->id}}" class="delete_select">
                                             </td>
                                         {{-- @endcan --}}
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->phone }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $merchant->name }}</td>
+                                        <td>{{ $merchant->phone }}</td>
+                                        <td>{{ $merchant->email }}</td>
                                         <td>
-                                            @if ($user->UserStatus == 1)
+                                            @if ($merchant->can_login == 1)
                                                 <span class="label text-success d-flex">
                                                     <div class="dot-label bg-success ml-1"></div>
                                                 </span>
@@ -101,19 +101,19 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if (!empty($user->getRoleNames()))
-                                                @foreach ($user->getRoleNames() as $v)
+                                            @if (!empty($merchant->getRoleNames()))
+                                                @foreach ($merchant->getRoleNames() as $v)
                                                     <label class="badge badge-success">{{ $v }}</label>
                                                 @endforeach
                                             @endif
                                         </td>
                                         <td>
                                             {{-- @can('Restore One User') --}}
-                                                <a href="{{route('Users.restoreusers', $user->id)}}">{{__('Dashboard/messages.restore')}}</a>
+                                                <a href="{{route('merchant.restoremerchants', $merchant->id)}}">{{__('Dashboard/messages.restore')}}</a>
                                             {{-- @endcan --}}
                                             {{-- @can('Delete One User softdelete') --}}
                                                 <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                    data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                    data-id="{{ $merchant->id }}" data-name="{{ $merchant->name }}"
                                                     data-toggle="modal" href="#modaldemo8" title="Delete">
                                                     <i class="las la-trash"></i>
                                                 </a>
@@ -121,11 +121,11 @@
                                         </td>
                                     </tr>
                                     {{-- @can('Delete Group Users softdelete') --}}
-                                        @include('Dashboard_UMC.users.users.delete_selectsoftdelete')
+                                        @include('Dashboard_UMC.merchants.merchants.delete_selectsoftdelete')
                                     {{-- @endcan --}}
 
                                     {{-- @can('Restore Group Users') --}}
-                                        @include('Dashboard_UMC.users.users.restoreall')
+                                        @include('Dashboard_UMC.merchants.merchants.restoreall')
                                     {{-- @endcan --}}
                                 @endforeach
                             </tbody>

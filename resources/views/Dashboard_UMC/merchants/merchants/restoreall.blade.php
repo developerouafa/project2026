@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('Users.restoreallselectusers', 'test') }}" method="post">
+            <form action="{{ route('merchant.restoreallselectmerchants', 'test') }}" method="post">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <h5>{{trans('Dashboard/sections_trans.aresuredeleting')}}</h5>

@@ -40,11 +40,11 @@
                     <div class="card-body">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-right">
-                                <a class="btn btn-primary btn-sm" href="{{ route('users.index') }}">{{__('Dashboard/users.back')}}</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('merchant.index') }}">{{__('Dashboard/users.back')}}</a>
                             </div>
                         </div><br>
 
-                        <form action="{{ route('users.update', $user->id) }}" method="POST">
+                        <form action="{{ route('merchant.update', $merchant->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
 
@@ -52,11 +52,11 @@
                                 <div class="row mg-b-20">
                                     <div class="parsley-input col-md-6" id="fnWrapper">
                                         <label>{{__('Dashboard/users.name')}}  <span class="tx-danger">*</span></label>
-                                        <input value="{{$user->name}}" class="form-control" required name="name" type="text" autocomplete="name_{{app()->getLocale()}}" >
+                                        <input value="{{$merchant->name}}" class="form-control" required name="name" type="text" autocomplete="name_{{app()->getLocale()}}" >
                                     </div>
                                     <div class="parsley-input col-md-6" id="fnWrapper">
                                         <label>{{__('Dashboard/users.phone')}}  <span class="tx-danger">*</span></label>
-                                        <input value="{{$user->phone}}" class="form-control" required name="phone" type="text" autocomplete="phone" >
+                                        <input value="{{$merchant->phone}}" class="form-control" required name="phone" type="text" autocomplete="phone" >
                                     </div>
                                 </div>
                             </div>
@@ -65,19 +65,19 @@
                                 <div class="row mg-b-20">
                                     <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
                                         <label>{{__('Dashboard/users.email')}} <span class="tx-danger">*</span></label>
-                                        <input type="email" name="email" class="form-control" required value="{{ old('email', $user->email) }}">
+                                        <input type="email" name="email" class="form-control" required value="{{ old('email', $merchant->email) }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">{{__('Dashboard/users.userolestaus')}}</label>
                                         <select name="Status" id="select-beast" class="form-control  nice-select  custom-select">
-                                            <option value="{{ $user->Status}}">
-                                                @if ($user->Status == 1)
+                                            <option value="{{ $merchant->Status}}">
+                                                @if ($merchant->Status == 1)
                                                     {{__('Dashboard/users.active')}}
                                                 @else
                                                     {{__('Dashboard/users.noactive')}}
                                                 @endif
                                             </option>
-                                            @if ($user->Status == 1)
+                                            @if ($merchant->Status == 1)
                                                 <option value="0">{{__('Dashboard/users.noactive')}}</option>
                                             @else
                                                 <option value="1">{{__('Dashboard/users.active')}}</option>
@@ -106,7 +106,7 @@
                                         <select name="roles[]" class="form-control" multiple>
                                             @foreach($roles as $id => $roleName)
                                                 <option value="{{ $id }}"
-                                                    {{ in_array($id, old('roles', $userRole ?? [])) ? 'selected' : '' }}>
+                                                    {{ in_array($id, old('roles', $merchantRole ?? [])) ? 'selected' : '' }}>
                                                     {{ $roleName }}
                                                 </option>
                                             @endforeach
