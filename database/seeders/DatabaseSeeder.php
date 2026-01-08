@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MerchantSeeder::class,
             ClientSeeder::class,
-            PermissionSeeder::class,
+            PermissionUserSeeder::class,
+            PermissionMerchantsSeeder::class,
         ]);
 
     }

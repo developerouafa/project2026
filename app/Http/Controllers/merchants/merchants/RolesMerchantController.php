@@ -41,10 +41,10 @@ class RolesMerchantController extends Controller
             DB::beginTransaction();
             $role = Role::create([
                 'name' => $request->input('name'),
-                'guard_name' => 'web'
+                'guard_name' => 'merchants'
             ]);
             $permissions = Permission::whereIn('id', $request->permission)
-                ->where('guard_name', 'web')
+                ->where('guard_name', 'merchants')
                 ->get();
             $role->syncPermissions($permissions);
             DB::commit();
