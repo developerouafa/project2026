@@ -38,11 +38,11 @@
                 <div class="card-body">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('merchants.index') }}">{{__('Dashboard/users.back')}}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('merchant.index') }}">{{__('Dashboard/users.back')}}</a>
                         </div>
                     </div><br>
                     <form class="parsley-style-1" id="selectForm2" autocomplete="off" name="selectForm2"
-                        action="{{route('merchants.store','test')}}" method="post">
+                        action="{{route('merchant.store','test')}}" method="post">
                         {{csrf_field()}}
 
                         <div class="row mg-b-20">

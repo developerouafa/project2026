@@ -20,10 +20,10 @@ class MerchantController extends Controller
     //* Page Show merchants (Except the merchant who is logged in) & (Except for the Super Admin)
     public function index(Request $request)
     {
-        return 'hi';
+        // return 'hi';
         // $merchants = Merchant::orderBy('id','DESC')->whereNot('id', '1')->where('id', '!=', Auth::guard('merchants')->id())->paginate(5);
-        // $merchants = Merchant::orderBy('id','DESC')->paginate(5);
-        // return view('Dashboard_UMC.merchants.merchants.show_merchants',compact('merchants'))->with('i', ($request->input('page', 1) - 1) * 5);
+        $merchants = Merchant::orderBy('id','DESC')->paginate(5);
+        return view('Dashboard_UMC.merchants.merchants.show_merchants',compact('merchants'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
 
@@ -48,11 +48,11 @@ class MerchantController extends Controller
                 $merchant->assignRole($request->input('roles_name'));
             DB::commit();
             toastr()->success(__('Dashboard/messages.add'));
-            return redirect()->route('merchants.index');
+            return redirect()->route('merchant.index');
         }catch(\Exception $execption){
             DB::rollBack();
             toastr()->error(__('Dashboard/messages.error'));
-            return redirect()->route('merchants.create');
+            return redirect()->route('merchant.create');
         }
     }
 
@@ -118,11 +118,11 @@ class MerchantController extends Controller
 
         //     DB::commit();
         //     toastr()->success(__('Dashboard/messages.edit'));
-        //     return redirect()->route('merchants.index');
+        //     return redirect()->route('merchant.index');
         // }catch(\Exception $execption){
         //     DB::rollBack();
         //     toastr()->error(__('Dashboard/messages.error'));
-        //     return redirect()->route('merchants.update');
+        //     return redirect()->route('merchant.update');
         // }
     }
 
@@ -142,11 +142,11 @@ class MerchantController extends Controller
         //             Merchant::find($id)->delete();
         //         DB::commit();
         //         toastr()->success(__('Dashboard/messages.delete'));
-        //         return redirect()->route('merchants.index');
+        //         return redirect()->route('merchant.index');
         //     }catch(\Exception $execption){
         //         DB::rollBack();
         //         toastr()->error(__('Dashboard/messages.error'));
-        //         return redirect()->route('merchants.index');
+        //         return redirect()->route('merchant.index');
         //     }
         // }
         // //! Delete One SoftDelete
@@ -164,11 +164,11 @@ class MerchantController extends Controller
         //             Merchant::onlyTrashed()->find($request->id)->forcedelete();
         //         DB::commit();
         //         toastr()->success(__('Dashboard/messages.delete'));
-        //         return redirect()->route('merchants.softdeletemerchants');
+        //         return redirect()->route('merchant.softdeletemerchants');
         //     }catch(\Exception $execption){
         //         DB::rollBack();
         //         toastr()->error(__('Dashboard/messages.error'));
-        //         return redirect()->route('merchants.softdeletemerchants');
+        //         return redirect()->route('merchant.softdeletemerchants');
         //     }
         // }
         // //! Delete Group SoftDelete
@@ -193,12 +193,12 @@ class MerchantController extends Controller
 
         //         DB::commit();
         //         toastr()->success(trans('Dashboard/messages.delete'));
-        //         return redirect()->route('merchants.softdeletemerchants');
+        //         return redirect()->route('merchant.softdeletemerchants');
         //     }
         //     catch(\Exception $exception){
         //         DB::rollBack();
         //         toastr()->error(trans('Dashboard/messages.error'));
-        //         return redirect()->route('merchants.softdeletemerchants');
+        //         return redirect()->route('merchant.softdeletemerchants');
         //     }
         // }
         // //! Delete Group Request
@@ -215,11 +215,11 @@ class MerchantController extends Controller
         //             Merchant::destroy($delete_select_id);
         //         DB::commit();
         //         toastr()->success(trans('Dashboard/messages.delete'));
-        //         return redirect()->route('merchants.index');
+        //         return redirect()->route('merchant.index');
         //     }catch(\Exception $execption){
         //         DB::rollBack();
         //         toastr()->error(__('Dashboard/messages.error'));
-        //         return redirect()->route('merchants.index');
+        //         return redirect()->route('merchant.index');
         //     }
         // }
     }
@@ -231,11 +231,11 @@ class MerchantController extends Controller
         //         Merchant::withTrashed()->where('id', $id)->restore();
         //     DB::commit();
         //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('merchants.softdeletemerchants');
+        //     return redirect()->route('merchant.softdeletemerchants');
         // }catch(\Exception $exception){
         //     DB::rollBack();
         //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('merchants.softdeletemerchants');
+        //     return redirect()->route('merchant.softdeletemerchants');
         // }
     }
 
@@ -247,11 +247,11 @@ class MerchantController extends Controller
         //         Merchant::withTrashed()->restore();
         //     DB::commit();
         //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('merchants.softdeletemerchants');
+        //     return redirect()->route('merchant.softdeletemerchants');
         // }catch(\Exception $exception){
         //     DB::rollBack();
         //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('merchants.softdeletemerchants');
+        //     return redirect()->route('merchant.softdeletemerchants');
         // }
     }
 
@@ -266,11 +266,11 @@ class MerchantController extends Controller
         //         }
         //     DB::commit();
         //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('merchants.softdeletemerchants');
+        //     return redirect()->route('merchant.softdeletemerchants');
         // }catch(\Exception $exception){
         //     DB::rollBack();
         //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('merchants.softdeletemerchants');
+        //     return redirect()->route('merchant.softdeletemerchants');
         // }
     }
 
@@ -285,11 +285,11 @@ class MerchantController extends Controller
         //     ]);
         //     DB::commit();
         //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('merchants.index');
+        //     return redirect()->route('merchant.index');
         // }catch(\Exception $exception){
         //     DB::rollBack();
         //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('merchants.index');
+        //     return redirect()->route('merchant.index');
         // }
     }
 
@@ -304,11 +304,11 @@ class MerchantController extends Controller
         //     ]);
         //     DB::commit();
         //     toastr()->success(trans('Dashboard/messages.edit'));
-        //     return redirect()->route('merchants.index');
+        //     return redirect()->route('merchant.index');
         // }catch(\Exception $exception){
         //     DB::rollBack();
         //     toastr()->error(trans('message.error'));
-        //     return redirect()->route('merchants.index');
+        //     return redirect()->route('merchant.index');
         // }
     }
 
@@ -323,7 +323,7 @@ class MerchantController extends Controller
     //* Delete All merchants (Except the Merchant who is logged in) & (Except for the Super Admin)
     public function deleteallmerchants(){
         // DB::table('merchants')->whereNull('deleted_at')->whereNot('id', '1')->whereNot('id', Auth::guard('merchant')->user()->id)->delete();
-        // return redirect()->route('merchants.index');
+        // return redirect()->route('merchant.index');
     }
 
     //* Delete All merchants Sofdelete (Except the merchant who is logged in) & (Except for the Super Admin)
@@ -341,6 +341,6 @@ class MerchantController extends Controller
         //         Storage::disk('public')->delete($merchant->image);
         //     }
         // }
-        // return redirect()->route('merchants.softdeletemerchants');
+        // return redirect()->route('merchant.softdeletemerchants');
     }
 }

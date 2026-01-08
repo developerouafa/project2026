@@ -34,11 +34,11 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         {{-- @can('Delete All merchants') --}}
-                            <a class="btn btn-danger" href="{{route('merchants.deleteallmerchants')}}">{{__('Dashboard/messages.Deleteall')}}</a>
+                            <a class="btn btn-danger" href="{{route('merchant.deleteallmerchants')}}">{{__('Dashboard/messages.Deleteall')}}</a>
                         {{-- @endcan --}}
 
                         {{-- @can('Create merchant') --}}
-                            <a class="btn btn-primary" href="{{ route('merchants.create') }}">{{__('Dashboard/users.addauser')}}</a>
+                            <a class="btn btn-primary" href="{{ route('merchant.create') }}">{{__('Dashboard/users.addauser')}}</a>
                         {{-- @endcan --}}
 
                         {{-- @can('Delete Group merchants') --}}
@@ -114,7 +114,7 @@
                                             </td>
                                             <td>
                                                 {{-- @can('Edit merchant') --}}
-                                                    <a href="{{ route('merchants.edit', $merchant->id) }}" class="btn btn-sm btn-info"
+                                                    <a href="{{ route('merchant.edit', $merchant->id) }}" class="btn btn-sm btn-info"
                                                     title="تعديل"><i class="las la-pen"></i></a>
                                                 {{-- @endcan --}}
 
@@ -149,7 +149,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('merchants.destroy', 'test') }}" method="post">
+                    <form action="{{ route('merchant.destroy', 'test') }}" method="post">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
                         <div class="modal-body">
