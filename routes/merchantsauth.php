@@ -15,10 +15,10 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 Route::middleware('guest')->group(function () {
 
                     Route::get('register/merchants', [RegisteredMerchantController::class, 'create'])->name('register.merchants');
-                    Route::post('register', [RegisteredMerchantController::class, 'store'])->name('registerstore.merchants');
+                    Route::post('registerstore', [RegisteredMerchantController::class, 'store'])->name('registerstore');
 
                     Route::get('login/merchants', [AuthenticatedSessionController::class, 'create'])->name('login.merchants');
-                    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('loginstore.merchants');
+                    Route::post('loginmerchants', [AuthenticatedSessionController::class, 'store'])->name('loginmerchants');
 
                 });
 

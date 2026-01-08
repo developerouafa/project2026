@@ -3,6 +3,8 @@
 
 use App\Http\Controllers\merchants\Auth\ImagemerchantController;
 use App\Http\Controllers\merchants\Auth\ProfileController;
+use App\Http\Controllers\merchants\merchants\MerchantController;
+use App\Http\Controllers\merchants\merchants\RolesMerchantController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -33,6 +35,21 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                         });
                     });
                 //############################# end Partie Profile Merchant ######################################
+
+                //############################# Start Partie merchant|permissions|Roles route ##########################################
+                    Route::resource('merchants', MerchantController::class);
+                    Route::resource('roles', RolesMerchantController::class);
+                    Route::controller(MerchantController::class)->group(function() {
+                        Route::get('editstatusdéactivemerchant/{id}', 'editstatusdéactive')->name('editstatusdéactivemerchant');
+                        Route::get('editstatusactivemerchant/{id}', 'editstatusactive')->name('editstatusactivemerchant');
+                        Route::get('/Deleted_merchants', 'softmerchants')->name('merchants.softdeletemerchants');
+                        Route::get('/deleteallmerchants', 'deleteallmerchants')->name('merchants.deleteallmerchants');
+                        Route::get('/deleteallmerchants_softdelete', 'deleteallmerchantssoftdelete')->name('merchants.deleteallmerchantssoftdelete');
+                        Route::get('restoremerchants/{id}', 'restoremerchants')->name('merchants.restoremerchants');
+                        Route::get('restoreallmerchants', 'restoreallmerchants')->name('merchants.restoreallmerchants');
+                        Route::post('restoreallselectmerchants', 'restoreallselectmerchants')->name('merchants.restoreallselectmerchants');
+                    });
+                //############################# end Partie User|permissions|roles route ######################################
 
             });
 

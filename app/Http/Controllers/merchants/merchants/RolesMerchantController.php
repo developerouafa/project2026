@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\users\users;
+namespace App\Http\Controllers\merchants\merchants;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RolesUserController extends Controller
+class RolesMerchantController extends Controller
 {
     //* Page Show Roles
     public function index(Request $request)
