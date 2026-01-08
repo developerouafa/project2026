@@ -56,12 +56,12 @@
                                         {{-- @can('Delete Group merchants') --}}
                                             <th> {{__('Dashboard/messages.DeleteGroup')}} <input name="select_all"  id="example-select-all" type="checkbox"/></th>
                                         {{-- @endcan --}}
-                                        <th> {{__('Dashboard/merchants.name')}} </th>
-                                        <th> {{__('Dashboard/merchants.phone')}} </th>
-                                        <th> {{__('Dashboard/merchants.email')}} </th>
-                                        <th> {{__('Dashboard/merchants.merchantstatus')}} </th>
-                                        <th> {{__('Dashboard/merchants.usertype')}} </th>
-                                        <th> {{__('Dashboard/merchants.userolestaus')}} </th>
+                                        <th> {{__('Dashboard/users.name')}} </th>
+                                        <th> {{__('Dashboard/users.phone')}} </th>
+                                        <th> {{__('Dashboard/users.email')}} </th>
+                                        <th> {{__('Dashboard/users.userstatus')}} </th>
+                                        <th> {{__('Dashboard/users.usertype')}} </th>
+                                        <th> {{__('Dashboard/users.userolestaus')}} </th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -78,15 +78,32 @@
                                             <td>{{ $merchant->phone }}</td>
                                             <td>{{ $merchant->email }}</td>
                                             <td>
-                                                {{-- @if ($merchant->UserStatus == 1) --}}
+                                                @if ($merchant->can_login == 1)
                                                     <span class="label text-success d-flex">
                                                         <div class="dot-label bg-success ml-1"></div>
                                                     </span>
-                                                {{-- @else
+                                                @else
                                                     <span class="label text-danger d-flex">
                                                         <div class="dot-label bg-danger ml-1"></div>
                                                     </span>
-                                                @endif --}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($merchant->account_state == 'active')
+                                                    <span class="label text-success">
+                                                        <a href="{{route('editstatusdeactivemerchant', $merchant->id)}}" class="ml-1 mr-1 d-flex">
+                                                            <i class="text-warning ti-back-right"></i>
+                                                            <div class="dot-label bg-success ml-1 mr-1"></div>
+                                                        </a>
+                                                    </span>
+                                                @else
+                                                    <span class="label text-danger">
+                                                        <a href="{{route('editstatusactivemerchant', $merchant->id)}}" class="ml-1 mr-1 d-flex">
+                                                            <i class="text-warning ti-back-right"></i>
+                                                            <div class="dot-label bg-danger ml-1 mr-1"></div>
+                                                        </a>
+                                                    </span>
+                                                @endif
                                             </td>
                                             <td>
                                                 @if (!empty($merchant->getRoleNames()))
@@ -94,23 +111,6 @@
                                                         <label class="badge badge-success">{{ $v }}</label>
                                                     @endforeach
                                                 @endif
-                                            </td>
-                                            <td>
-                                                {{-- @if ($merchant->Status == 1)
-                                                    <span class="label text-success">
-                                                        <a href="{{route('editstatusdéactive', $merchant->id)}}" class="ml-1 mr-1 d-flex">
-                                                            <i class="text-warning ti-back-right"></i>
-                                                            <div class="dot-label bg-success ml-1 mr-1"></div>
-                                                        </a>
-                                                    </span>
-                                                @else
-                                                    <span class="label text-danger">
-                                                        <a href="{{route('editstatusactiveuser', $merchant->id)}}" class="ml-1 mr-1 d-flex">
-                                                            <i class="text-warning ti-back-right"></i>
-                                                            <div class="dot-label bg-danger ml-1 mr-1"></div>
-                                                        </a>
-                                                    </span>
-                                                @endif --}}
                                             </td>
                                             <td>
                                                 {{-- @can('Edit merchant') --}}

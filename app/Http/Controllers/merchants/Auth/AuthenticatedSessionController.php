@@ -16,10 +16,9 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create()
     {
         return view('Dashboard_UMC.merchants.auth.signin');
-
     }
 
     /**
@@ -29,10 +28,8 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-        $request->authenticate();
-        $request->session()->regenerate();
         if(Auth::guard('merchants')->user()->account_state == "active"){
-            return redirect()->intended('/merchants');
+            return redirect('/merchants');
         }
         else{
             $id = Auth::guard('merchants')->id();

@@ -20,39 +20,40 @@ class MerchantController extends Controller
     //* Page Show merchants (Except the merchant who is logged in) & (Except for the Super Admin)
     public function index(Request $request)
     {
-        $merchants = Merchant::orderBy('id','DESC')->whereNot('id', '1')->where('id', '!=', Auth::guard('merchants')->id())->paginate(5);
-        return view('Dashboard_UMC.merchants.merchants.show_merchants',compact('merchants'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return 'hi';
+        // $merchants = Merchant::orderBy('id','DESC')->whereNot('id', '1')->where('id', '!=', Auth::guard('merchants')->id())->paginate(5);
+        // $merchants = Merchant::orderBy('id','DESC')->paginate(5);
+        // return view('Dashboard_UMC.merchants.merchants.show_merchants',compact('merchants'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
 
     //* Create New merchant
     public function create()
     {
-        // $roles = Role::pluck('name','name')->all();
-        // return view('Dashboard_UMC.merchants.merchants.Add_merchant',compact('roles'));
+        $roles = Role::where('guard_name', 'merchants')->pluck('name', 'name')->all();
+        return view('Dashboard_UMC.merchants.merchants.Add_merchant',compact('roles'));
     }
 
     //* Store merchant
     public function store(StoreUserRequest $request)
     {
-        // try{
-        //     DB::beginTransaction();
-        //         $merchant = Merchant::create([
-        //             'name' => ['en' => $request->nameen, 'ar' => $request->namear],
-        //             'phone' => $request->phone,
-        //             'email' => $request->email,
-        //             'Status' => $request->Status,
-        //             'password' => Hash::make($request->password)
-        //         ]);
-        //         $merchant->assignRole($request->input('roles_name'));
-        //     DB::commit();
-        //     toastr()->success(__('Dashboard/messages.add'));
-        //     return redirect()->route('merchants.index');
-        // }catch(\Exception $execption){
-        //     DB::rollBack();
-        //     toastr()->error(__('Dashboard/messages.error'));
-        //     return redirect()->route('merchants.create');
-        // }
+        try{
+            DB::beginTransaction();
+                $merchant = Merchant::create([
+                    'name' => ['en' => $request->nameen, 'ar' => $request->namear],
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password)
+                ]);
+                $merchant->assignRole($request->input('roles_name'));
+            DB::commit();
+            toastr()->success(__('Dashboard/messages.add'));
+            return redirect()->route('merchants.index');
+        }catch(\Exception $execption){
+            DB::rollBack();
+            toastr()->error(__('Dashboard/messages.error'));
+            return redirect()->route('merchants.create');
+        }
     }
 
     //* Show One merchant
@@ -314,6 +315,7 @@ class MerchantController extends Controller
     //* Page Show SoftDelete merchants (Except the Merchant who is logged in) & (Except for the Super Admin)
     public function softmerchants(Request $request)
     {
+        return 'hello soft';
         // $merchants = Merchant::onlyTrashed()->latest()->whereNot('id', '1')->whereNot('id', Auth::guard('merchant')->user()->id)->paginate(5);
         // return view('Dashboard_UMC.merchants.merchants.softdeletemerchants',compact('merchants'))->with('i', ($request->input('page', 1) - 1) * 5);
     }

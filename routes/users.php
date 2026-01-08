@@ -40,7 +40,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     Route::resource('users', UserController::class);
                     Route::resource('roles', RolesUserController::class);
                     Route::controller(UserController::class)->group(function() {
-                        Route::get('editstatusdéactiveuser/{id}', 'editstatusdéactive')->name('editstatusdéactiveuser');
+                        Route::get('editstatusdeactiveuser/{id}', 'editstatusdéactive')->name('editstatusdeactiveuser');
                         Route::get('editstatusactiveuser/{id}', 'editstatusactive')->name('editstatusactiveuser');
                         Route::get('/clienttouser/{id}', 'clienttouser')->name('clienttouser');
                         Route::get('/clienttouserinvoice/{id}', 'clienttouserinvoice')->name('clienttouserinvoice');

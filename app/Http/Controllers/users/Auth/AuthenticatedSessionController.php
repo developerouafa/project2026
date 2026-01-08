@@ -28,8 +28,6 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-        $request->authenticate();
-        $request->session()->regenerate();
         if(Auth::user()->account_state == "active"){
             return redirect()->intended('/');
         }

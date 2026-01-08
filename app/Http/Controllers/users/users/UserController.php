@@ -40,7 +40,6 @@ class UserController extends Controller
                     'name' => ['en' => $request->nameen, 'ar' => $request->namear],
                     'phone' => $request->phone,
                     'email' => $request->email,
-                    'Status' => $request->Status,
                     'password' => Hash::make($request->password)
                 ]);
                 $user->assignRole($request->input('roles_name'));

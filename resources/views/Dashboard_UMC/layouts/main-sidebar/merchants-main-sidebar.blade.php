@@ -34,13 +34,13 @@
                             </a>
                             <ul class="slide-menu">
                                 {{-- @can('sidebar users') --}}
-                                    <li><a class="slide-item" href="{{ route('merchants.index') }}">{{__('Dashboard/users.users')}}</a></li>
+                                    <li><a class="slide-item" href="{{ route('merchant.index') }}">{{__('Dashboard/users.users')}}</a></li>
                                 {{-- @endcan --}}
                                 {{-- @can('sidebar Deleted users') --}}
-                                    <li><a class="slide-item" href="{{ route('merchants.softdeletemerchants') }}">{{__('Dashboard/users.deletedusers')}}</a></li>
+                                    <li><a class="slide-item" href="{{ route('merchant.softdeletemerchants') }}">{{__('Dashboard/users.deletedusers')}}</a></li>
                                 {{-- @endcan --}}
                                 {{-- @can('sidebar permissions') --}}
-                                    <li><a class="slide-item" href="{{ url('/' . ($page = 'roles')) }}">{{__('Dashboard/permissions.userpermissions')}}</a></li>
+                                    <li><a class="slide-item" href="{{ route('rolesmerchant.index') }}">{{__('Dashboard/users.permissions')}}</a></li>
                                 {{-- @endcan --}}
                             </ul>
                         </li>

@@ -13,8 +13,10 @@ class RolesMerchantController extends Controller
     //* Page Show Roles
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('Dashboard_UMC.users.roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return 'hi';
+        // $roles = Role::orderBy('id','DESC')->paginate(5);
+        // return $roles;
+        // return view('Dashboard_UMC.users.roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
 

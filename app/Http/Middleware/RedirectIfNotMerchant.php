@@ -17,7 +17,7 @@ class RedirectIfNotMerchant
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::guard('merchants')->check()) {
-            return redirect()->route('login.merchants');
+            return redirect()->route('loginmer');
         }
         return $next($request);
     }

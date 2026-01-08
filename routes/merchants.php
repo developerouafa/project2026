@@ -21,7 +21,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
                 //############################# Start Partie Profile Merchant ##########################################
 
-                    Route::group(['prefix' => 'Profile'], function(){
+                    Route::group(['prefix' => 'ProfileMerchant'], function(){
                         Route::controller(ProfileController::class)->group(function() {
                             Route::get('/profilemerchante', 'edit')->name('profilemerchant.edit');
                             Route::patch('/profilemerchantu', 'updateprofile')->name('profilemerchant.update');
@@ -37,18 +37,21 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 //############################# end Partie Profile Merchant ######################################
 
                 //############################# Start Partie merchant|permissions|Roles route ##########################################
-                    Route::resource('merchants', MerchantController::class);
-                    Route::resource('roles', RolesMerchantController::class);
-                    Route::controller(MerchantController::class)->group(function() {
-                        Route::get('editstatusdéactivemerchant/{id}', 'editstatusdéactive')->name('editstatusdéactivemerchant');
-                        Route::get('editstatusactivemerchant/{id}', 'editstatusactive')->name('editstatusactivemerchant');
-                        Route::get('/Deleted_merchants', 'softmerchants')->name('merchants.softdeletemerchants');
-                        Route::get('/deleteallmerchants', 'deleteallmerchants')->name('merchants.deleteallmerchants');
-                        Route::get('/deleteallmerchants_softdelete', 'deleteallmerchantssoftdelete')->name('merchants.deleteallmerchantssoftdelete');
-                        Route::get('restoremerchants/{id}', 'restoremerchants')->name('merchants.restoremerchants');
-                        Route::get('restoreallmerchants', 'restoreallmerchants')->name('merchants.restoreallmerchants');
-                        Route::post('restoreallselectmerchants', 'restoreallselectmerchants')->name('merchants.restoreallselectmerchants');
+                    Route::group(['prefix' => 'Merchants_Permissions_Merchant'], function(){
+                        Route::resource('merchant', MerchantController::class);
+                        Route::resource('rolesmerchant', RolesMerchantController::class);
+                        Route::controller(MerchantController::class)->group(function() {
+                            Route::get('editstatusdeactivemerchant/{id}', 'editstatusdéactive')->name('editstatusdeactivemerchant');
+                            Route::get('editstatusactivemerchant/{id}', 'editstatusactive')->name('editstatusactivemerchant');
+                            Route::get('/Deleted_merchants', 'softmerchants')->name('merchant.softdeletemerchants');
+                            Route::get('/deleteallmerchants', 'deleteallmerchants')->name('merchant.deleteallmerchants');
+                            Route::get('/deleteallmerchants_softdelete', 'deleteallmerchantssoftdelete')->name('merchant.deleteallmerchantssoftdelete');
+                            Route::get('restoremerchants/{id}', 'restoremerchants')->name('merchant.restoremerchants');
+                            Route::get('restoreallmerchants', 'restoreallmerchants')->name('merchant.restoreallmerchants');
+                            Route::post('restoreallselectmerchants', 'restoreallselectmerchants')->name('merchant.restoreallselectmerchants');
+                        });
                     });
+
                 //############################# end Partie User|permissions|roles route ######################################
 
             });

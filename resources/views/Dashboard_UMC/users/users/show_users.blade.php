@@ -98,7 +98,7 @@
                                             <td>
                                                 @if ($user->Status == 1)
                                                     <span class="label text-success">
-                                                        <a href="{{route('editstatusdéactiveuser', $user->id)}}" class="ml-1 mr-1 d-flex">
+                                                        <a href="{{route('editstatusdeactiveuser', $user->id)}}" class="ml-1 mr-1 d-flex">
                                                             <i class="text-warning ti-back-right"></i>
                                                             <div class="dot-label bg-success ml-1 mr-1"></div>
                                                         </a>

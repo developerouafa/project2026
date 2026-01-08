@@ -9,16 +9,16 @@
 				<a class="logo-icon mobile-logo icon-light active" href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}" class="logo-icon" alt="logo"></a>
 				<a class="logo-icon mobile-logo icon-dark active" href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/favicon-white.png')}}" class="logo-icon dark-theme" alt="logo"></a>
 			</div>
-            {{-- @if(\Auth::guard('users')->check()) --}}
+            @if(\Auth::guard('web')->check())
                 @include('Dashboard_UMC.layouts.main-sidebar.users-main-sidebar')
-            {{-- @endif --}}
+            @endif
 
-            {{-- @if(\Auth::guard('clients')->check())
+            @if(\Auth::guard('clients')->check())
                 @include('Dashboard_UMC.layouts.main-sidebar.clients-main-sidebar')
-            @endif --}}
+            @endif
 
-            {{-- @if(\Auth::guard('merchants')->check())
+            @if(\Auth::guard('merchants')->check())
                 @include('Dashboard_UMC.layouts.main-sidebar.merchants-main-sidebar')
-            @endif --}}
+            @endif
 		</aside>
 <!-- main-sidebar -->
