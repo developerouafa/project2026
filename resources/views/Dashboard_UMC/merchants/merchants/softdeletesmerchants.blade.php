@@ -69,6 +69,7 @@
                                     <th> {{__('Dashboard/users.email')}} </th>
                                     <th> {{__('Dashboard/users.userstatus')}} </th>
                                     <th> {{__('Dashboard/users.usertype')}} </th>
+                                    <th> {{__('Dashboard/users.userolestaus')}} </th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -90,13 +91,32 @@
                                         <td>{{ $merchant->phone }}</td>
                                         <td>{{ $merchant->email }}</td>
                                         <td>
-                                            @if ($merchant->can_login == 1)
+                                            @if ($user->can_login == 1)
                                                 <span class="label text-success d-flex">
                                                     <div class="dot-label bg-success ml-1"></div>
                                                 </span>
                                             @else
                                                 <span class="label text-danger d-flex">
                                                     <div class="dot-label bg-danger ml-1"></div>
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($merchant->account_state == 'active')
+                                                <span class="label text-success">
+                                                    Active
+                                                </span>
+                                            @elseif ($merchant->account_state == 'closed')
+                                                <span class="label text-danger">
+                                                    Closed
+                                                </span>
+                                            @elseif ($merchant->account_state == 'pending')
+                                                <span class="label text-warning">
+                                                    Pending
+                                                </span>
+                                            @elseif ($merchant->account_state == 'suspended')
+                                                <span class="label text-danger">
+                                                    Suspended
                                                 </span>
                                             @endif
                                         </td>

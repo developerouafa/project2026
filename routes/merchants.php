@@ -41,8 +41,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                         Route::resource('merchant', MerchantController::class);
                         Route::resource('rolesmerchant', RolesMerchantController::class);
                         Route::controller(MerchantController::class)->group(function() {
-                            Route::get('editstatusdeactivemerchant/{id}', 'editstatusdéactive')->name('editstatusdeactivemerchant');
-                            Route::get('editstatusactivemerchant/{id}', 'editstatusactive')->name('editstatusactivemerchant');
                             Route::get('/Deleted_merchants', 'softmerchants')->name('merchant.softdeletemerchants');
                             Route::get('/deleteallmerchants', 'deleteallmerchants')->name('merchant.deleteallmerchants');
                             Route::get('/deleteallmerchants_softdelete', 'deleteallmerchantssoftdelete')->name('merchant.deleteallmerchantssoftdelete');

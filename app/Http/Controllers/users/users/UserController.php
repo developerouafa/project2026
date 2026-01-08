@@ -40,6 +40,7 @@ class UserController extends Controller
                     'name' => ['en' => $request->nameen, 'ar' => $request->namear],
                     'phone' => $request->phone,
                     'email' => $request->email,
+                    'account_state' => $request->account_state,
                     'password' => Hash::make($request->password)
                 ]);
                 $user->assignRole($request->input('roles_name'));
@@ -97,6 +98,7 @@ class UserController extends Controller
                             'name' => $request->name,
                             'phone' => $request->phone,
                             'email' => $request->email,
+                            'account_state' => $request->account_state,
                             'password' => Hash::make($request->password),
                         ]);
                     }else{
@@ -104,6 +106,7 @@ class UserController extends Controller
                             'name' => $request->name,
                             'phone' => $request->phone,
                             'email' => $request->email,
+                            'account_state' => $request->account_state,
                             'password' => $password,
                         ]);
                     }
@@ -268,237 +271,6 @@ class UserController extends Controller
             toastr()->error(trans('message.error'));
             return redirect()->route('Users.softdeleteusers');
         }
-    }
-
-    //* Active Login User
-    public function editstatusactive($id)
-    {
-        try{
-            $User = User::findorFail($id);
-            DB::beginTransaction();
-            $User->update([
-                'Status' => 1,
-            ]);
-            DB::commit();
-            toastr()->success(trans('Dashboard/messages.edit'));
-            return redirect()->route('users.index');
-        }catch(\Exception $exception){
-            DB::rollBack();
-            toastr()->error(trans('message.error'));
-            return redirect()->route('users.index');
-        }
-    }
-
-    //* Déactive Login User
-    public function editstatusdéactive($id)
-    {
-        try{
-            $User = User::findorFail($id);
-            DB::beginTransaction();
-            $User->update([
-                'Status' => 0,
-            ]);
-            DB::commit();
-            toastr()->success(trans('Dashboard/messages.edit'));
-            return redirect()->route('users.index');
-        }catch(\Exception $exception){
-            DB::rollBack();
-            toastr()->error(trans('message.error'));
-            return redirect()->route('users.index');
-        }
-    }
-
-    public function clienttouser($id)
-    {
-        // $invoice = invoice::where('id', $id)->first();
-        // $receiptdocument = receiptdocument::where('invoice_id', $id)->where('client_id', $invoice->client_id)->with('Client')->with('Invoice')->first();
-        // $getID = DB::table('notifications')->where('data->invoice_id', $id)->where('type', 'App\Notifications\clienttouser')->first();
-        // DB::table('notifications')->where('id', $getID->id)->update(['read_at'=>now()]);
-        // return view('Dashboard.dashboard_user.PrintInvoice.Paidinvoice',compact('invoice', 'receiptdocument'));
-    }
-
-    public function clienttouserinvoice($id)
-    {
-        // // $invoice = invoice::where('id', $id)->first();
-        // $receiptdocument = receiptdocument::where('invoice_id', $id)->where('client_id', $invoice->client_id)->with('Client')->with('Invoice')->first();
-        // $getID = DB::table('notifications')->where('data->invoice_id', $id)->where('type', 'App\Notifications\clienttouserinvoice')->pluck('id');
-        // DB::table('notifications')->where('id', $getID)->update(['read_at'=>now()]);
-        // return view('Dashboard.dashboard_user.PrintInvoice.Paidinvoice',compact('invoice', 'receiptdocument'));
-    }
-
-    //* Confirm Payment
-    public function confirmpayment(Request $request){
-        // $confirmpyinvoice = invoice::findorFail($request->invoice_id);
-
-        // try{
-        //     DB::beginTransaction();
-
-        //         if($confirmpyinvoice->type == 1){
-        //             $fund_account = fund_account::whereNotNull('receipt_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //             $receipt = receipt_account::findorfail($fund_account->receipt_id);
-        //             $receipt->update([
-        //                 'descriptiontoclient' => $request->descriptiontoclient
-        //             ]);
-
-        //             $client = Client::findorFail($confirmpyinvoice->client_id);
-        //             $user_create_id = $confirmpyinvoice->user_id;
-        //             $invoice_id = $confirmpyinvoice->id;
-        //             $message = __('Dashboard/main-header_trans.confirmpyinvoice');
-        //             Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //             $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //             $nameclient = $mailclient->name;
-        //             $url = url('en/Invoices/print/'.$invoice_id);
-        //             Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        //         }
-        //         if($confirmpyinvoice->type == 2){
-        //             $fund_account = fund_account::whereNotNull('Payment_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //             $postpaid = paymentaccount::findorfail($fund_account->Payment_id);
-        //             $postpaid->update([
-        //                 'descriptiontoclient' => $request->descriptiontoclient
-        //             ]);
-
-        //             $client = Client::findorFail($confirmpyinvoice->client_id);
-        //             $user_create_id = $confirmpyinvoice->user_id;
-        //             $invoice_id = $confirmpyinvoice->id;
-        //             $message = __('Dashboard/main-header_trans.confirmpyinvoice');
-        //             Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //             $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //             $nameclient = $mailclient->name;
-        //             $url = url('en/Invoices/print/'.$invoice_id);
-        //             Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        //         }
-        //         if($confirmpyinvoice->type == 3){
-        //             $fund_account = fund_account::whereNotNull('bank_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //             $postpaid = banktransfer::findorfail($fund_account->bank_id);
-        //             $postpaid->update([
-        //                 'descriptiontoclient' => $request->descriptiontoclient
-        //             ]);
-
-        //             $client = Client::findorFail($confirmpyinvoice->client_id);
-        //             $user_create_id = $confirmpyinvoice->user_id;
-        //             $invoice_id = $confirmpyinvoice->id;
-        //             $message = __('Dashboard/main-header_trans.confirmpyinvoice');
-        //             Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //             $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //             $nameclient = $mailclient->name;
-        //             $url = url('en/Invoices/print/'.$invoice_id);
-        //             Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        //         }
-        //         if($confirmpyinvoice->type == 4){
-        //             $fund_account = fund_account::whereNotNull('Gateway_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //             $postpaid = paymentgateway::findorfail($fund_account->Gateway_id);
-        //             $postpaid->update([
-        //                 'descriptiontoclient' => $request->descriptiontoclient
-        //             ]);
-
-        //             $client = Client::findorFail($confirmpyinvoice->client_id);
-        //             $user_create_id = $confirmpyinvoice->user_id;
-        //             $invoice_id = $confirmpyinvoice->id;
-        //             $message = __('Dashboard/main-header_trans.confirmpyinvoice');
-        //             Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //             $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //             $nameclient = $mailclient->name;
-        //             $url = url('en/Invoices/print/'.$invoice_id);
-        //             Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        //         }
-        //         $confirmpyinvoice->update([
-        //             'invoice_status' => '4',
-        //             'invoice_type' => '2',
-        //         ]);
-
-        //     DB::commit();
-        //     toastr()->success(trans('Dashboard/messages.add'));
-        //     return redirect()->back();
-        // }catch(\Exception $exception){
-        //     DB::rollBack();
-        //     toastr()->error(trans('message.error'));
-        //     return redirect()->back();
-        // }
-    }
-
-    //! Refused Payment
-    public function refusedpayment(Request $request){
-        // $confirmpyinvoice = invoice::findorFail($request->invoice_id);
-        // if($confirmpyinvoice->type == 1){
-        //     $fund_account = fund_account::whereNotNull('receipt_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //     $receipt = receipt_account::findorfail($fund_account->receipt_id);
-        //     $receipt->update([
-        //         'descriptiontoclient' => $request->descriptiontoclient
-        //     ]);
-
-        //     $client = Client::findorFail($confirmpyinvoice->client_id);
-        //     $user_create_id = $confirmpyinvoice->user_id;
-        //     $invoice_id = $confirmpyinvoice->id;
-        //     $message = __('Dashboard/main-header_trans.refusedpyinvoice');
-        //     Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //     $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //     $nameclient = $mailclient->name;
-        //     $url = url('en/Invoices/print/'.$invoice_id);
-        //     Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        // }
-        // if($confirmpyinvoice->type == 2){
-        //     $fund_account = fund_account::whereNotNull('Payment_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //     $postpaid = paymentaccount::findorfail($fund_account->Payment_id);
-        //     $postpaid->update([
-        //         'descriptiontoclient' => $request->descriptiontoclient
-        //     ]);
-
-        //     $client = Client::findorFail($confirmpyinvoice->client_id);
-        //     $user_create_id = $confirmpyinvoice->user_id;
-        //     $invoice_id = $confirmpyinvoice->id;
-        //     $message = __('Dashboard/main-header_trans.refusedpyinvoice');
-        //     Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //     $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //     $nameclient = $mailclient->name;
-        //     $url = url('en/Invoices/print/'.$invoice_id);
-        //     Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        // }
-        // if($confirmpyinvoice->type == 3){
-        //     $fund_account = fund_account::whereNotNull('bank_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //     $postpaid = banktransfer::findorfail($fund_account->bank_id);
-        //     $postpaid->update([
-        //         'descriptiontoclient' => $request->descriptiontoclient
-        //     ]);
-
-        //     $client = Client::findorFail($confirmpyinvoice->client_id);
-        //     $user_create_id = $confirmpyinvoice->user_id;
-        //     $invoice_id = $confirmpyinvoice->id;
-        //     $message = __('Dashboard/main-header_trans.refusedpyinvoice');
-        //     Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //     $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //     $nameclient = $mailclient->name;
-        //     $url = url('en/Invoices/print/'.$invoice_id);
-        //     Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        // }
-        // if($confirmpyinvoice->type == 3){
-        //     $fund_account = fund_account::whereNotNull('Gateway_id')->where('invoice_id', $confirmpyinvoice->id)->first();
-        //     $postpaid = paymentgateway::findorfail($fund_account->Gateway_id);
-        //     $postpaid->update([
-        //         'descriptiontoclient' => $request->descriptiontoclient
-        //     ]);
-
-        //     $client = Client::findorFail($confirmpyinvoice->client_id);
-        //     $user_create_id = $confirmpyinvoice->user_id;
-        //     $invoice_id = $confirmpyinvoice->id;
-        //     $message = __('Dashboard/main-header_trans.refusedpyinvoice');
-        //     Notification::send($client, new confirmpyinvoice($user_create_id, $invoice_id, $message));
-
-        //     $mailclient = Client::findorFail($confirmpyinvoice->client_id);
-        //     $nameclient = $mailclient->name;
-        //     $url = url('en/Invoices/print/'.$invoice_id);
-        //     Mail::to($mailclient->email)->send(new mailclient($message, $nameclient, $url));
-        // }
-        // $confirmpyinvoice->update([
-        //     'invoice_status' => '4',
-        //     'invoice_type' => '3',
-        // ]);
     }
 
     public function softusers(Request $request)

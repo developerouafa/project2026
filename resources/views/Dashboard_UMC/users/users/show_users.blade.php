@@ -78,7 +78,7 @@
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                @if ($user->UserStatus == 1)
+                                                @if ($user->can_login == 1)
                                                     <span class="label text-success d-flex">
                                                         <div class="dot-label bg-success ml-1"></div>
                                                     </span>
@@ -89,27 +89,29 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                @if ($merchant->account_state == 'active')
+                                                    <span class="label text-success">
+                                                       Active
+                                                    </span>
+                                                @elseif ($merchant->account_state == 'closed')
+                                                    <span class="label text-danger">
+                                                        Closed
+                                                    </span>
+                                                @elseif ($merchant->account_state == 'pending')
+                                                    <span class="label text-warning">
+                                                        Pending
+                                                    </span>
+                                                @elseif ($merchant->account_state == 'suspended')
+                                                    <span class="label text-danger">
+                                                        Suspended
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if (!empty($user->getRoleNames()))
                                                     @foreach ($user->getRoleNames() as $v)
                                                         <label class="badge badge-success">{{ $v }}</label>
                                                     @endforeach
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($user->Status == 1)
-                                                    <span class="label text-success">
-                                                        <a href="{{route('editstatusdeactiveuser', $user->id)}}" class="ml-1 mr-1 d-flex">
-                                                            <i class="text-warning ti-back-right"></i>
-                                                            <div class="dot-label bg-success ml-1 mr-1"></div>
-                                                        </a>
-                                                    </span>
-                                                @else
-                                                    <span class="label text-danger">
-                                                        <a href="{{route('editstatusactiveuser', $user->id)}}" class="ml-1 mr-1 d-flex">
-                                                            <i class="text-warning ti-back-right"></i>
-                                                            <div class="dot-label bg-danger ml-1 mr-1"></div>
-                                                        </a>
-                                                    </span>
                                                 @endif
                                             </td>
                                             <td>

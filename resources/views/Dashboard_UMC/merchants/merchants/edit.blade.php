@@ -69,19 +69,22 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">{{__('Dashboard/users.userolestaus')}}</label>
-                                        <select name="Status" id="select-beast" class="form-control  nice-select  custom-select">
-                                            <option value="{{ $merchant->Status}}">
-                                                @if ($merchant->Status == 1)
-                                                    {{__('Dashboard/users.active')}}
-                                                @else
-                                                    {{__('Dashboard/users.noactive')}}
+                                        <select name="account_state" id="select-beast" class="form-control  nice-select  custom-select">
+                                            <option value="{{ $merchant->account_state}}">
+                                                @if ($merchant->account_state == 'active')
+                                                    <p> Is Active</p>
+                                                @elseif ($merchant->account_state == 'closed')
+                                                    <p> Is Closed</p>
+                                                @elseif ($merchant->account_state == 'pending')
+                                                    <p> Is Pending</p>
+                                                @elseif ($merchant->account_state == 'suspended')
+                                                    <p> Is Suspended</p>
                                                 @endif
                                             </option>
-                                            @if ($merchant->Status == 1)
-                                                <option value="0">{{__('Dashboard/users.noactive')}}</option>
-                                            @else
-                                                <option value="1">{{__('Dashboard/users.active')}}</option>
-                                            @endif
+                                            <option value="active">Active</option>
+                                            <option value="closed">Closed</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="suspended">Suspended</option>
                                         </select>
                                     </div>
                                 </div>

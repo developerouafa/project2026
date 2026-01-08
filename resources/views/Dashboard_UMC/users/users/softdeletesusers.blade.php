@@ -101,6 +101,25 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if ($merchant->account_state == 'active')
+                                                <span class="label text-success">
+                                                    Active
+                                                </span>
+                                            @elseif ($merchant->account_state == 'closed')
+                                                <span class="label text-danger">
+                                                    Closed
+                                                </span>
+                                            @elseif ($merchant->account_state == 'pending')
+                                                <span class="label text-warning">
+                                                    Pending
+                                                </span>
+                                            @elseif ($merchant->account_state == 'suspended')
+                                                <span class="label text-danger">
+                                                    Suspended
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if (!empty($user->getRoleNames()))
                                                 @foreach ($user->getRoleNames() as $v)
                                                     <label class="badge badge-success">{{ $v }}</label>

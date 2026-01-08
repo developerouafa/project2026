@@ -40,12 +40,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     Route::resource('users', UserController::class);
                     Route::resource('roles', RolesUserController::class);
                     Route::controller(UserController::class)->group(function() {
-                        Route::get('editstatusdeactiveuser/{id}', 'editstatusdéactive')->name('editstatusdeactiveuser');
-                        Route::get('editstatusactiveuser/{id}', 'editstatusactive')->name('editstatusactiveuser');
-                        Route::get('/clienttouser/{id}', 'clienttouser')->name('clienttouser');
-                        Route::get('/clienttouserinvoice/{id}', 'clienttouserinvoice')->name('clienttouserinvoice');
-                        Route::patch('/confirmpayment', 'confirmpayment')->name('Invoice.confirmpayment');
-                        Route::patch('/refusedpayment', 'refusedpayment')->name('Invoice.refusedpayment');
                         Route::get('/Deleted_Users', 'softusers')->name('Users.softdeleteusers');
                         Route::get('/deleteallusers', 'deleteallusers')->name('Users.deleteallusers');
                         Route::get('/deleteallusers_softdelete', 'deletealluserssoftdelete')->name('Users.deletealluserssoftdelete');

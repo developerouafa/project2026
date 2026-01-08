@@ -271,44 +271,6 @@ class MerchantController extends Controller
         }
     }
 
-    //* Active Login Merchant
-    public function editstatusactive($id)
-    {
-        try{
-            $Merchant = Merchant::findorFail($id);
-            DB::beginTransaction();
-            $Merchant->update([
-                'Status' => 1,
-            ]);
-            DB::commit();
-            toastr()->success(trans('Dashboard/messages.edit'));
-            return redirect()->route('merchant.index');
-        }catch(\Exception $exception){
-            DB::rollBack();
-            toastr()->error(trans('message.error'));
-            return redirect()->route('merchant.index');
-        }
-    }
-
-    //* Déactive Login Merchant
-    public function editstatusdéactive($id)
-    {
-        try{
-            $Merchant = Merchant::findorFail($id);
-            DB::beginTransaction();
-            $Merchant->update([
-                'Status' => 0,
-            ]);
-            DB::commit();
-            toastr()->success(trans('Dashboard/messages.edit'));
-            return redirect()->route('merchant.index');
-        }catch(\Exception $exception){
-            DB::rollBack();
-            toastr()->error(trans('message.error'));
-            return redirect()->route('merchant.index');
-        }
-    }
-
     //* Page Show SoftDelete merchants (Except the Merchant who is logged in) & (Except for the Super Admin)
     public function softmerchants(Request $request)
     {

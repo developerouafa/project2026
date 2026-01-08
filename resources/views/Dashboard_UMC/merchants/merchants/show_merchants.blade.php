@@ -91,17 +91,22 @@
                                             <td>
                                                 @if ($merchant->account_state == 'active')
                                                     <span class="label text-success">
-                                                        <a href="{{route('editstatusdeactivemerchant', $merchant->id)}}" class="ml-1 mr-1 d-flex">
-                                                            <i class="text-warning ti-back-right"></i>
-                                                            <div class="dot-label bg-success ml-1 mr-1"></div>
-                                                        </a>
+                                                       Active
                                                     </span>
-                                                @else
+                                                @elseif ($merchant->account_state == 'closed')
                                                     <span class="label text-danger">
-                                                        <a href="{{route('editstatusactivemerchant', $merchant->id)}}" class="ml-1 mr-1 d-flex">
-                                                            <i class="text-warning ti-back-right"></i>
-                                                            <div class="dot-label bg-danger ml-1 mr-1"></div>
-                                                        </a>
+                                                        <i class="text-warning ti-back-right"></i>
+                                                        <div class="dot-label bg-danger ml-1 mr-1"></div>
+                                                    </span>
+                                                @elseif ($merchant->account_state == 'pending')
+                                                    <span class="label text-warning">
+                                                        <i class="text-warning ti-back-right"></i>
+                                                        <div class="dot-label bg-warning ml-1 mr-1"></div>
+                                                    </span>
+                                                @elseif ($merchant->account_state == 'suspended')
+                                                    <span class="label text-danger">
+                                                        <i class="text-warning ti-back-right"></i>
+                                                        <div class="dot-label bg-danger ml-1 mr-1"></div>
                                                     </span>
                                                 @endif
                                             </td>
