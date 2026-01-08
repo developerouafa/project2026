@@ -13,10 +13,8 @@ class RolesMerchantController extends Controller
     //* Page Show Roles
     public function index(Request $request)
     {
-        return 'hi';
-        // $roles = Role::orderBy('id','DESC')->paginate(5);
-        // return $roles;
-        // return view('Dashboard_UMC.users.roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
+        $roles = Role::where('guard_name', 'merchants')->orderBy('id','DESC')->paginate(5);
+        return view('Dashboard_UMC.merchants.roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
 
@@ -24,7 +22,7 @@ class RolesMerchantController extends Controller
     public function create()
     {
         $permission = Permission::get();
-        return view('Dashboard_UMC.users.roles.create',compact('permission'));
+        return view('Dashboard_UMC.merchants.roles.create',compact('permission'));
     }
 
     //* Store Role
@@ -51,11 +49,11 @@ class RolesMerchantController extends Controller
             $role->syncPermissions($permissions);
             DB::commit();
             toastr()->success(trans('Dashboard/messages.add'));
-            return redirect()->route('roles.index');
+            return redirect()->route('rolesmerchant.index');
         }catch(\Exception $execption){
             DB::rollBack();
             toastr()->error(trans('Dashboard/messages.error'));
-            return redirect()->route('roles.index');
+            return redirect()->route('rolesmerchantmerchant.index');
         }
     }
 
@@ -66,7 +64,7 @@ class RolesMerchantController extends Controller
         $rolePermissions = Permission::join('role_has_permissions','role_has_permissions.permission_id','=','permissions.id')
         ->where('role_has_permissions.role_id',$id)
         ->get();
-        return view('Dashboard_UMC.users.roles.show',compact('role','rolePermissions'));
+        return view('Dashboard_UMC.merchants.roles.show',compact('role','rolePermissions'));
     }
 
     //* Page Edit Role
@@ -77,7 +75,7 @@ class RolesMerchantController extends Controller
         $rolePermissions = DB::table('role_has_permissions')->where('role_has_permissions.role_id',$id)
         ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
         ->all();
-        return view('Dashboard_UMC.users.roles.edit',compact('role','permission','rolePermissions'));
+        return view('Dashboard_UMC.merchants.roles.edit',compact('role','permission','rolePermissions'));
     }
 
     //* Update Role
@@ -100,7 +98,7 @@ class RolesMerchantController extends Controller
                 $role->syncPermissions($request->input('permission'));
                 DB::commit();
                 toastr()->success(trans('Dashboard/messages.update'));
-                return redirect()->route('roles.index');
+                return redirect()->route('rolesmerchant.index');
             }
             else{
                 $role->name = $request->input('name');
@@ -108,12 +106,12 @@ class RolesMerchantController extends Controller
                 $role->syncPermissions($request->input('permission'));
                 DB::commit();
                 toastr()->success(trans('Dashboard/messages.edit'));
-                return redirect()->route('roles.index');
+                return redirect()->route('rolesmerchant.index');
             }
         }catch(\Exception $execption){
             DB::rollBack();
             toastr()->error(trans('Dashboard/messages.error'));
-            return redirect()->route('roles.index');
+            return redirect()->route('rolesmerchant.index');
         }
     }
 
@@ -125,11 +123,11 @@ class RolesMerchantController extends Controller
             DB::table('roles')->where('id',$id)->delete();
             DB::commit();
             toastr()->success(trans('Dashboard/messages.delete'));
-            return redirect()->route('roles.index');
+            return redirect()->route('rolesmerchant.index');
         }catch(\Exception $execption){
             DB::rollBack();
             toastr()->error(trans('Dashboard/messages.error'));
-            return redirect()->route('roles.index');
+            return redirect()->route('rolesmerchant.index');
         }
     }
 }

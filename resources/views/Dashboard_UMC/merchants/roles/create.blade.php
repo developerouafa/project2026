@@ -35,7 +35,7 @@
     </div>
     @endif
 
-    <form method="POST" action="{{ route('roles.store') }}">
+    <form method="POST" action="{{ route('rolesmerchant.store') }}">
         @csrf
         <!-- row -->
             <div class="row">
@@ -44,7 +44,7 @@
                         <div class="card-body">
                             <div class="main-content-label mg-b-5">
                                 <div class="pull-right">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('roles.index') }}">{{__('Dashboard/permissions.back')}}</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('rolesmerchant.index') }}">{{__('Dashboard/permissions.back')}}</a>
                                 </div>
                             </div>
                             <div class="main-content-label mg-b-5">

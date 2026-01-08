@@ -62,7 +62,7 @@
                             <div class="col-lg-12 margin-tb">
                                 <div class="pull-right">
                                     {{-- @can('Create role') --}}
-                                        <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}">{{__('Dashboard/permissions.add')}}</a>
+                                        <a class="btn btn-primary btn-sm" href="{{ route('rolesmerchant.create') }}">{{__('Dashboard/permissions.add')}}</a>
                                     {{-- @endcan --}}
                                 </div>
                             </div>
@@ -88,17 +88,17 @@
                                             <td>
                                                 {{-- @can('Show roles') --}}
                                                     <a class="btn btn-success btn-sm"
-                                                        href="{{ route('roles.show', $role->id) }}">{{__('Dashboard/permissions.show')}}</a>
+                                                        href="{{ route('rolesmerchant.show', $role->id) }}">{{__('Dashboard/permissions.show')}}</a>
                                                 {{-- @endcan --}}
 
                                                 {{-- @can('Modify roles') --}}
                                                     <a class="btn btn-primary btn-sm"
-                                                        href="{{ route('roles.edit', $role->id) }}">{{__('Dashboard/permissions.modify')}}</a>
+                                                        href="{{ route('rolesmerchant.edit', $role->id) }}">{{__('Dashboard/permissions.modify')}}</a>
                                                 {{-- @endcan --}}
 
                                                 @if ($role->name !== 'owner')
                                                     {{-- @can('Delete role') --}}
-                                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">
+                                                        <form action="{{ route('rolesmerchant.destroy', $role->id) }}" method="POST" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <input type="submit" class="btn btn-danger btn-sm" value="{{ __('Dashboard/permissions.delete') }}">

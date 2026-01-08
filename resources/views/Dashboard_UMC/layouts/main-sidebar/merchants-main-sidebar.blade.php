@@ -40,7 +40,7 @@
                                     <li><a class="slide-item" href="{{ route('merchant.softdeletemerchants') }}">{{__('Dashboard/users.deletedusers')}}</a></li>
                                 {{-- @endcan --}}
                                 {{-- @can('sidebar permissions') --}}
-                                    <li><a class="slide-item" href="{{ route('rolesmerchant.index') }}">{{__('Dashboard/users.permissions')}}</a></li>
+                                    <li><a class="slide-item" href="{{ route('rolesmerchant.index') }}">{{__('Dashboard/permissions.userpermissions')}}</a></li>
                                 {{-- @endcan --}}
                             </ul>
                         </li>
