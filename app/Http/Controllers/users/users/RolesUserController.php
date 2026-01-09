@@ -13,7 +13,7 @@ class RolesUserController extends Controller
     //* Page Show Roles
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id','DESC')->where('guard_name', 'web')->paginate(5);
         return view('Dashboard_UMC.users.roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -120,7 +120,7 @@ class RolesUserController extends Controller
     {
         try{
             DB::beginTransaction();
-            DB::table('roles')->where('id',$id)->delete();
+            DB::table('roles')->where('id',$id)->where('guard_name', 'web')->delete();
             DB::commit();
             toastr()->success(trans('Dashboard/messages.delete'));
             return redirect()->route('roles.index');

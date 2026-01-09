@@ -120,7 +120,7 @@ class RolesMerchantController extends Controller
     {
         try{
             DB::beginTransaction();
-            DB::table('roles')->where('id',$id)->delete();
+            DB::table('roles')->where('guard_name', 'merchants')->where('id',$id)->delete();
             DB::commit();
             toastr()->success(trans('Dashboard/messages.delete'));
             return redirect()->route('rolesmerchant.index');

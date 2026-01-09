@@ -89,19 +89,19 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($merchant->account_state == 'active')
+                                                @if ($user->account_state == 'active')
                                                     <span class="label text-success">
                                                        Active
                                                     </span>
-                                                @elseif ($merchant->account_state == 'closed')
+                                                @elseif ($user->account_state == 'closed')
                                                     <span class="label text-danger">
                                                         Closed
                                                     </span>
-                                                @elseif ($merchant->account_state == 'pending')
+                                                @elseif ($user->account_state == 'pending')
                                                     <span class="label text-warning">
                                                         Pending
                                                     </span>
-                                                @elseif ($merchant->account_state == 'suspended')
+                                                @elseif ($user->account_state == 'suspended')
                                                     <span class="label text-danger">
                                                         Suspended
                                                     </span>

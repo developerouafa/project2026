@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="parsley-input col-md-6" id="fnWrapper">
                                         <label>{{__('Dashboard/users.phone')}}  <span class="tx-danger">*</span></label>
-                                        <input value="{{$user->phone}}" class="form-control" required name="phone" type="text" autocomplete="phone" >
+                                        <input value="{{$user->phone}}" class="form-control" name="phone" type="text" autocomplete="phone" >
                                     </div>
                                 </div>
                             </div>
@@ -70,14 +70,14 @@
                                     <div class="col-md-6">
                                         <label class="form-label">{{__('Dashboard/users.userolestaus')}}</label>
                                         <select name="account_state" id="select-beast" class="form-control  nice-select  custom-select">
-                                            <option value="{{ $merchant->account_state}}">
-                                                @if ($merchant->account_state == 'active')
+                                            <option value="{{ $user->account_state}}">
+                                                @if ($user->account_state == 'active')
                                                     <p> Is Active</p>
-                                                @elseif ($merchant->account_state == 'closed')
+                                                @elseif ($user->account_state == 'closed')
                                                     <p> Is Closed</p>
-                                                @elseif ($merchant->account_state == 'pending')
+                                                @elseif ($user->account_state == 'pending')
                                                     <p> Is Pending</p>
-                                                @elseif ($merchant->account_state == 'suspended')
+                                                @elseif ($user->account_state == 'suspended')
                                                     <p> Is Suspended</p>
                                                 @endif
                                             </option>

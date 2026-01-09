@@ -27,15 +27,15 @@ class UserController extends Controller
     //* Create New User
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::where('guard_name', 'web')->pluck('name','name')->all();
         return view('Dashboard_UMC.users.users.Add_user',compact('roles'));
     }
 
     //* Store User
     public function store(StoreUserRequest $request)
     {
-        try{
-            DB::beginTransaction();
+        // try{
+            // DB::beginTransaction();
                 $user = User::create([
                     'name' => ['en' => $request->nameen, 'ar' => $request->namear],
                     'phone' => $request->phone,
@@ -44,14 +44,14 @@ class UserController extends Controller
                     'password' => Hash::make($request->password)
                 ]);
                 $user->assignRole($request->input('roles_name'));
-            DB::commit();
+            // DB::commit();
             toastr()->success(__('Dashboard/messages.add'));
             return redirect()->route('users.index');
-        }catch(\Exception $execption){
-            DB::rollBack();
-            toastr()->error(__('Dashboard/messages.error'));
-            return redirect()->route('users.create');
-        }
+        // }catch(\Exception $execption){
+        //     DB::rollBack();
+        //     toastr()->error(__('Dashboard/messages.error'));
+        //     return redirect()->route('users.index');
+        // }
     }
 
     //* Show One User
@@ -65,7 +65,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::where('guard_name', 'web')->pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
         return view('Dashboard_UMC.users.users.edit',compact('user','roles','userRole'));
     }
@@ -120,7 +120,7 @@ class UserController extends Controller
         }catch(\Exception $execption){
             DB::rollBack();
             toastr()->error(__('Dashboard/messages.error'));
-            return redirect()->route('users.update');
+            return redirect()->route('users.index');
         }
     }
 
