@@ -14,7 +14,7 @@ return [
     "currentpassword" => "كلمة السر الحالية",
     "email" => "البريد الالكتروني",
     "merchantstatus" => "حالة التاجر",
-    "merchantolestaus" => "تسجيل دخول التاجر",
+    "merchantrolestaus" => "تسجيل دخول التاجر",
     "deletethemerchant" => "حذف هذا التاجر",
     "aresureofthedeleting" => "متأكدون من الحذف",
     "save" => "حفظ",

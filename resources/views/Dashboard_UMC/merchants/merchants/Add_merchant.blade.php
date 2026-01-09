@@ -1,6 +1,6 @@
 @extends('Dashboard_UMC.layouts.master')
 @section('title')
-    {{__('Dashboard/merchants.addauser')}}
+    {{__('Dashboard/merchants.addamerchant')}}
 @endsection
 @section('css')
     <!-- Internal Nice-select css  -->
@@ -11,7 +11,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">{{__('Dashboard/merchants.merchants')}}</h4>
-                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{__('Dashboard/merchants.addauser')}}
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{__('Dashboard/merchants.addamerchant')}}
                     </span>
             </div>
         </div>
@@ -64,7 +64,7 @@
                                     data-parsley-class-handler="#lnWrapper" name="email" required type="email">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">{{__('Dashboard/merchants.userolestaus')}}</label>
+                                <label class="form-label">{{__('Dashboard/merchants.merchantrolestaus')}}</label>
                                 <select name="account_state" id="select-beast" class="form-control nice-select custom-select" required>
                                     <option value="closed">Closed</option>
                                     <option value="active">Active</option>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label"> {{__('Dashboard/merchants.uservalidity')}}<span class="tx-danger">*</span></label>
+                                    <label class="form-label"> {{__('Dashboard/merchants.merchantvalidity')}}<span class="tx-danger">*</span></label>
                                     {!! html()->select('roles_name[]', $roles)->multiple()->required()->class('form-control') !!}
                                 </div>
                             </div>

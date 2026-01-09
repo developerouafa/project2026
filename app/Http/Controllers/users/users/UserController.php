@@ -19,7 +19,8 @@ class UserController extends Controller
     //* Page Show Users (Except the user who is logged in) & (Except for the Super Admin)
     public function index(Request $request)
     {
-        $users = User::orderBy('id','DESC')->whereNot('id', '1')->where('id', '!=', Auth::user()->id)->paginate(5);
+        // $users = User::orderBy('id','DESC')->whereNot('id', '1')->where('id', '!=', Auth::user()->id)->paginate(5);
+        $users = User::orderBy('id','DESC')->paginate(5);
         return view('Dashboard_UMC.users.users.show_users',compact('users'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -44,7 +45,7 @@ class UserController extends Controller
                     'password' => Hash::make($request->password)
                 ]);
                 $user->assignRole($request->input('roles_name'));
-            // DB::commit();
+            DB::commit();
             toastr()->success(__('Dashboard/messages.add'));
             return redirect()->route('users.index');
         }catch(\Exception $execption){

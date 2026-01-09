@@ -68,8 +68,8 @@
                                     <th> {{__('Dashboard/merchants.phone')}} </th>
                                     <th> {{__('Dashboard/merchants.email')}} </th>
                                     <th> {{__('Dashboard/merchants.merchantstatus')}} </th>
-                                    <th> {{__('Dashboard/merchants.usertype')}} </th>
-                                    <th> {{__('Dashboard/merchants.userolestaus')}} </th>
+                                    <th> {{__('Dashboard/merchants.merchanttype')}} </th>
+                                    <th> {{__('Dashboard/merchants.merchantrolestaus')}} </th>
                                     <th></th>
                                 </tr>
                             </thead>

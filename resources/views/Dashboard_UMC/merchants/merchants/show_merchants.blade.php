@@ -38,7 +38,7 @@
                         {{-- @endcan --}}
 
                         {{-- @can('Create merchant') --}}
-                            <a class="btn btn-primary" href="{{ route('merchant.create') }}">{{__('Dashboard/merchants.addauser')}}</a>
+                            <a class="btn btn-primary" href="{{ route('merchant.create') }}">{{__('Dashboard/merchants.addamerchant')}}</a>
                         {{-- @endcan --}}
 
                         {{-- @can('Delete Group merchants') --}}
@@ -60,8 +60,8 @@
                                         <th> {{__('Dashboard/merchants.phone')}} </th>
                                         <th> {{__('Dashboard/merchants.email')}} </th>
                                         <th> {{__('Dashboard/merchants.merchantstatus')}} </th>
-                                        <th> {{__('Dashboard/merchants.usertype')}} </th>
-                                        <th> {{__('Dashboard/merchants.userolestaus')}} </th>
+                                        <th> {{__('Dashboard/merchants.merchanttype')}} </th>
+                                        <th> {{__('Dashboard/merchants.merchantrolestaus')}} </th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -149,7 +149,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">{{__('Dashboard/merchants.deletetheuser')}} </h6>
+                        <h6 class="modal-title">{{__('Dashboard/merchants.deletethemerchant')}} </h6>
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>

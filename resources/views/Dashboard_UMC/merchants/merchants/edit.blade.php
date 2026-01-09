@@ -1,6 +1,6 @@
 @extends('Dashboard_UMC.layouts.master')
 @section('title')
-    {{__('Dashboard/merchants.modifyauser')}}
+    {{__('Dashboard/merchants.modifyamerchant')}}
 @endsection
 @section('css')
     <!-- Internal Nice-select css  -->
@@ -11,7 +11,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">{{__('Dashboard/merchants.merchants')}}</h4>
-                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{__('Dashboard/merchants.modifyauser')}}</span>
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{__('Dashboard/merchants.modifyamerchant')}}</span>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                                         <input type="email" name="email" class="form-control" required value="{{ old('email', $merchant->email) }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">{{__('Dashboard/merchants.userolestaus')}}</label>
+                                        <label class="form-label">{{__('Dashboard/merchants.merchantrolestaus')}}</label>
                                         <select name="account_state" id="select-beast" class="form-control  nice-select  custom-select">
                                             <option value="{{ $merchant->account_state}}">
                                                 @if ($merchant->account_state == 'active')
@@ -105,7 +105,7 @@
                             <div class="row mg-b-20">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>{{__('Dashboard/merchants.usertype')}}</strong>
+                                        <strong>{{__('Dashboard/merchants.merchanttype')}}</strong>
                                         <select name="roles[]" class="form-control" multiple>
                                             @foreach($roles as $id => $roleName)
                                                 <option value="{{ $id }}"
