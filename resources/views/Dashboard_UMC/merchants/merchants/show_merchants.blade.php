@@ -33,29 +33,29 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        {{-- @can('Delete All merchants') --}}
+                        @can('Delete All merchants')
                             <a class="btn btn-danger" href="{{route('merchant.deleteallmerchants')}}">{{__('Dashboard/messages.Deleteall')}}</a>
-                        {{-- @endcan --}}
+                        @endcan
 
-                        {{-- @can('Create merchant') --}}
+                        @can('Create merchant')
                             <a class="btn btn-primary" href="{{ route('merchant.create') }}">{{__('Dashboard/merchants.addamerchant')}}</a>
-                        {{-- @endcan --}}
+                        @endcan
 
-                        {{-- @can('Delete Group merchants') --}}
+                        @can('Delete Group merchants')
                             <button type="button" class="btn btn-danger" id="btn_delete_all">{{trans('Dashboard/messages.Deletegroup')}}</button>
-                        {{-- @endcan --}}
+                        @endcan
                     </div>
                 </div>
-                {{-- @can('Show merchants') --}}
+                @can('Show merchants')
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example" class="table key-buttons text-md-nowrap" data-page-length="50" style="text-align: center">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        {{-- @can('Delete Group merchants') --}}
+                                        @can('Delete Group merchants')
                                             <th> {{__('Dashboard/messages.DeleteGroup')}} <input name="select_all"  id="example-select-all" type="checkbox"/></th>
-                                        {{-- @endcan --}}
+                                        @endcan
                                         <th> {{__('Dashboard/merchants.name')}} </th>
                                         <th> {{__('Dashboard/merchants.phone')}} </th>
                                         <th> {{__('Dashboard/merchants.email')}} </th>
@@ -69,11 +69,11 @@
                                     @foreach ($merchants as $merchant)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            {{-- @can('Delete Group merchants') --}}
+                                            @can('Delete Group merchants')
                                                 <td>
                                                     <input type="checkbox" name="delete_select" value="{{$merchant->id}}" class="delete_select">
                                                 </td>
-                                            {{-- @endcan --}}
+                                            @endcan
                                             <td>{{ $merchant->name }}</td>
                                             <td>{{ $merchant->phone }}</td>
                                             <td>{{ $merchant->email }}</td>
@@ -118,28 +118,28 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{-- @can('Edit merchant') --}}
+                                                @can('Edit merchant')
                                                     <a href="{{ route('merchant.edit', $merchant->id) }}" class="btn btn-sm btn-info"
                                                     title="تعديل"><i class="las la-pen"></i></a>
-                                                {{-- @endcan --}}
+                                                @endcan
 
-                                                {{-- @can('Delete merchant') --}}
+                                                @can('Delete merchant')
                                                     <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                     data-merchant_id="{{ $merchant->id }}" data-merchantname="{{ $merchant->name }}"
                                                     data-toggle="modal" href="#modaldemo8" title="حذف"><i
                                                         class="las la-trash"></i></a>
-                                                {{-- @endcan --}}
+                                                @endcan
                                             </td>
                                         </tr>
-                                        {{-- @can('Delete Group merchant') --}}
+                                        @can('Delete Group merchant')
                                             @include('Dashboard_UMC.merchants.merchants.delete_select')
-                                        {{-- @endcan --}}
+                                        @endcan
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                {{-- @endcan --}}
+                @endcan
             </div>
         </div>
         <!--/div-->

@@ -10,6 +10,7 @@ return [
     'modify' => 'Modify',
     'delete' => 'Delete',
     'addusertype' => "Add UserType",
+    'addmerchanttype' => "Add Merchant Type",
     'powers' => 'Powers',
     'authorityname' => "AUTHORITY NAME",
     'save' => 'Save',

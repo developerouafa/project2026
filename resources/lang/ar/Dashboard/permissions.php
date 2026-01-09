@@ -10,6 +10,7 @@ return [
     'modify' => 'تعديل',
     'delete' => 'حدف',
     'addusertype' => "إضافة نوع المستخدم",
+    'addmerchanttype' => "إضافة نوع التاجر",
     'powers' => 'القوى',
     'authorityname' => "اسم الصلاحية",
     'save' => 'حفظ',

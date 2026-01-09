@@ -61,9 +61,9 @@
                         <div class="d-flex justify-content-between">
                             <div class="col-lg-12 margin-tb">
                                 <div class="pull-right">
-                                    {{-- @can('Create role') --}}
+                                    @can('Create role')
                                         <a class="btn btn-primary btn-sm" href="{{ route('rolesmerchant.create') }}">{{__('Dashboard/permissions.add')}}</a>
-                                    {{-- @endcan --}}
+                                    @endcan
                                 </div>
                             </div>
                             <br>
@@ -86,24 +86,24 @@
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $role->name }}</td>
                                             <td>
-                                                {{-- @can('Show roles') --}}
+                                                @can('Show roles')
                                                     <a class="btn btn-success btn-sm"
                                                         href="{{ route('rolesmerchant.show', $role->id) }}">{{__('Dashboard/permissions.show')}}</a>
-                                                {{-- @endcan --}}
+                                                @endcan
 
-                                                {{-- @can('Modify roles') --}}
+                                                @can('Modify roles')
                                                     <a class="btn btn-primary btn-sm"
                                                         href="{{ route('rolesmerchant.edit', $role->id) }}">{{__('Dashboard/permissions.modify')}}</a>
-                                                {{-- @endcan --}}
+                                                @endcan
 
                                                 @if ($role->name !== 'owner')
-                                                    {{-- @can('Delete role') --}}
+                                                    @can('Delete role')
                                                         <form action="{{ route('rolesmerchant.destroy', $role->id) }}" method="POST" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <input type="submit" class="btn btn-danger btn-sm" value="{{ __('Dashboard/permissions.delete') }}">
                                                         </form>
-                                                    {{-- @endcan --}}
+                                                    @endcan
                                                 @endif
 
                                             </td>

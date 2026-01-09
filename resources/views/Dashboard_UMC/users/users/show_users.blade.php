@@ -33,29 +33,29 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        {{-- @can('Delete All Users') --}}
+                        @can('Delete All Users')
                             <a class="btn btn-danger" href="{{route('Users.deleteallusers')}}">{{__('Dashboard/messages.Deleteall')}}</a>
-                        {{-- @endcan --}}
+                        @endcan
 
-                        {{-- @can('Create User') --}}
+                        @can('Create User')
                             <a class="btn btn-primary" href="{{ route('users.create') }}">{{__('Dashboard/users.addauser')}}</a>
-                        {{-- @endcan --}}
+                        @endcan
 
-                        {{-- @can('Delete Group Users') --}}
+                        @can('Delete Group Users')
                             <button type="button" class="btn btn-danger" id="btn_delete_all">{{trans('Dashboard/messages.Deletegroup')}}</button>
-                        {{-- @endcan --}}
+                        @endcan
                     </div>
                 </div>
-                {{-- @can('Show users') --}}
+                @can('Show users')
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example" class="table key-buttons text-md-nowrap" data-page-length="50" style="text-align: center">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        {{-- @can('Delete Group Users') --}}
+                                        @can('Delete Group Users')
                                             <th> {{__('Dashboard/messages.DeleteGroup')}} <input name="select_all"  id="example-select-all" type="checkbox"/></th>
-                                        {{-- @endcan --}}
+                                        @endcan
                                         <th> {{__('Dashboard/users.name')}} </th>
                                         <th> {{__('Dashboard/users.phone')}} </th>
                                         <th> {{__('Dashboard/users.email')}} </th>
@@ -69,11 +69,11 @@
                                     @foreach ($users as $user)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            {{-- @can('Delete Group Users') --}}
+                                            @can('Delete Group Users')
                                                 <td>
                                                     <input type="checkbox" name="delete_select" value="{{$user->id}}" class="delete_select">
                                                 </td>
-                                            {{-- @endcan --}}
+                                            @endcan
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->email }}</td>
@@ -115,28 +115,28 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{-- @can('Edit User') --}}
+                                                @can('Edit User')
                                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info"
                                                     title="تعديل"><i class="las la-pen"></i></a>
-                                                {{-- @endcan --}}
+                                                @endcan
 
-                                                {{-- @can('Delete User') --}}
+                                                @can('Delete User')
                                                     <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                     data-user_id="{{ $user->id }}" data-username="{{ $user->name }}"
                                                     data-toggle="modal" href="#modaldemo8" title="حذف"><i
                                                         class="las la-trash"></i></a>
-                                                {{-- @endcan --}}
+                                                @endcan
                                             </td>
                                         </tr>
-                                        {{-- @can('Delete Group Users') --}}
+                                        @can('Delete Group Users')
                                             @include('Dashboard_UMC.users.users.delete_select')
-                                        {{-- @endcan --}}
+                                        @endcan
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                {{-- @endcan --}}
+                @endcan
             </div>
         </div>
         <!--/div-->

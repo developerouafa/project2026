@@ -1,6 +1,6 @@
 @extends('Dashboard_UMC.layouts.master')
 @section('title')
-{{__('Dashboard/merchants.deletedusers')}}
+{{__('Dashboard/merchants.deletedmerchants')}}
 @endsection
 @section('css')
     <!-- Internal Data table css -->
@@ -13,7 +13,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/merchants.deletedusers')}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{__('Dashboard/merchants.deletedusers')}}</span>
+                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/merchants.deletedmerchants')}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{__('Dashboard/merchants.deletedmerchants')}}</span>
             </div>
         </div>
     </div>
@@ -34,36 +34,36 @@
         <div class="card">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
-                    {{-- @can('Delete All Users softdelete') --}}
+                    @can('Delete All merchants softdelete')
                         <a class="btn btn-danger" href="{{route('merchant.deleteallmerchantssoftdelete')}}">{{__('Dashboard/messages.Deleteall')}}</a>
-                    {{-- @endcan --}}
+                    @endcan
 
-                    {{-- @can('Delete Group Users softdelete') --}}
+                    @can('Delete Group merchants softdelete')
                         <button type="button" class="btn btn-danger" id="btn_delete_all">{{trans('Dashboard/messages.Deletegroup')}}</button>
-                    {{-- @endcan --}}
+                    @endcan
 
-                    {{-- @can('Restore All Users') --}}
+                    @can('Restore All merchants')
                         <a class="btn btn-info" href="{{route('merchant.restoreallmerchants')}}">{{__('Dashboard/messages.restoreall')}}</a>
-                    {{-- @endcan --}}
+                    @endcan
 
-                    {{-- @can('Restore Group Users') --}}
+                    @can('Restore Group merchants')
                         <button type="button" class="btn btn-info" id="btn_restore_all">{{__('Dashboard/messages.RestoreGroup')}}</button>
-                    {{-- @endcan --}}
+                    @endcan
                 </div>
             </div>
-            {{-- @can('Show users softdelete') --}}
+            @can('Show merchants softdelete')
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="example" class="table key-buttons text-md-nowrap" data-page-length="50" style="text-align: center">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    {{-- @can('Delete Group Users softdelete') --}}
+                                    @can('Delete Group merchants softdelete')
                                         <th> {{__('Dashboard/messages.Deletegroup')}} <input name="select_all"  id="example-select-all" type="checkbox"/></th>
-                                    {{-- @endcan --}}
-                                    {{-- @can('Restore Group Users') --}}
+                                    @endcan
+                                    @can('Restore Group merchants')
                                         <th> {{__('Dashboard/messages.RestoreGroup')}} <input name="select_allrestore"  id="example-select-all" type="checkbox"/></th>
-                                    {{-- @endcan --}}
+                                    @endcan
                                     <th> {{__('Dashboard/merchants.name')}} </th>
                                     <th> {{__('Dashboard/merchants.phone')}} </th>
                                     <th> {{__('Dashboard/merchants.email')}} </th>
@@ -77,21 +77,21 @@
                                 @foreach ($merchants as $merchant)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        {{-- @can('Delete Group Users softdelete') --}}
+                                        @can('Delete Group merchants softdelete')
                                             <td>
                                                 <input type="checkbox" name="delete_select" value="{{$merchant->id}}" class="delete_select">
                                             </td>
-                                        {{-- @endcan --}}
-                                        {{-- @can('Restore Group Users') --}}
+                                        @endcan
+                                        @can('Restore Group merchants')
                                             <td>
                                                 <input type="checkbox" name="restore" value="{{$merchant->id}}" class="delete_select">
                                             </td>
-                                        {{-- @endcan --}}
+                                        @endcan
                                         <td>{{ $merchant->name }}</td>
                                         <td>{{ $merchant->phone }}</td>
                                         <td>{{ $merchant->email }}</td>
                                         <td>
-                                            @if ($user->can_login == 1)
+                                            @if ($merchant->can_login == 1)
                                                 <span class="label text-success d-flex">
                                                     <div class="dot-label bg-success ml-1"></div>
                                                 </span>
@@ -128,31 +128,31 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{-- @can('Restore One User') --}}
+                                            @can('Restore One merchant')
                                                 <a href="{{route('merchant.restoremerchants', $merchant->id)}}">{{__('Dashboard/messages.restore')}}</a>
-                                            {{-- @endcan --}}
-                                            {{-- @can('Delete One User softdelete') --}}
+                                            @endcan
+                                            @can('Delete One merchant softdelete')
                                                 <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                     data-id="{{ $merchant->id }}" data-name="{{ $merchant->name }}"
                                                     data-toggle="modal" href="#modaldemo8" title="Delete">
                                                     <i class="las la-trash"></i>
                                                 </a>
-                                            {{-- @endcan --}}
+                                            @endcan
                                         </td>
                                     </tr>
-                                    {{-- @can('Delete Group Users softdelete') --}}
+                                    @can('Delete Group merchants softdelete')
                                         @include('Dashboard_UMC.merchants.merchants.delete_selectsoftdelete')
-                                    {{-- @endcan --}}
+                                    @endcan
 
-                                    {{-- @can('Restore Group Users') --}}
+                                    @can('Restore Group merchants')
                                         @include('Dashboard_UMC.merchants.merchants.restoreall')
-                                    {{-- @endcan --}}
+                                    @endcan
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
-            {{-- @endcan --}}
+            @endcan
         </div>
     </div>
     <!--/div-->
@@ -162,10 +162,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">{{__('Dashboard/merchants.deletetheuser')}}</h6><button aria-label="Close" class="close"
+                    <h6 class="modal-title">{{__('Dashboard/merchants.deletethemerchant')}}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="{{ route('users.destroy', 'test') }}" method="post">
+                <form action="{{ route('merchant.destroy', 'test') }}" method="post">
                     {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">

@@ -22,19 +22,19 @@ class PermissionMerchantsSeeder extends Seeder
             'sidebar merchants & permissions',
             'sidebar merchants',
             'sidebar Deleted merchants',
-            'Create User',
+            'Create Merchant',
             'Show merchants',
             'Show merchants softdelete',
-            'Edit User',
-            'Delete User',
+            'Edit Merchant',
+            'Delete Merchant',
             'Delete All merchants softdelete',
             'Delete All merchants',
             'Delete Group merchants',
             'Delete Group merchants softdelete',
-            'Restore One User',
+            'Restore One Merchant',
             'Restore Group merchants',
             'Restore All merchants',
-            'Delete One User softdelete',
+            'Delete One Merchant softdelete',
 
             //! Permissions
             'sidebar permissions',
@@ -45,7 +45,7 @@ class PermissionMerchantsSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::create(['name' => $permission, 'guard_name' => 'merchant']);
         }
     }
 }

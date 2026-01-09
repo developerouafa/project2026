@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +17,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //* create User
-        User::create([
+        $user = User::create([
             'name' => ['en' => 'ouafa', 'ar' => 'وفاء'],
             'phone' => '0682201020',
             'email' => 'ProjectTree@gmail.com',
