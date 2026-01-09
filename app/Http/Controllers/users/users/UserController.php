@@ -34,8 +34,8 @@ class UserController extends Controller
     //* Store User
     public function store(StoreUserRequest $request)
     {
-        // try{
-            // DB::beginTransaction();
+        try{
+            DB::beginTransaction();
                 $user = User::create([
                     'name' => ['en' => $request->nameen, 'ar' => $request->namear],
                     'phone' => $request->phone,
@@ -47,11 +47,11 @@ class UserController extends Controller
             // DB::commit();
             toastr()->success(__('Dashboard/messages.add'));
             return redirect()->route('users.index');
-        // }catch(\Exception $execption){
-        //     DB::rollBack();
-        //     toastr()->error(__('Dashboard/messages.error'));
-        //     return redirect()->route('users.index');
-        // }
+        }catch(\Exception $execption){
+            DB::rollBack();
+            toastr()->error(__('Dashboard/messages.error'));
+            return redirect()->route('users.index');
+        }
     }
 
     //* Show One User
