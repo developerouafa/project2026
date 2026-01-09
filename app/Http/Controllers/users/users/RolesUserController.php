@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\users\users;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -10,6 +11,14 @@ use Spatie\Permission\Models\Role;
 
 class RolesUserController extends Controller
 {
+    // function __construct()
+    // {
+    //     $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+    //     $this->middleware('permission:role-create', ['only' => ['create','store']]);
+    //     $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+    //     $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    // }
+
     //* Page Show Roles
     public function index(Request $request)
     {

@@ -1,6 +1,6 @@
 @extends('Dashboard_UMC.layouts.master')
 @section('title')
-    {{__('Dashboard/users.modifyauser')}}
+    {{__('Dashboard/merchants.modifyauser')}}
 @endsection
 @section('css')
     <!-- Internal Nice-select css  -->
@@ -10,8 +10,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/users.users')}}</h4>
-                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{__('Dashboard/users.modifyauser')}}</span>
+                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/merchants.merchants')}}</h4>
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{__('Dashboard/merchants.modifyauser')}}</span>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
                         <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <strong>{{__('Dashboard/users.err')}}</strong>
+                        <strong>{{__('Dashboard/merchants.err')}}</strong>
                         <ul>
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -40,7 +40,7 @@
                     <div class="card-body">
                         <div class="col-lg-12 margin-tb">
                             <div class="pull-right">
-                                <a class="btn btn-primary btn-sm" href="{{ route('merchant.index') }}">{{__('Dashboard/users.back')}}</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('merchant.index') }}">{{__('Dashboard/merchants.back')}}</a>
                             </div>
                         </div><br>
 
@@ -51,11 +51,11 @@
                             <div class="">
                                 <div class="row mg-b-20">
                                     <div class="parsley-input col-md-6" id="fnWrapper">
-                                        <label>{{__('Dashboard/users.name')}}  <span class="tx-danger">*</span></label>
+                                        <label>{{__('Dashboard/merchants.name')}}  <span class="tx-danger">*</span></label>
                                         <input value="{{$merchant->name}}" class="form-control" required name="name" type="text" autocomplete="name_{{app()->getLocale()}}" >
                                     </div>
                                     <div class="parsley-input col-md-6" id="fnWrapper">
-                                        <label>{{__('Dashboard/users.phone')}}  <span class="tx-danger">*</span></label>
+                                        <label>{{__('Dashboard/merchants.phone')}}  <span class="tx-danger">*</span></label>
                                         <input value="{{$merchant->phone}}" class="form-control" required name="phone" type="text" autocomplete="phone" >
                                     </div>
                                 </div>
@@ -64,11 +64,11 @@
                             <div class="">
                                 <div class="row mg-b-20">
                                     <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
-                                        <label>{{__('Dashboard/users.email')}} <span class="tx-danger">*</span></label>
+                                        <label>{{__('Dashboard/merchants.email')}} <span class="tx-danger">*</span></label>
                                         <input type="email" name="email" class="form-control" required value="{{ old('email', $merchant->email) }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">{{__('Dashboard/users.userolestaus')}}</label>
+                                        <label class="form-label">{{__('Dashboard/merchants.userolestaus')}}</label>
                                         <select name="account_state" id="select-beast" class="form-control  nice-select  custom-select">
                                             <option value="{{ $merchant->account_state}}">
                                                 @if ($merchant->account_state == 'active')
@@ -92,12 +92,12 @@
 
                             <div class="row mg-b-20">
                                 <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
-                                    <label>{{__('Dashboard/users.password')}} <span class="tx-danger">*</span></label>
+                                    <label>{{__('Dashboard/merchants.password')}} <span class="tx-danger">*</span></label>
                                     <input type="password" name="password" class="form-control">
                                 </div>
 
                                 <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
-                                    <label>{{__('Dashboard/users.currentpassword')}} <span class="tx-danger">*</span></label>
+                                    <label>{{__('Dashboard/merchants.currentpassword')}} <span class="tx-danger">*</span></label>
                                     <input type="password" name="password_confirmation" class="form-control">
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                             <div class="row mg-b-20">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>{{__('Dashboard/users.usertype')}}</strong>
+                                        <strong>{{__('Dashboard/merchants.usertype')}}</strong>
                                         <select name="roles[]" class="form-control" multiple>
                                             @foreach($roles as $id => $roleName)
                                                 <option value="{{ $id }}"
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="mg-t-30">
-                                <button class="btn btn-main-primary pd-x-20" type="submit">{{__('Dashboard/users.update')}}</button>
+                                <button class="btn btn-main-primary pd-x-20" type="submit">{{__('Dashboard/merchants.update')}}</button>
                             </div>
                         </form>
                     </div>

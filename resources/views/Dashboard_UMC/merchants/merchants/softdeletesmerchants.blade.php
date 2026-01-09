@@ -1,6 +1,6 @@
 @extends('Dashboard_UMC.layouts.master')
 @section('title')
-{{__('Dashboard/users.deletedusers')}}
+{{__('Dashboard/merchants.deletedusers')}}
 @endsection
 @section('css')
     <!-- Internal Data table css -->
@@ -13,7 +13,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/users.deletedusers')}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{__('Dashboard/users.deletedusers')}}</span>
+                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/merchants.deletedusers')}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{__('Dashboard/merchants.deletedusers')}}</span>
             </div>
         </div>
     </div>
@@ -64,12 +64,12 @@
                                     {{-- @can('Restore Group Users') --}}
                                         <th> {{__('Dashboard/messages.RestoreGroup')}} <input name="select_allrestore"  id="example-select-all" type="checkbox"/></th>
                                     {{-- @endcan --}}
-                                    <th> {{__('Dashboard/users.name')}} </th>
-                                    <th> {{__('Dashboard/users.phone')}} </th>
-                                    <th> {{__('Dashboard/users.email')}} </th>
-                                    <th> {{__('Dashboard/users.userstatus')}} </th>
-                                    <th> {{__('Dashboard/users.usertype')}} </th>
-                                    <th> {{__('Dashboard/users.userolestaus')}} </th>
+                                    <th> {{__('Dashboard/merchants.name')}} </th>
+                                    <th> {{__('Dashboard/merchants.phone')}} </th>
+                                    <th> {{__('Dashboard/merchants.email')}} </th>
+                                    <th> {{__('Dashboard/merchants.merchantstatus')}} </th>
+                                    <th> {{__('Dashboard/merchants.usertype')}} </th>
+                                    <th> {{__('Dashboard/merchants.userolestaus')}} </th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -162,20 +162,20 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">{{__('Dashboard/users.deletetheuser')}}</h6><button aria-label="Close" class="close"
+                    <h6 class="modal-title">{{__('Dashboard/merchants.deletetheuser')}}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form action="{{ route('users.destroy', 'test') }}" method="post">
                     {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">
-                        <p>{{__('Dashboard/users.aresureofthedeleting')}}</p><br>
+                        <p>{{__('Dashboard/merchants.aresureofthedeleting')}}</p><br>
                         <input type="hidden" value="3" name="page_id">
                         <input type="hidden" name="id" id="id" value="">
                         <input class="form-control" name="name" id="name" type="text" readonly>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Dashboard/users.cancel')}}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Dashboard/merchants.cancel')}}</button>
                         <button type="submit" class="btn btn-danger">{{__('Dashboard/messages.deletee')}}</button>
                     </div>
             </div>

@@ -2,6 +2,7 @@
 
 return [
     'userpermissions' => 'User Permissions',
+    'merchantpermissions' => 'Merchant Permissions',
     'add' => 'Add',
     'name' => 'Name',
     'PROCESSES' => 'PROCESSES',

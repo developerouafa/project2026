@@ -2,6 +2,7 @@
 
 return [
     'userpermissions' => 'صلاحيات المستخدمين',
+    'merchantpermissions' => 'صلاحيات التجار',
     'add' => 'اضافة',
     'name' => 'الاسم',
     'PROCESSES' => 'العمليات',

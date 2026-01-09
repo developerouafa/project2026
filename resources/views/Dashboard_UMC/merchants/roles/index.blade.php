@@ -1,6 +1,6 @@
 @extends('Dashboard_UMC.layouts.master')
 @section('title')
-    {{__('Dashboard/permissions.userpermissions')}}
+    {{__('Dashboard/permissions.merchantpermissions')}}
 @endsection
 @section('css')
     <!--Internal   Notify -->
@@ -10,8 +10,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/users.users')}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> /
-                    {{__('Dashboard/permissions.userpermissions')}}</span>
+                <h4 class="content-title mb-0 my-auto">{{__('Dashboard/merchants.merchants')}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> /
+                    {{__('Dashboard/permissions.merchantpermissions')}}</span>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
         <script>
             window.onload = function() {
                 notif({
-                    msg: {{__('Dashboard/users.addsuccesspermission')}},
+                    msg: {{__('Dashboard/merchants.addsuccesspermission')}},
                     type: "success"
                 });
             }
@@ -34,7 +34,7 @@
         <script>
             window.onload = function() {
                 notif({
-                    msg: {{__('Dashboard/users.updatesuccesspermission')}},
+                    msg: {{__('Dashboard/merchants.updatesuccesspermission')}},
                     type: "success"
                 });
             }
@@ -46,7 +46,7 @@
         <script>
             window.onload = function() {
                 notif({
-                    msg: {{__('Dashboard/users.deletesuccesspermission')}},
+                    msg: {{__('Dashboard/merchants.deletesuccesspermission')}},
                     type: "error"
                 });
             }
