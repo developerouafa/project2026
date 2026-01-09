@@ -23,5 +23,24 @@ class UserSeeder extends Seeder
             'email' => 'ProjectTree@gmail.com',
             'password' => Hash::make('2026target'),
         ]);
+
+
+        //* Create Role Permissions
+        $role = Role::create(['name' => 'owner', 'guard_name' => 'web']);
+
+        // Get all permissions of web guard
+        $permissions = Permission::where('guard_name','web')->get();
+
+        // Attach permissions to role
+        $role->syncPermissions($permissions);
+
+        // Assign role to user
+        $user->assignRole($role);   // ✅ NOT ID
+
+        // $permissions = Permission::pluck('id','id')->all();
+
+        // $role->syncPermissions($permissions);
+
+        // $user->assignRole([$role->id]);
     }
 }
