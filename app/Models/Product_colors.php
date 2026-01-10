@@ -4,21 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
-class Colors extends Model
+class Product_colors extends Model
 {
-    use HasFactory, HasTranslations;
-
-    public $translatable = ['name'];
+    use HasFactory;
 
     protected $fillable = [
-        'name',
-        'code',
+        'product_id',
+        'color_id',
+        'has_variants',
     ];
 
     protected $dates = ['deleted_at'];
+
 
 }
