@@ -32,4 +32,11 @@ class color_variants extends Model
                     ->withPivot('sku')
                     ->withTimestamps();
     }
+
+    public function colorVariants()
+    {
+        return $this->belongsToMany(color_variants::class, 'color_variant_sizes')
+                    ->withPivot('sku')
+                    ->withTimestamps();
+    }
 }
