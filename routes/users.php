@@ -5,6 +5,7 @@ use App\Http\Controllers\users\Auth\ImageuserController;
 use App\Http\Controllers\users\Auth\ProfileController;
 use App\Http\Controllers\users\users\RolesUserController;
 use App\Http\Controllers\users\users\UserController;
+use App\Livewire\DashboardUMC\Users\Sections\Sections;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -49,6 +50,14 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     });
                 //############################# end Partie User|permissions|roles route ######################################
 
+
+                // ############################# Start Partie Sections route ##########################################
+                    Route::group(['prefix' => 'Sections'], function(){
+                        // Route::middleware(['auth','permission:section-list'])->group(function () {
+                            Route::view('sections','livewire.dashboard-u-m-c.users.sections.sections')->name('sections');
+                        // });
+                    });
+                // ############################# end Partie Sections route ######################################
             });
 
 
