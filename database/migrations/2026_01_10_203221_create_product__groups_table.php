@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('product__groups', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('packageproduct_id')->references('id')->on('packageproducts')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('quantity');
+            $table->decimal('totalprice', 10, 2);
             $table->timestamps();
         });
     }

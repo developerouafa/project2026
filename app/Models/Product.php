@@ -72,4 +72,10 @@ class Product extends Model
                         ->withTimestamps();
         }
 
+        // Product_Groups Relation
+        public function product_groups()
+        {
+            return $this->hasMany(Product_Group::class);
+        }
+
 }

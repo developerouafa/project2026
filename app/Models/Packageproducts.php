@@ -27,4 +27,10 @@ class Packageproducts extends Model
     {
         return $this->belongsTo(Merchant::class);
     }
+
+    // Product_Group Relation
+    public function product_groups()
+    {
+        return $this->hasMany(Product_Group::class, 'packageproduct_id');
+    }
 }
