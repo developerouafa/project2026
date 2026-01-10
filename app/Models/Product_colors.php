@@ -18,5 +18,14 @@ class Product_colors extends Model
 
     protected $dates = ['deleted_at'];
 
+    // Relations
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
+    public function colors()
+    {
+        return $this->belongsTo(Colors::class);
+    }
 }

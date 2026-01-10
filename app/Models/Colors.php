@@ -21,4 +21,15 @@ class Colors extends Model
 
     protected $dates = ['deleted_at'];
 
+    public function productColors()
+    {
+        return $this->hasMany(Product_colors::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_colors')
+                    ->withPivot('has_variants')
+                    ->withTimestamps();
+    }
 }

@@ -58,4 +58,18 @@ class Product extends Model
             return $this->hasMany(Multi_image_pr::class, 'product_id');
         }
 
+        // Product Colors Relation
+        public function productColors()
+        {
+            return $this->hasMany(Product_colors::class);
+        }
+
+        //  Colors Relation
+        public function colors()
+        {
+            return $this->belongsToMany(Colors::class, 'product_colors')
+                        ->withPivot('has_variants')
+                        ->withTimestamps();
+        }
+
 }
