@@ -50,13 +50,16 @@
                                                     <td>
                                                         <input type="checkbox" name="delete_select" value="{{$section->id}}" class="delete_select">
                                                     </td>
-                                                <td><a href="{{route('Sections.showsection',$section->id)}}">{{$section->name}}</a> </td>
+                                                <td>
+                                                    {{-- <a href="{{route('Sections.showsection',$section->id)}}">{{$section->name}}</a>  --}}
+                                                    {{$section->name}}
+                                                </td>
                                                 <td>
                                                     @if ($section->status == 0)
-                                                        <a href="{{route('editstatusdéactivesec', $section->id)}}"><i   class="text-warning ti-back-right"></i>{{__('Dashboard/sections_trans.disabled')}}</a>
+                                                        {{-- <a href="{{route('editstatusdéactivesec', $section->id)}}"><i   class="text-warning ti-back-right"></i>{{__('Dashboard/sections_trans.disabled')}}</a> --}}
                                                     @endif
                                                     @if ($section->status == 1)
-                                                        <a href="{{route('editstatusactivesec', $section->id)}}"><i   class="text-warning ti-back-right"></i>{{__('Dashboard/sections_trans.active')}}</a>
+                                                        {{-- <a href="{{route('editstatusactivesec', $section->id)}}"><i   class="text-warning ti-back-right"></i>{{__('Dashboard/sections_trans.active')}}</a> --}}
                                                     @endif
                                                 </td>
                                                 <td> <a href="#">{{$section->user->name}}</a> </td>
