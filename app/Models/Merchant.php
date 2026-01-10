@@ -41,4 +41,15 @@ class Merchant extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    // Products Relation
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    // Packageproducts Relation
+    public function packageproducts()
+    {
+        return $this->hasMany(Packageproducts::class);
+    }
 }
