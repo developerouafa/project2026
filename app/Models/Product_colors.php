@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Symfony\Component\Console\Color;
 
 class Product_colors extends Model
 {
@@ -27,5 +28,10 @@ class Product_colors extends Model
     public function colors()
     {
         return $this->belongsTo(Colors::class);
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(Color_variants::class);
     }
 }
