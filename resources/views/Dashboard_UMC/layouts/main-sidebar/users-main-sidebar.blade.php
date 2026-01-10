@@ -53,7 +53,7 @@
                                 <i class="angle fe fe-chevron-down"></i>
                             </a>
                             <ul class="slide-menu">
-                                {{-- <li><a class="slide-item" href="{{ route('sections') }}">View all</a></li> --}}
+                                <li><a class="slide-item" href="{{ route('sections.render') }}">View all</a></li>
                                 {{-- <li><a class="slide-item" href="{{ route('Sections.softdelete') }}">Deleted Section</a></li>
                                 <li><a class="slide-item" href="{{ route('Children_index') }}">Children Section</a></li>
                                 <li><a class="slide-item" href="{{ route('Children.softdelete') }}">Deleted Childrens</a></li> --}}

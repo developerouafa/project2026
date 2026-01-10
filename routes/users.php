@@ -56,7 +56,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                             // Route::middleware(['auth','permission:section-list'])->group(function () {
                             // Route::get('/sections', Sections::class)->name('sections.render');
                             // Route::view('sections','livewire.dashboard-u-m-c.users.sections.index');
-                            Route::view('welcome','livewire.dashboard-u-m-c.users.sections.welcome');
+                            Route::view('welcome','livewire.dashboard-u-m-c.users.sections.welcome')->name('sections.render');
                             // Route::view('index','livewire.dashboard-u-m-c.users.sections.index');
                         // });
                     });
