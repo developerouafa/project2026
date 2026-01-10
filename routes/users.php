@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\users\Auth\ImageuserController;
 use App\Http\Controllers\users\Auth\ProfileController;
+use App\Http\Controllers\users\childrens\childrenController;
+use App\Http\Controllers\users\sections\SectionsController;
 use App\Http\Controllers\users\users\RolesUserController;
 use App\Http\Controllers\users\users\UserController;
 use App\Livewire\DashboardUMC\Users\Sections\Sections;
@@ -51,9 +53,43 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 //############################# end Partie User|permissions|roles route ######################################
 
 
-                // ############################# Start Partie Sections route ##########################################
+                //############################# Section & Children Section route ##########################################
+                    Route::group(['prefix' => 'Sections'], function(){
+                        Route::controller(SectionsController::class)->group(function() {
+                            Route::get('/index', 'index')->name('Sections.index');
+                            Route::get('/export', 'export')->name('Sections.export');
+                            Route::get('/Deleted_Section', 'softdelete')->name('Sections.softdelete');
+                            Route::get('/Show_by_Section/{id}', 'showsection')->name('Sections.showsection');
+                            Route::post('/create', 'store')->name('Sections.store');
+                            Route::patch('/update', 'update')->name('Sections.update');
+                            Route::delete('/destroy', 'destroy')->name('Sections.destroy');
+                            Route::get('editstatusdéactivesec/{id}', 'editstatusdéactive')->name('editstatusdéactivesec');
+                            Route::get('editstatusactivesec/{id}', 'editstatusactive')->name('editstatusactivesec');
+                            Route::get('/deleteallSections', 'deleteall')->name('Sections.deleteallSections');
+                            Route::get('/deleteall_softdelete', 'deleteallsoftdelete')->name('Sections.deleteallsoftdelete');
+                            Route::get('restoresc/{id}', 'restore')->name('restoresc');
+                            Route::get('restoreallsections', 'restoreallsections')->name('Sections.restoreallsections');
+                            Route::post('restoreallselectsections', 'restoreallselectsections')->name('Sections.restoreallselectsections');
+                        });
 
-                // ############################# end Partie Sections route ######################################
+                        Route::controller(childrenController::class)->group(function() {
+                            Route::get('/child', 'index')->name('Children_index');
+                            Route::get('/Deleted_Children', 'softdelete')->name('Children.softdelete');
+                            Route::get('/Show_by_Children/{id}', 'showchildren')->name('Children.showchildren');
+                            Route::post('/createchild', 'store')->name('Children.create');
+                            Route::patch('/updatechild', 'update')->name('Children.update');
+                            Route::delete('/deletechild', 'destroy')->name('Children.delete');
+                            Route::get('editstatusdéactivech/{id}', 'editstatusdéactive')->name('editstatusdéactivech');
+                            Route::get('editstatusactivech/{id}', 'editstatusactive')->name('editstatusactivech');
+                            Route::get('/deleteallChildrens', 'deleteall')->name('Children.deleteallChildrens');
+                            Route::get('/deleteallsoftdelete', 'deleteallsoftdelete')->name('Children.deleteallsoftdelete');
+                            Route::get('restorech/{id}', 'restore')->name('restorech');
+                            Route::get('restoreallchildrens', 'restoreallchildrens')->name('Children.restoreallchildrens');
+                            Route::post('restoreallselectchildrens', 'restoreallselectchildrens')->name('Children.restoreallselectchildrens');
+                        });
+                    });
+                //############################# end Section & Children Section route ######################################
+
             });
 
 
