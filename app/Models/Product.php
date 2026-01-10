@@ -35,11 +35,13 @@ class Product extends Model
 
         /*-------------------- Relations --------------------*/
 
+        // Merchant Relation
         public function merchant()
         {
             return $this->belongsTo(Merchant::class);
         }
 
+        // Section Relation
         public function subsections(): BelongsTo
         {
             return $this->BelongsTo(Sections::class, 'parent_id')->child();
@@ -50,7 +52,10 @@ class Product extends Model
             return $this->BelongsTo(Sections::class);
         }
 
-
-
+        // Multi Images Relation
+        public function images()
+        {
+            return $this->hasMany(Multi_image_pr::class, 'product_id');
+        }
 
 }
