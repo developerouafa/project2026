@@ -15,10 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('status')->default(false);
             $table->foreignId('section_id')->nullable()->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('parent_id')->nullable()->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('merchant_id')->references('id')->on('merchants')->onDelete('cascade')->onUpdate('cascade');
+            // Stock & Price
+            $table->integer('quantity')->nullable();
+            $table->boolean('in_stock')->nullable();
+            $table->decimal('price', 10, 2)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

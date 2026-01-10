@@ -19,6 +19,7 @@ class Sections extends Model
         'user_id',
         'parent_id',
     ];
+        protected $dates = ['deleted_at'];
 
         /*-------------------- Scope --------------------*/
 
