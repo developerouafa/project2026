@@ -2,6 +2,7 @@
 <title>@yield('title')</title>
 
 @yield('css')
+@livewireStyles
 
 <!-- Favicon -->
 <link rel="icon" href="{{URL::asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/>
