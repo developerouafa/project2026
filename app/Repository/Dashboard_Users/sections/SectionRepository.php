@@ -15,7 +15,7 @@ class SectionRepository implements SectionRepositoryInterface
     public function index()
     {
       $sections = Sections::latest()->selectsections()->withsections()->parent()->get();
-      return view('Dashboard/dashboard_user.Sections.index',compact('sections'));
+      return view('Dashboard_UMC.users.Sections.index',compact('sections'));
     }
 
     public function export()
@@ -26,7 +26,7 @@ class SectionRepository implements SectionRepositoryInterface
     public function softdelete()
     {
       $sections = Sections::onlyTrashed()->latest()->selectsections()->withsections()->parent()->get();
-      return view('Dashboard/dashboard_user.Sections.softdelete',compact('sections'));
+      return view('Dashboard_UMC.users.Sections.softdelete',compact('sections'));
     }
 
     public function store($request)
@@ -144,7 +144,7 @@ class SectionRepository implements SectionRepositoryInterface
     {
         $section = Sections::findOrFail($id);
         // $products = product::where('section_id', $id)->get();
-        return view('Dashboard/dashboard_user/Sections.showproduct',compact('section', 'products'));
+        return view('Dashboard_UMC.users.Sections.showproduct',compact('section', 'products'));
     }
 
     public function editstatusdéactive($id)

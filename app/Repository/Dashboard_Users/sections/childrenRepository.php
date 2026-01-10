@@ -15,14 +15,14 @@ class childrenRepository implements childrenRepositoryInterface
     {
         $childrens = Sections::latest()->selectchildrens()->withchildrens()->child()->get();
         $sections = Sections::selectsections()->Withsections()->parent()->get();
-        return view('Dashboard/dashboard_user.childrens.childrens', compact('childrens', 'sections'));
+        return view('Dashboard_UMC.users.childrens.childrens', compact('childrens', 'sections'));
     }
 
     public function softdelete()
     {
         $childrens = Sections::onlyTrashed()->latest()->selectchildrens()->withchildrens()->child()->get();
         $sections = Sections::selectsections()->Withsections()->parent()->get();
-        return view('Dashboard/dashboard_user.childrens.softdelete',compact('childrens', 'sections'));
+        return view('Dashboard_UMC.users.childrens.softdelete',compact('childrens', 'sections'));
     }
 
     public function store($request)
@@ -77,7 +77,7 @@ class childrenRepository implements childrenRepositoryInterface
     {
         $section = Sections::findOrFail($id);
         // $products = product::where('parent_id', $id)->get();
-        return view('Dashboard/dashboard_user/childrens.showproduct',compact('section', 'products'));
+        return view('Dashboard_UMC.users.childrens.showproduct',compact('section', 'products'));
     }
 
     public function editstatusdéactive($id)
