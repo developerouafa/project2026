@@ -26,4 +26,10 @@ class color_variants extends Model
         return $this->belongsTo(Product_colors::class, 'product_color_id');
     }
 
+    public function sizes()
+    {
+        return $this->belongsToMany(Sizes::class, 'color_variant_sizes')
+                    ->withPivot('sku')
+                    ->withTimestamps();
+    }
 }

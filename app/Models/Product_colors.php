@@ -34,4 +34,11 @@ class Product_colors extends Model
     {
         return $this->hasMany(Color_variants::class);
     }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Sizes::class, 'product_color_sizes')
+                    ->withPivot('sku')
+                    ->withTimestamps();
+    }
 }
