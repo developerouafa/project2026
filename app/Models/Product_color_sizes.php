@@ -29,4 +29,9 @@ class Product_color_sizes extends Model
     {
         return $this->belongsTo(Sizes::class);
     }
+
+    public function promotions()
+    {
+        return $this->hasMany(Promotions::class, 'product_color_sizes_id');
+    }
 }

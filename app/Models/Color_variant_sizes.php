@@ -29,4 +29,9 @@ class Color_variant_sizes extends Model
         return $this->belongsTo(Sizes::class);
     }
 
+    public function promotions()
+    {
+        return $this->hasMany(Promotions::class, 'color_variant_sizes_id');
+    }
+
 }
