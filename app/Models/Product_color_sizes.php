@@ -54,20 +54,30 @@ class Product_color_sizes extends Model
                             ->where('quantity', '>', 0);
             }
 
+            public function scopeByProductColor($query, $productColorId)
+            {
+                return $query->where('product_color_id', $productColorId);
+            }
+
+            public function scopeBySize($query, $sizeId)
+            {
+                return $query->where('size_id', $sizeId);
+            }
+
     // Relations
 
-    public function productColor()
-    {
-        return $this->belongsTo(Product_colors::class);
-    }
+            public function productColor()
+            {
+                return $this->belongsTo(Product_colors::class);
+            }
 
-    public function size()
-    {
-        return $this->belongsTo(Sizes::class);
-    }
+            public function size()
+            {
+                return $this->belongsTo(Sizes::class);
+            }
 
-    public function promotions()
-    {
-        return $this->hasMany(Promotions::class, 'product_color_sizes_id');
-    }
+            public function promotions()
+            {
+                return $this->hasMany(Promotions::class, 'product_color_sizes_id');
+            }
 }

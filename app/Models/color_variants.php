@@ -16,8 +16,6 @@ class color_variants extends Model
         'product_color_id',
     ];
 
-    protected $dates = ['deleted_at'];
-
     /* =========================
            SCOPES
     ========================= */
@@ -43,35 +41,35 @@ class color_variants extends Model
                 ]);
             }
 
-        // Scope لجلب كل الفاريانتز لمنتج لون معين
-        public function scopeByProductColor($query, $productColorId)
-        {
-            return $query->where('product_color_id', $productColorId);
-        }
+            // Scope لجلب كل الفاريانتز لمنتج لون معين
+            public function scopeByProductColor($query, $productColorId)
+            {
+                return $query->where('product_color_id', $productColorId);
+            }
 
-        // Scope لجلب كل الفاريانتز بلون محدد
-        public function scopeByColorCode($query, $code)
-        {
-            return $query->where('code', $code);
-        }
+            // Scope لجلب كل الفاريانتز بلون محدد
+            public function scopeByColorCode($query, $code)
+            {
+                return $query->where('code', $code);
+            }
 
     // Relations
-    public function productColor()
-    {
-        return $this->belongsTo(Product_colors::class, 'product_color_id');
-    }
+            public function productColor()
+            {
+                return $this->belongsTo(Product_colors::class, 'product_color_id');
+            }
 
-    public function sizes()
-    {
-        return $this->belongsToMany(Sizes::class, 'color_variant_sizes')
-                    ->withPivot('sku')
-                    ->withTimestamps();
-    }
+            public function sizes()
+            {
+                return $this->belongsToMany(Sizes::class, 'color_variant_sizes')
+                            ->withPivot('sku')
+                            ->withTimestamps();
+            }
 
-    public function colorVariants()
-    {
-        return $this->belongsToMany(color_variants::class, 'color_variant_sizes')
-                    ->withPivot('sku')
-                    ->withTimestamps();
-    }
+            public function colorVariants()
+            {
+                return $this->belongsToMany(color_variants::class, 'color_variant_sizes')
+                            ->withPivot('sku')
+                            ->withTimestamps();
+            }
 }

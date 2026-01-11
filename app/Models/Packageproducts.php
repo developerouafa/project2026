@@ -58,15 +58,16 @@ class Packageproducts extends Model
             }
 
     // Relations
-    // Merchant Relation
-    public function merchant()
-    {
-        return $this->belongsTo(Merchant::class);
-    }
 
-    // Product_Group Relation
-    public function product_groups()
-    {
-        return $this->hasMany(Product_Group::class, 'packageproduct_id');
-    }
+            // Merchant Relation
+            public function merchant()
+            {
+                return $this->belongsTo(Merchant::class);
+            }
+
+            // Product_Group Relation
+            public function product_groups()
+            {
+                return $this->hasMany(Product_Group::class, 'packageproduct_id');
+            }
 }

@@ -13,12 +13,13 @@ class Sections extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'status',
-        'user_id',
-        'parent_id',
-    ];
+        protected $fillable = [
+            'name',
+            'status',
+            'user_id',
+            'parent_id',
+        ];
+
         protected $dates = ['deleted_at'];
 
         /*-------------------- Scope --------------------*/

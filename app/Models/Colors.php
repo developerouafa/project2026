@@ -17,28 +17,27 @@ class Colors extends Model
         'code',
     ];
 
-    protected $dates = ['deleted_at'];
-
     /* =========================
            SCOPES
     ========================= */
 
-            // اختيار الأعمدة الأساسية فقط
-            public function scopeSelectBasic($query)
-            {
-                return $query->select(['id', 'name', 'code', 'created_at', 'updated_at']);
-            }
+        // اختيار الأعمدة الأساسية فقط
+        public function scopeSelectBasic($query)
+        {
+            return $query->select(['id', 'name', 'code', 'created_at', 'updated_at']);
+        }
 
-            // Relations
-    public function productColors()
-    {
-        return $this->hasMany(Product_colors::class);
-    }
+    // Relations
 
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'product_colors')
-                    ->withPivot('has_variants')
-                    ->withTimestamps();
-    }
+        public function productColors()
+        {
+            return $this->hasMany(Product_colors::class);
+        }
+
+        public function products()
+        {
+            return $this->belongsToMany(Product::class, 'product_colors')
+                        ->withPivot('has_variants')
+                        ->withTimestamps();
+        }
 }

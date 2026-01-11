@@ -55,15 +55,16 @@ class Product_Group extends Model
             }
 
     // Relations
-        // Product Relation
-        public function product()
-        {
-            return $this->belongsTo(Product::class);
-        }
 
-        // Packageproducts Relation
-        public function packageproduct()
-        {
-            return $this->belongsTo(Packageproducts::class);
-        }
+            // Product Relation
+            public function product()
+            {
+                return $this->belongsTo(Product::class);
+            }
+
+            // Packageproducts Relation
+            public function packageproduct()
+            {
+                return $this->belongsTo(Packageproducts::class);
+            }
 }

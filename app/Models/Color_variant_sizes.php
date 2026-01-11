@@ -52,20 +52,31 @@ class Color_variant_sizes extends Model
                 return $query->where('in_stock', 1)->where('quantity', '>', 0);
             }
 
+            public function scopeByColorVariant($query, $colorVariantId)
+            {
+                return $query->where('color_variant_id', $colorVariantId);
+            }
+
+            public function scopeBySize($query, $sizeId)
+            {
+                return $query->where('size_id', $sizeId);
+            }
+
     // Relations
-    public function colorVariant()
-    {
-        return $this->belongsTo(Color_variants::class);
-    }
 
-    public function size()
-    {
-        return $this->belongsTo(Sizes::class);
-    }
+            public function colorVariant()
+            {
+                return $this->belongsTo(Color_variants::class);
+            }
 
-    public function promotions()
-    {
-        return $this->hasMany(Promotions::class, 'color_variant_sizes_id');
-    }
+            public function size()
+            {
+                return $this->belongsTo(Sizes::class);
+            }
+
+            public function promotions()
+            {
+                return $this->hasMany(Promotions::class, 'color_variant_sizes_id');
+            }
 
 }

@@ -32,9 +32,9 @@ class Product extends Model
 
     public $translatable = ['name', 'description'];
 
-    /* =========================
-            SCOPES
-    ========================= */
+        /* =========================
+                SCOPES
+        ========================= */
 
             // كل العلاقات مرة وحدة
             public function scopeWithAll($query)
@@ -62,6 +62,7 @@ class Product extends Model
                     'in_stock',
                     'price',
                     'created_at',
+                    'updated_at',
                 ]);
             }
 
@@ -95,49 +96,100 @@ class Product extends Model
             {
                 return $query->where('merchant_id', $merchantId);
             }
+
+            public function scopeBySection($query, $sectionId)
+            {
+                return $query->where('section_id', $sectionId);
+            }
+
+            public function scopeByParent($query, $parentId)
+            {
+                return $query->where('parent_id', $parentId);
+            }
+
+            public function scopeByStatus($query, $status)
+            {
+                return $query->where('status', $status);
+            }
+
+            public function scopePriceBetween($query, $minPrice, $maxPrice)
+            {
+                return $query->whereBetween('price', [$minPrice, $maxPrice]);
+            }
+
+            public function scopeSearchByName($query, $name)
+            {
+                return $query->where('name', 'LIKE', "%$name%");
+            }
+
+            public function scopeSearchByDescription($query, $description)
+            {
+                return $query->where('description', 'LIKE', "%$description%");
+            }
+
+            public function scopePriceGreaterThan($query, $price)
+            {
+                return $query->where('price', '>', $price);
+            }
+
+            public function scopePriceLessThan($query, $price)
+            {
+                return $query->where('price', '<', $price);
+            }
+
+            public function scopeRecentlyAdded($query)
+            {
+                return $query->orderBy('created_at', 'desc');
+            }
+
+            public function scopeOldestFirst($query)
+            {
+                return $query->orderBy('created_at', 'asc');
+            }
+
         /*-------------------- Relations --------------------*/
 
-        // Merchant Relation
-        public function merchant()
-        {
-            return $this->belongsTo(Merchant::class);
-        }
+            // Merchant Relation
+            public function merchant()
+            {
+                return $this->belongsTo(Merchant::class);
+            }
 
-        // Section Relation
-        public function subsections(): BelongsTo
-        {
-            return $this->BelongsTo(Sections::class, 'parent_id')->child();
-        }
+            // Section Relation
+            public function subsections(): BelongsTo
+            {
+                return $this->BelongsTo(Sections::class, 'parent_id')->child();
+            }
 
-        public function section(): BelongsTo
-        {
-            return $this->BelongsTo(Sections::class);
-        }
+            public function section(): BelongsTo
+            {
+                return $this->BelongsTo(Sections::class);
+            }
 
-        // Multi Images Relation
-        public function images()
-        {
-            return $this->hasMany(Multi_image_pr::class, 'product_id');
-        }
+            // Multi Images Relation
+            public function images()
+            {
+                return $this->hasMany(Multi_image_pr::class, 'product_id');
+            }
 
-        // Product Colors Relation
-        public function productColors()
-        {
-            return $this->hasMany(Product_colors::class);
-        }
+            // Product Colors Relation
+            public function productColors()
+            {
+                return $this->hasMany(Product_colors::class);
+            }
 
-        //  Colors Relation
-        public function colors()
-        {
-            return $this->belongsToMany(Colors::class, 'product_colors')
-                        ->withPivot('has_variants')
-                        ->withTimestamps();
-        }
+            //  Colors Relation
+            public function colors()
+            {
+                return $this->belongsToMany(Colors::class, 'product_colors')
+                            ->withPivot('has_variants')
+                            ->withTimestamps();
+            }
 
-        // Product_Groups Relation
-        public function product_groups()
-        {
-            return $this->hasMany(Product_Group::class);
-        }
+            // Product_Groups Relation
+            public function product_groups()
+            {
+                return $this->hasMany(Product_Group::class);
+            }
 
 }

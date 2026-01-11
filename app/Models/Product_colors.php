@@ -17,8 +17,6 @@ class Product_colors extends Model
         'has_variants',
     ];
 
-    protected $dates = ['deleted_at'];
-
     /* =========================
            SCOPES
     ========================= */
@@ -61,25 +59,25 @@ class Product_colors extends Model
 
 
     // Relations
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
+            public function product()
+            {
+                return $this->belongsTo(Product::class);
+            }
 
-    public function colors()
-    {
-        return $this->belongsTo(Colors::class);
-    }
+            public function colors()
+            {
+                return $this->belongsTo(Colors::class);
+            }
 
-    public function variants()
-    {
-        return $this->hasMany(Color_variants::class);
-    }
+            public function variants()
+            {
+                return $this->hasMany(Color_variants::class);
+            }
 
-    public function sizes()
-    {
-        return $this->belongsToMany(Sizes::class, 'product_color_sizes')
-                    ->withPivot('sku')
-                    ->withTimestamps();
-    }
+            public function sizes()
+            {
+                return $this->belongsToMany(Sizes::class, 'product_color_sizes')
+                            ->withPivot('sku')
+                            ->withTimestamps();
+            }
 }
