@@ -19,6 +19,34 @@ class Product_colors extends Model
 
     protected $dates = ['deleted_at'];
 
+    /* =========================
+           SCOPES
+    ========================= */
+
+            // Scope لكل المنتجات ديال color معين
+            public function scopeByColor($query, $colorId)
+            {
+                return $query->where('color_id', $colorId);
+            }
+
+            // Scope لكل الألوان لمنتج معين
+            public function scopeByProduct($query, $productId)
+            {
+                return $query->where('product_id', $productId);
+            }
+
+            // Scope للمنتجات اللي عندها variants
+            public function scopeWithVariants($query)
+            {
+                return $query->where('has_variants', 1);
+            }
+
+            // Scope للمنتجات اللي ماعندهاش variants
+            public function scopeWithoutVariants($query)
+            {
+                return $query->where('has_variants', 0);
+            }
+
     // Relations
     public function product()
     {
