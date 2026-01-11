@@ -18,6 +18,42 @@ class Product_color_sizes extends Model
         'sku',
     ];
 
+    /* =========================
+            SCOPES
+    ========================= */
+
+            // كل العلاقات مرة وحدة
+            public function scopeWithAll($query)
+            {
+                return $query->with([
+                    'product_color_id',
+                    'size_id',
+                ]);
+            }
+
+            // فقط الأعمدة المهمة
+            public function scopeSelectBasic($query)
+            {
+                return $query->select([
+                    'id',
+                    'product_color_id',
+                    'size_id',
+                    'quantity',
+                    'price',
+                    'in_stock',
+                    'sku',
+                    'created_at',
+                    'updated_at',
+                ]);
+            }
+
+            // المنتجات المتوفرة في المخزون
+            public function scopeInStock($query)
+            {
+                return $query->where('in_stock', 1)
+                            ->where('quantity', '>', 0);
+            }
+
     // Relations
 
     public function productColor()
