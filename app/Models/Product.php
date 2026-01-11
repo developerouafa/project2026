@@ -99,6 +99,7 @@ class Product extends Model
             {
                 return $query->where('merchant_id', $merchantId);
             }
+
         /*-------------------- Relations --------------------*/
 
         // Merchant Relation
