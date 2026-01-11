@@ -37,10 +37,5 @@ class UserSeeder extends Seeder
         // Assign role to user
         $user->assignRole($role);   // ✅ NOT ID
 
-        // $permissions = Permission::pluck('id','id')->all();
-
-        // $role->syncPermissions($permissions);
-
-        // $user->assignRole([$role->id]);
     }
 }

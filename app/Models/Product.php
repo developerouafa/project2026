@@ -32,7 +32,73 @@ class Product extends Model
 
     public $translatable = ['name', 'description'];
 
+    /* =========================
+            SCOPES (product)
+    ========================= */
 
+            // كل العلاقات مرة وحدة
+            public function scopeWithAllproduct($query)
+            {
+                return $query->with([
+                    'merchant',
+                    'section',
+                    'subsections',
+                    'images',
+                    'productColors',
+                    'colors',
+                    'product_groups',
+                ]);
+            }
+
+            // فقط الأعمدة المهمة
+            public function scopeSelectBasicproduct($query)
+            {
+                return $query->select([
+                    'id',
+                    'name',
+                    'description',
+                    'image',
+                    'status',
+                    'section_id',
+                    'parent_id',
+                    'merchant_id',
+                    'quantity',
+                    'in_stock',
+                    'price',
+                    'created_at',
+                ]);
+            }
+
+            // المنتجات الرئيسية (ماشي sub product)
+            public function scopeParentproduct($query)
+            {
+                return $query->whereNull('parent_id');
+            }
+
+            // المنتجات الفرعية (variants)
+            public function scopeChildproduct($query)
+            {
+                return $query->whereNotNull('parent_id');
+            }
+
+            // فقط المنتجات المفعلة
+            public function scopeActiveproduct($query)
+            {
+                return $query->where('status', 1);
+            }
+
+            // المنتجات المتوفرة في المخزون
+            public function scopeInStockproduct($query)
+            {
+                return $query->where('in_stock', 1)
+                            ->where('quantity', '>', 0);
+            }
+
+            // منتجات تاجر معين
+            public function scopeByMerchantproduct($query, $merchantId)
+            {
+                return $query->where('merchant_id', $merchantId);
+            }
         /*-------------------- Relations --------------------*/
 
         // Merchant Relation
