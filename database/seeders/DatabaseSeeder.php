@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             MerchantSeeder::class,
             ClientSeeder::class,
             SectionsSeeder::class,
+            SizesSeeder::class,
         ]);
 
     }

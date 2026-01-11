@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Testcrud;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -15,6 +16,13 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
         Artisan::call('route:clear');
         return redirect()->back();
     });
+
+            // Route::get('/dashboard/sizes', Testcrud::class)->name('sizes.render');
+
+            Route::view('/dashboard/sizes','livewire.index')->name('sizes.index');
+            Route::view('/dashboard/counter','livewire.counter')->name('sizes.counter');
+
+
 
 // Route::get('/', function () {
 //     return view('welcome');

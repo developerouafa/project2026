@@ -12,6 +12,7 @@ class Sizes extends Model
 
     protected $fillable = [
         'name',
+        'description',
     ];
 
     // Relations
