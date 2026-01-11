@@ -17,12 +17,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
         return redirect()->back();
     });
 
-            // Route::get('/dashboard/sizes', Testcrud::class)->name('sizes.render');
-
-            Route::view('/dashboard/sizes','livewire.index')->name('sizes.index');
-            Route::view('/dashboard/counter','livewire.counter')->name('sizes.counter');
-
-
+            Route::view('/dashboard/sizes','livewire.Dashboardumc.users.sizes.index')->name('sizes.index');
 
 // Route::get('/', function () {
 //     return view('welcome');

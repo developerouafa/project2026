@@ -1,4 +1,4 @@
-@extends('Dashboard.layouts.master')
+@extends('Dashboard_UMC.layouts.master')
 @section('css')
     <!-- Internal Data table css -->
     <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
@@ -6,7 +6,7 @@
     <link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
 @section('title')
-    sizes
+    Sizes
 @stop
 @section('page-header')
     <!-- breadcrumb -->
@@ -14,7 +14,8 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">
-                    {{__('Dashboard/services.services')}}</h4>
+                    Sizes
+                </h4>
                     <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{__('Dashboard/services.group_services')}}</span>
             </div>
         </div>
@@ -26,8 +27,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    <livewire:counter/>
-                    {{-- <livewire:testcrud/> --}}
+                    <livewire:dashboardumc.users.sizes.testcrud/>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Dashboardumc\users\sizes;
 
 use Livewire\Component;
 use App\Models\Size;
@@ -14,7 +14,7 @@ class Testcrud extends Component
     public function render()
     {
         $this->sizes = Sizes::latest()->get();
-        return view('livewire.testcrud');
+         return view('livewire.Dashboardumc.users.sizes.testcrud');
     }
 
     public function openModal()

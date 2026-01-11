@@ -30,6 +30,6 @@
     </table>
 
     @if($isOpen)
-        @include('livewire.modal')
+        @include('livewire.Dashboardumc.users.sizes.modal')
     @endif
 </div>

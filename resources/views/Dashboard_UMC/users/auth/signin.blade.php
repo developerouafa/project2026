@@ -37,8 +37,6 @@
                                             </h1>
                                         </div>
 
-                                        <br><a href="{{ route('sizes.index') }}">Manage Sizes</a><br><br><br>
-
                                         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                             <a class="dropdown" rel="alternate" hreflang="{{ $localeCode }}"
                                                 href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -50,6 +48,7 @@
                                                 {{ $properties['native'] }}
                                             </a>
                                         @endforeach
+
 										<div class="card-sigin">
 											<div class="main-signup-header">
                                                 <br/>
