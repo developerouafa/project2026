@@ -23,6 +23,18 @@ class Product_colors extends Model
            SCOPES
     ========================= */
 
+            // Eager load كل العلاقات
+            public function scopeWithAll($query)
+            {
+                return $query->with(['product', 'color']);
+            }
+
+            // اختيار الأعمدة الأساسية فقط
+            public function scopeSelectBasic($query)
+            {
+                return $query->select(['id', 'product_id', 'color_id', 'has_variants', 'created_at', 'updated_at']);
+            }
+
             // Scope لكل المنتجات ديال color معين
             public function scopeByColor($query, $colorId)
             {
@@ -46,6 +58,7 @@ class Product_colors extends Model
             {
                 return $query->where('has_variants', 0);
             }
+
 
     // Relations
     public function product()

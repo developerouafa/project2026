@@ -33,11 +33,11 @@ class Product extends Model
     public $translatable = ['name', 'description'];
 
     /* =========================
-            SCOPES (product)
+            SCOPES
     ========================= */
 
             // كل العلاقات مرة وحدة
-            public function scopeWithAllproduct($query)
+            public function scopeWithAll($query)
             {
                 return $query->with([
                     'merchant',
@@ -51,7 +51,7 @@ class Product extends Model
             }
 
             // فقط الأعمدة المهمة
-            public function scopeSelectBasicproduct($query)
+            public function scopeSelectBasic($query)
             {
                 return $query->select([
                     'id',
@@ -70,36 +70,35 @@ class Product extends Model
             }
 
             // المنتجات الرئيسية (ماشي sub product)
-            public function scopeParentproduct($query)
+            public function scopeParent($query)
             {
                 return $query->whereNull('parent_id');
             }
 
             // المنتجات الفرعية (variants)
-            public function scopeChildproduct($query)
+            public function scopeChild($query)
             {
                 return $query->whereNotNull('parent_id');
             }
 
             // فقط المنتجات المفعلة
-            public function scopeActiveproduct($query)
+            public function scopeActive($query)
             {
                 return $query->where('status', 1);
             }
 
             // المنتجات المتوفرة في المخزون
-            public function scopeInStockproduct($query)
+            public function scopeInStock($query)
             {
                 return $query->where('in_stock', 1)
                             ->where('quantity', '>', 0);
             }
 
             // منتجات تاجر معين
-            public function scopeByMerchantproduct($query, $merchantId)
+            public function scopeByMerchant($query, $merchantId)
             {
                 return $query->where('merchant_id', $merchantId);
             }
-
         /*-------------------- Relations --------------------*/
 
         // Merchant Relation

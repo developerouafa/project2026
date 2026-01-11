@@ -10,9 +10,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Colors extends Model
 {
-    use HasFactory, HasTranslations;
-
-    public $translatable = ['name'];
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -21,6 +19,17 @@ class Colors extends Model
 
     protected $dates = ['deleted_at'];
 
+    /* =========================
+           SCOPES
+    ========================= */
+
+            // اختيار الأعمدة الأساسية فقط
+            public function scopeSelectBasic($query)
+            {
+                return $query->select(['id', 'name', 'code', 'created_at', 'updated_at']);
+            }
+
+            // Relations
     public function productColors()
     {
         return $this->hasMany(Product_colors::class);

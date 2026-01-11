@@ -14,6 +14,15 @@ class Sizes extends Model
         'name',
         'description',
     ];
+    /* =========================
+           SCOPES
+    ========================= */
+
+            // اختيار الأعمدة الأساسية فقط
+            public function scopeSelectBasic($query)
+            {
+                return $query->select(['id', 'name', 'description', 'created_at', 'updated_at']);
+            }
 
     // Relations
     public function productColors()

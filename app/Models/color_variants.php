@@ -8,7 +8,7 @@ use Spatie\Translatable\HasTranslations;
 
 class color_variants extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -18,7 +18,21 @@ class color_variants extends Model
 
     protected $dates = ['deleted_at'];
 
-    public $translatable = ['name'];
+    /* =========================
+           SCOPES
+    ========================= */
+
+        // Scope لجلب كل الفاريانتز لمنتج لون معين
+        public function scopeByProductColor($query, $productColorId)
+        {
+            return $query->where('product_color_id', $productColorId);
+        }
+
+        // Scope لجلب كل الفاريانتز بلون محدد
+        public function scopeByColorCode($query, $code)
+        {
+            return $query->where('code', $code);
+        }
 
     // Relations
     public function productColor()
