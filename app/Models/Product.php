@@ -43,10 +43,6 @@ class Product extends Model
                     'merchant',
                     'section',
                     'subsections',
-                    'images',
-                    'productColors',
-                    'colors',
-                    'product_groups',
                 ]);
             }
 

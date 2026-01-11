@@ -22,6 +22,27 @@ class color_variants extends Model
            SCOPES
     ========================= */
 
+            // كل العلاقات مرة وحدة
+            public function scopeWithAll($query)
+            {
+                return $query->with([
+                    'product_color_id',
+                ]);
+            }
+
+            // فقط الأعمدة المهمة
+            public function scopeSelectBasic($query)
+            {
+                return $query->select([
+                    'id',
+                    'name',
+                    'code',
+                    'product_color_id',
+                    'created_at',
+                    'updated_at'
+                ]);
+            }
+
         // Scope لجلب كل الفاريانتز لمنتج لون معين
         public function scopeByProductColor($query, $productColorId)
         {

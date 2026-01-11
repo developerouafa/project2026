@@ -18,6 +18,40 @@ class Color_variant_sizes extends Model
         'sku',
     ];
 
+    /* =========================
+           SCOPES
+    ========================= */
+
+            // كل العلاقات مرة وحدة
+            public function scopeWithAll($query)
+            {
+                return $query->with([
+                    'color_variant_id',
+                    'size_id',
+                ]);
+            }
+
+            // فقط الأعمدة المهمة
+            public function scopeSelectBasic($query)
+            {
+                return $query->select([
+                    'color_variant_id',
+                    'size_id',
+                    'quantity',
+                    'price',
+                    'in_stock',
+                    'sku',
+                    'created_at',
+                    'updated_at'
+                ]);
+            }
+
+            // جلب جميع Sizes المتوفرة فقط
+            public function scopeInStock($query)
+            {
+                return $query->where('in_stock', 1)->where('quantity', '>', 0);
+            }
+
     // Relations
     public function colorVariant()
     {
