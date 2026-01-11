@@ -8,7 +8,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Packageproducts extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -21,8 +21,44 @@ class Packageproducts extends Model
         'merchant_id',
     ];
 
-    public $translatable = ['name'];
+    /* =========================
+           SCOPES
+    ========================= */
 
+            // كل العلاقات مرة وحدة
+            public function scopeWithAll($query)
+            {
+                return $query->with([
+                    'merchant_id',
+                ]);
+            }
+
+            // فقط الأعمدة المهمة
+            public function scopeSelectBasic($query)
+            {
+                return $query->select([
+                    'id',
+                    'name',
+                    'notes',
+                    'Total_before_discount',
+                    'discount_value',
+                    'Total_after_discount',
+                    'tax_rate',
+                    'Total_with_tax',
+                    'merchant_id',
+                    'created_at',
+                    'updated_at',
+                ]);
+            }
+
+            // جلب الباكيجات الخاصة بتاجر محدد
+            public function scopeByMerchant($query, $merchantId)
+            {
+                return $query->where('merchant_id', $merchantId);
+            }
+
+    // Relations
+    // Merchant Relation
     public function merchant()
     {
         return $this->belongsTo(Merchant::class);
