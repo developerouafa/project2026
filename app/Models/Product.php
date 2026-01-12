@@ -42,7 +42,7 @@ class Product extends Model
                 return $query->with([
                     'merchant',
                     'section',
-                    'subsections',
+                    'parent',
                 ]);
             }
 
@@ -155,15 +155,14 @@ class Product extends Model
                 return $this->belongsTo(Merchant::class);
             }
 
-            // Section Relation
-            public function subsections(): BelongsTo
+            public function section()
             {
-                return $this->BelongsTo(Sections::class, 'parent_id')->child();
+                return $this->belongsTo(Sections::class, 'section_id');
             }
 
-            public function section(): BelongsTo
+            public function parent()
             {
-                return $this->BelongsTo(Sections::class);
+                return $this->belongsTo(Sections::class, 'parent_id');
             }
 
             // Multi Images Relation

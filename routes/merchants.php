@@ -7,9 +7,10 @@ use App\Http\Controllers\merchants\merchants\MerchantController;
 use App\Http\Controllers\merchants\merchants\RolesMerchantController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Livewire\Dashboard\Products\ProductIndex;
-use App\Livewire\Dashboard\Products\ProductForm;
-use App\Livewire\Dashboard\Products\ProductImages;
+use App\Livewire\Dashboardumc\merchants\Products;
+use App\Livewire\Dashboardumc\merchants\ProductIndex;
+use App\Livewire\Dashboardumc\merchants\ProductForm;
+use App\Livewire\Dashboardumc\merchants\ProductImages;
 
         Route::group(
             [
@@ -59,12 +60,12 @@ use App\Livewire\Dashboard\Products\ProductImages;
 
                     Route::view('/dashboard/products','livewire.Dashboardumc.merchants.index')->name('products.index');
 
-                    // Route::prefix('dashboard/products')->group(function () {
-                    //     Route::get('/', ProductIndex::class)->name('products.index');
-                    //     Route::get('/create', ProductForm::class)->name('products.create');
-                    //     Route::get('/{product}/edit', ProductForm::class)->name('products.edit');
-                    //     Route::get('/{product}/images', ProductImages::class)->name('products.images');
-                    // });
+                    Route::prefix('/dashboard/products')->group(function () {
+                        // Route::get('/dashboard/products', Products::class)->name('products.index');
+                        Route::get('/dashboard/products/create', ProductForm::class)->name('products.create');
+                        // Route::get('/dashboard/products/{product}/edit', ProductForm::class)->name('products.edit');
+                        // Route::get('/dashboard/products/{product}/images', ProductImages::class)->name('products.images');
+                    });
 
                 // ############################# end Partie Products route ######################################
 
