@@ -91,8 +91,12 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 //############################# end Section & Children Section route ######################################
 
                 // ############################# Start Partie Sizes route ##########################################
+
                     Route::view('/dashboard/sizes','livewire.Dashboardumc.users.sizes.index')->name('sizes.index');
+
                 // ############################# end Partie Sizes route ######################################
+
+
             });
 
 

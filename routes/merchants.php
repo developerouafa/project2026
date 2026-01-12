@@ -7,7 +7,9 @@ use App\Http\Controllers\merchants\merchants\MerchantController;
 use App\Http\Controllers\merchants\merchants\RolesMerchantController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
+use App\Livewire\Dashboard\Products\ProductIndex;
+use App\Livewire\Dashboard\Products\ProductForm;
+use App\Livewire\Dashboard\Products\ProductImages;
 
         Route::group(
             [
@@ -51,6 +53,20 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     });
 
                 //############################# end Partie User|permissions|roles route ######################################
+
+
+                // ############################# Start Partie Products route ##########################################
+
+                    Route::view('/dashboard/products','livewire.Dashboardumc.merchants.index')->name('products.index');
+
+                    // Route::prefix('dashboard/products')->group(function () {
+                    //     Route::get('/', ProductIndex::class)->name('products.index');
+                    //     Route::get('/create', ProductForm::class)->name('products.create');
+                    //     Route::get('/{product}/edit', ProductForm::class)->name('products.edit');
+                    //     Route::get('/{product}/images', ProductImages::class)->name('products.images');
+                    // });
+
+                // ############################# end Partie Products route ######################################
 
             });
 

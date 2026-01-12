@@ -17,6 +17,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
         return redirect()->back();
     });
 
+                Route::get('Dashboard/{page}', [AdminController::class, 'index']);
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
