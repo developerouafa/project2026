@@ -8,9 +8,10 @@ use App\Http\Controllers\merchants\merchants\RolesMerchantController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboardumc\merchants\Products;
-use App\Livewire\Dashboardumc\merchants\ProductIndex;
-use App\Livewire\Dashboardumc\merchants\ProductForm;
-use App\Livewire\Dashboardumc\merchants\ProductImages;
+use App\Livewire\Dashboardumc\merchants\Products\ProductIndex;
+use App\Livewire\Dashboardumc\merchants\Products\ProductForm;
+use App\Livewire\Dashboardumc\merchants\Products\ProductImages;
+use App\Models\Sections;
 
         Route::group(
             [
@@ -58,14 +59,7 @@ use App\Livewire\Dashboardumc\merchants\ProductImages;
 
                 // ############################# Start Partie Products route ##########################################
 
-                    Route::view('/dashboard/products','livewire.Dashboardumc.merchants.index')->name('products.index');
-
-                    Route::prefix('/dashboard/products')->group(function () {
-                        // Route::get('/dashboard/products', Products::class)->name('products.index');
-                        Route::get('/dashboard/products/create', ProductForm::class)->name('products.create');
-                        // Route::get('/dashboard/products/{product}/edit', ProductForm::class)->name('products.edit');
-                        // Route::get('/dashboard/products/{product}/images', ProductImages::class)->name('products.images');
-                    });
+                    Route::view('/dashboard/products','livewire.Dashboardumc.merchants.index')->name('dashboard.products');
 
                 // ############################# end Partie Products route ######################################
 

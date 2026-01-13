@@ -44,7 +44,7 @@
                             <i class="angle fe fe-chevron-down"></i>
                         </a>
                         <ul class="slide-menu">
-                            <li><a class="slide-item" href="{{ route('products.index') }}">Products</a></li>
+                            <li><a class="slide-item" href="{{ route('dashboard.products') }}">Products</a></li>
                             {{-- <li><a class="slide-item" href="{{ route('product.softdeletproducts') }}">Delete Products</a></li> --}}
                         </ul>
                     </li>

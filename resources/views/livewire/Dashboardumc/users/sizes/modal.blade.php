@@ -1,4 +1,4 @@
-<div class="modal fade show d-block" tabindex="-1">
+<div wire:ignore.self class="modal fade show d-block" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -22,4 +22,6 @@
         </div>
     </div>
 </div>
-<div class="modal-backdrop fade show"></div>
+@if($isOpen)
+    <div class="modal-backdrop fade show"></div>
+@endif

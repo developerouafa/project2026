@@ -17,12 +17,28 @@ class can_login
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // تجاهل Livewire و Ajax و API
+        if (
+            $request->is('livewire/*') ||
+            $request->is('_livewire/*') ||
+            $request->expectsJson()
+        ) {
+            return $next($request);
+        }
         if(Auth::guard('web')->check()){
-            $id = Auth::user()->id;
-            $user = User::findorFail($id);
-            $user->update([
-                'can_login' => 1,
-            ]);
+
+                $user = Auth::guard('web')->user();
+                // حدّث فقط إذا مازال 0
+                if ($user->can_login == 0) {
+                    $user->update([
+                        'can_login' => 1,
+                    ]);
+                }
+            // $id = Auth::user()->id;
+            // $user = User::findorFail($id);
+            // $user->update([
+            //     'can_login' => 1,
+            // ]);
         }
         return $next($request);
     }

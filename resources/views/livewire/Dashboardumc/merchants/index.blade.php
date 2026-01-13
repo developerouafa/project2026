@@ -27,7 +27,8 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    <livewire:dashboardumc.merchants.products/>
+                    {{-- <livewire:Dashboardumc.merchants.products/> --}}
+                    <livewire:Dashboardumc.merchants.products.product-index/>
                 </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
 @section('js')
     <!--Internal  Notify js -->
     <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
-    <script src="{{URL::asset('/plugins/notify/js/notifit-custom.js')}}"></script>
+    {{-- <script src="{{URL::asset('/plugins/notify/js/notifit-custom.js')}}"></script> --}}
     <!-- Internal Select2.min js -->
     <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
     <!-- Internal form-elements js -->

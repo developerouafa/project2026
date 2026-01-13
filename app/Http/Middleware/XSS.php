@@ -15,6 +15,14 @@ class XSS
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // تجاهل Livewire و Ajax و API
+        if (
+            $request->is('livewire/*') ||
+            $request->is('_livewire/*') ||
+            $request->expectsJson()
+        ) {
+            return $next($request);
+        }
         $input = $request->all();
 
         array_walk_recursive($input, function($input){
@@ -22,7 +30,6 @@ class XSS
         });
 
         $request->merge($input);
-
         return $next($request);
     }
 }
