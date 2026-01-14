@@ -3,7 +3,6 @@
 namespace App\Livewire\Dashboardumc\users\sizes;
 
 use Livewire\Component;
-use App\Models\Size;
 use App\Models\Sizes;
 
 class Testcrud extends Component
@@ -52,6 +51,7 @@ class Testcrud extends Component
         session()->flash('success','Saved successfully');
 
         $this->closeModal();
+
     }
 
     public function edit($id)

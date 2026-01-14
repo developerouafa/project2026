@@ -1,5 +1,8 @@
 <div>
-    <button class="btn btn-primary" wire:click="openModal">+ Add Size</button>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#add_sizes" >
+        <i class="fa fa-trash"></i>
+    </button>
+
     @if (session()->has('success'))
         <div class="alert alert-success mt-2">{{ session('success') }}</div>
     @endif
@@ -28,7 +31,6 @@
         </tbody>
     </table>
 
-    @if($isOpen)
-        @include('livewire.Dashboardumc.users.sizes.modal')
-    @endif
+    @include('livewire.Dashboardumc.users.sizes.modal')
+
 </div>

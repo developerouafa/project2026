@@ -28,7 +28,8 @@
             <div class="card">
                 <div class="card-body">
                     {{-- <livewire:Dashboardumc.merchants.products/> --}}
-                    <livewire:Dashboardumc.merchants.products.product-index/>
+                    {{-- <livewire:Dashboardumc.merchants.products.product-index/> --}}
+                    @livewire('Dashboardumc.merchants.products')
                 </div>
             </div>
         </div>
