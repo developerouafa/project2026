@@ -1,14 +1,20 @@
                     <div>
                             <h3> Add Product No color </h3>
 
-                            @if (session()->has('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
+                        @if (session()->has('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
                             <form wire:submit.prevent="save" enctype="multipart/form-data">
-                                @csrf
+                                {{-- @csrf --}}
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <label> Name </label>
@@ -23,8 +29,8 @@
 
                                     <div class="col-lg-6">
                                         <label for="inputName" class="control-label">Sections</label>
-                                        <select name="children" class="form-control SlectBox">
-                                            <option value="" selected disabled> Child Section </option>
+                                        <select wire:model="parent_id" class="form-control SlectBox">
+                                            <option value="" > Child Section </option>
                                             @foreach ($sections as $section)
                                                 @foreach ($section->subsections as $child)
                                                     <option value="{{ $child->id }}">{{ $child->name }} ({{ $section->name }})</option>

@@ -4,12 +4,15 @@ namespace App\Livewire\Dashboardumc\Merchants\Products;
 
 use App\Models\Product;
 use App\Models\Sections;
+use App\Traits\UploadImageTraitt;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class createproductnocolor extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, UploadImageTraitt;
 
     public $name;
     public $description;
@@ -32,19 +35,36 @@ class createproductnocolor extends Component
 
     public function save()
     {
-        $data = $this->validate();
-        if ($this->image) {
-            $data['image'] = $this->image->store('products', 'public');
+        try{
+            $data = $this->validate();
+
+                if ($this->image) {
+                    $data['image'] = $this->uploadImagePRnocolor($this->image, 'productnocolorimage');
+                }
+
+
+                $data['in_stock'] = $this->quantity > 0 ? 1 : 0;
+
+            DB::beginTransaction();
+                $data['merchant_id'] = Auth::guard('merchants')->id();
+                $sectionid = Sections::find($this->parent_id);
+                $data['parent_id'] = $sectionid->id;
+                $data['section_id'] = $sectionid->parent_id;
+                Product::create($data);
+
+                session()->flash('success', 'Create successfully');
+
+                $this->reset();
+                $this->status = 1;
+
+            DB::commit();
+                return redirect()->route('dashboard.products');
         }
-
-        $data['in_stock'] = $this->quantity > 0 ? 1 : 0;
-
-        Product::create($data);
-
-        session()->flash('success', 'تم إضافة المنتج بنجاح');
-
-        $this->reset();
-        $this->status = 1;
+        catch(\Exception $exception){
+            DB::rollBack();
+            session()->flash('error', 'Deleted successfully');
+            return redirect()->route('dashboard.products');
+        }
     }
 
     public function render()

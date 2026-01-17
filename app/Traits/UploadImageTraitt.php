@@ -3,6 +3,7 @@
 namespace App\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait UploadImageTraitt
 {
@@ -40,5 +41,11 @@ trait UploadImageTraitt
         // hash
         $path = $request->file('invoice')->store($folderName, 'public');
         return $path;
+    }
+
+    public function uploadImagePRnocolor(TemporaryUploadedFile $file, $folder){
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs($folder, $fileName, 'public'); // أو أي disk عندك
+            return $fileName;
     }
 }
