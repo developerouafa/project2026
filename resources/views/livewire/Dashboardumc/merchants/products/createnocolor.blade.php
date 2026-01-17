@@ -31,20 +31,20 @@
 
 @endsection
 @section('content')
+            <!-- row -->
                 <div class="row row-sm">
                     <div class="col-xl-12">
                         <div class="card">
+                            <div class="card-body">
                                 @livewire('Dashboardumc.merchants.products.createproductnocolor')
+                            </div>
                         </div>
                     </div>
                 </div>
-				<!-- /row -->
-			</div>
-			<!-- Container closed -->
+            <!-- row closed -->
 		</div>
 		<!-- main-content closed -->
 @endsection
 @section('js')
-
 
 @endsection

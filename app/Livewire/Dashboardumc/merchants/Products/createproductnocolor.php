@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboardumc\Merchants\Products;
 
 use App\Models\Product;
+use App\Models\Sections;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
@@ -48,7 +49,12 @@ class createproductnocolor extends Component
 
     public function render()
     {
-        return view('livewire.Dashboardumc.merchants.products.createproductnocolor');
+        $childrens = Sections::latest()->selectchildrens()->withchildrens()->child()->get();
+        $sections = Sections::latest()->selectsections()->withsections()->parent()->get();
+        return view('livewire.Dashboardumc.merchants.products.createproductnocolor', [
+            'sections' => $sections,
+            'childrens' => $childrens
+        ]);
     }
 
 }
