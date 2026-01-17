@@ -4,6 +4,13 @@
     <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
     <!--Internal   Notify -->
     <link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
+
+    <!-- Internal Data table css -->
+    <link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
 @endsection
 @section('title')
     Products
@@ -24,23 +31,21 @@
 
 @endsection
 @section('content')
-    <div class="row row-sm">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    @livewire('Dashboardumc.merchants.products.productindex')
+                <div class="row row-sm">
+                    <div class="col-xl-12">
+                        <div class="card">
+                                @livewire('Dashboardumc.merchants.products.productindex')
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- row closed -->
+				<!-- /row -->
+			</div>
+			<!-- Container closed -->
+		</div>
+		<!-- main-content closed -->
 @endsection
 @section('js')
-    <!--Internal  Notify js -->
-    <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
-    {{-- <script src="{{URL::asset('/plugins/notify/js/notifit-custom.js')}}"></script> --}}
-    <!-- Internal Select2.min js -->
-    <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-    <!-- Internal form-elements js -->
-    <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
+
+
+
 @endsection
