@@ -21,13 +21,13 @@ class productindex extends Component
         $products = Product::latest()
             ->selectBasic()
             ->byMerchant(auth()->guard('merchants')->user()->id)
-            ->searchByName($this->search)
-            ->recentlyAdded()
-            ->paginate(10);
+            ->get();
 
          return view('livewire.Dashboardumc.merchants.products.productindex', [
             'products' => $products
         ]);
+
+
     }
 
 }
