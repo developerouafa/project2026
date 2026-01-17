@@ -59,10 +59,8 @@ use App\Models\Sections;
 
                 // ############################# Start Partie Products route ##########################################
 
-                // Route::view('/dashboard/products','livewire.Dashboardumc.merchants.index')->name('dashboard.products');
-                    Route::get('/dashboard/products', function () {
-                        return view('livewire.Dashboardumc.merchants.index');
-                    })->name('dashboard.products');
+                    Route::view('/dashboard/products','livewire.Dashboardumc.merchants.products.products')->name('dashboard.products');
+
                 // ############################# end Partie Products route ######################################
 
             });

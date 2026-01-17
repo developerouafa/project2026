@@ -8,30 +8,23 @@ use App\Models\Sizes;
 class Testcrud extends Component
 {
     public $sizes, $name, $description, $size_id;
-    public $isOpen = false;
+
+    public function resetFormbtn()
+    {
+        $this->reset(['name','description','size_id']);
+         $this->dispatch('open-modal', id: 'add_sizes');
+    }
+
+    public function resetForm()
+    {
+        $this->reset(['name','description','size_id']);
+        //  $this->dispatch('open-modal', id: 'add_sizes');
+    }
 
     public function render()
     {
         $this->sizes = Sizes::latest()->get();
          return view('livewire.Dashboardumc.users.sizes.testcrud');
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-        $this->resetInput();
-    }
-
-    private function resetInput()
-    {
-        $this->name = '';
-        $this->description = '';
-        $this->size_id = null;
     }
 
     public function store()
@@ -48,21 +41,20 @@ class Testcrud extends Component
             ]
         );
 
+        $this->resetForm();
+        //  $this->dispatch('$refresh');     // 🔄 يعاود يجيب list
         session()->flash('success','Saved successfully');
 
-        $this->closeModal();
+        $this->dispatch('close-modal', id: 'add_sizes');
 
     }
 
     public function edit($id)
     {
         $size = Sizes::findOrFail($id);
+        $this->size_id = $size->id;
 
-        $this->size_id = $id;
-        $this->name = $size->name;
-        $this->description = $size->description;
-
-        $this->openModal();
+        $this->dispatch('open-modal', id: 'add_sizes');
     }
 
     public function delete($id)

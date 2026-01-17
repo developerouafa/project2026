@@ -2,12 +2,32 @@
 
 namespace App\Livewire\Dashboardumc\Merchants\Products;
 
+use App\Models\Product;
 use Livewire\Component;
 
-class ProductIndex extends Component
+class productindex extends Component
 {
+    public $search = '';
+
+    protected $queryString = ['search'];
+
+    public function delete($id)
+    {
+        Product::findOrFail($id)->delete();
+    }
+
     public function render()
     {
-        return view('livewire.Dashboardumc.merchants.products.product-index');
+        $products = Product::latest()
+            ->selectBasic()
+            ->byMerchant(auth()->guard('merchants')->user()->id)
+            ->searchByName($this->search)
+            ->recentlyAdded()
+            ->paginate(10);
+
+         return view('livewire.Dashboardumc.merchants.products.productindex', [
+            'products' => $products
+        ]);
     }
+
 }

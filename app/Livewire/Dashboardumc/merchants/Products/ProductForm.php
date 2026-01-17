@@ -4,10 +4,10 @@ namespace App\Livewire\Dashboardumc\Merchants\Products;
 
 use Livewire\Component;
 
-class ProductForm extends Component
+class productform extends Component
 {
     public function render()
     {
-        return view('livewire.Dashboardumc.merchants.products.product-form');
+        return view('livewire.Dashboardumc.merchants.products.productform');
     }
 }

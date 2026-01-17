@@ -1,6 +1,7 @@
 <div>
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#add_sizes" >
-        <i class="fa fa-trash"></i>
+    <button type="button" class="btn btn-main-primary"
+     data-toggle="modal" data-target="#add_sizes" >
+        + Add Sizes
     </button>
 
     @if (session()->has('success'))
@@ -23,10 +24,12 @@
                 <td>{{ $size->name }}</td>
                 <td>{{ $size->description }}</td>
                 <td>
-                    <button class="btn btn-sm btn-info" wire:click="edit({{ $size->id }})">Edit</button>
+
+                    <button class="btn btn-sm btn-primary" wire:click="edit({{ $size->id }})">Edit</button>
                     <button class="btn btn-sm btn-danger" wire:click="delete({{ $size->id }})">Delete</button>
                 </td>
             </tr>
+
             @endforeach
         </tbody>
     </table>

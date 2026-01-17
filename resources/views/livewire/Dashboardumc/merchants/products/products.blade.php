@@ -28,7 +28,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    @livewire('Dashboardumc.merchants.products.product-index')
+                    @livewire('Dashboardumc.merchants.products.productindex')
                 </div>
             </div>
         </div>
