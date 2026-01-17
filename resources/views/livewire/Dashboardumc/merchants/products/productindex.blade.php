@@ -6,7 +6,9 @@
         {{-- <a href="{{ route('products.create') }}" class="btn btn-primary">
            Add Product
         </a> --}}
-
+        <button type="button" class="btn btn-main-primary" wire:click="createproductnocolor" >
+            + Add Product No Color
+        </button>
     </div>
     @if (session()->has('success'))
         <div class="alert alert-success">

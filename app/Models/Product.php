@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
 class Product extends Model
 {
-    use HasFactory, HasTranslations, SoftDeletes;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'name',
@@ -27,8 +26,6 @@ class Product extends Model
         'created_at',
         'updated_at'
     ];
-
-    protected $dates = ['deleted_at'];
 
     public $translatable = ['name', 'description'];
 

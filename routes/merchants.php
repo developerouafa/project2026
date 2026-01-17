@@ -8,6 +8,7 @@ use App\Http\Controllers\merchants\merchants\RolesMerchantController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboardumc\merchants\Products;
+use App\Livewire\Dashboardumc\Merchants\Products\createproductnocolor;
 use App\Livewire\Dashboardumc\merchants\Products\ProductIndex;
 use App\Livewire\Dashboardumc\merchants\Products\ProductForm;
 use App\Livewire\Dashboardumc\merchants\Products\ProductImages;
@@ -60,6 +61,7 @@ use App\Models\Sections;
                 // ############################# Start Partie Products route ##########################################
 
                     Route::view('/dashboard/products','livewire.Dashboardumc.merchants.products.products')->name('dashboard.products');
+                    Route::view('/dashboard/createproductnocolor','livewire.Dashboardumc.merchants.products.createnocolor')->name('dashboard.createproductnocolor');
 
                 // ############################# end Partie Products route ######################################
 
