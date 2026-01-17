@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboardumc\Merchants\Products;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class productindex extends Component
@@ -13,7 +14,18 @@ class productindex extends Component
 
     public function delete($id)
     {
-        Product::findOrFail($id)->delete();
+        try{
+            DB::beginTransaction();
+                product::findOrFail($id)->delete();
+            DB::commit();
+            session()->flash('success', 'Deleted successfully');
+            return redirect()->to('/dashboard/products');
+        }
+        catch(\Exception $exception){
+            DB::rollBack();
+            session()->flash('error', 'Deleted successfully');
+            return redirect()->to('/dashboard/products');
+        }
     }
 
     public function render()
@@ -26,8 +38,6 @@ class productindex extends Component
          return view('livewire.Dashboardumc.merchants.products.productindex', [
             'products' => $products
         ]);
-
-
     }
 
 }

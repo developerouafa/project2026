@@ -8,6 +8,17 @@
         </a> --}}
 
     </div>
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="card-body">
         <div class="table-responsive">
@@ -52,9 +63,9 @@
                                 @endif
                             </td>
                             <td class="flex gap-2">
-                                {{-- <a href="{{ route('products.edit',$product->id) }}" class="text-blue-600">تعديل</a>
-                                <a href="{{ route('products.images',$product->id) }}" class="text-purple-600">صور</a>
-                                <button wire:click="delete({{ $product->id }})" class="text-red-600">حذف</button> --}}
+                                {{-- <a href="{{ route('products.edit',$product->id) }}" class="text-blue-600">تعديل</a> --}}
+                                {{-- <a href="{{ route('products.images',$product->id) }}" class="text-purple-600">صور</a> --}}
+                                <button wire:click="delete({{ $product->id }})"  class="btn btn-sm btn-danger">حذف</button>
                             </td>
                         </tr>
                     @endforeach
