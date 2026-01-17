@@ -3,10 +3,17 @@
         <input type="text" wire:model.live="search" placeholder="بحث باسم المنتج..."
                class="border p-2 rounded">
 
-        {{-- <a href="{{ route('products.create') }}" class="btn btn-primary">
-           Add Product
-        </a> --}}
+                        @if (session()->has('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
     </div>
     <div class="card-body">
         <div class="table-responsive">

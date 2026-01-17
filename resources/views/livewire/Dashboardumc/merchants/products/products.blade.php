@@ -45,6 +45,13 @@
 		<!-- main-content closed -->
 @endsection
 @section('js')
-
+    <script>
+        window.addEventListener('open-modal', () => {
+            $('#add_products').modal('show');
+        });
+        window.addEventListener('close-modal', () => {
+            $('#add_products').modal('hide');
+        });
+    </script>
 
 @endsection

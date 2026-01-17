@@ -16,6 +16,10 @@
                             <form wire:submit.prevent="save" enctype="multipart/form-data">
                                 {{-- @csrf --}}
                                 <div class="row">
+
+                                    <h5>{{ $product_id ? 'Edit Products' : 'Add Size' }}</h5>
+                                    <input type="hidden" wire:model="product_id">
+
                                     <div class="col-lg-6">
                                         <label> Name </label>
                                         <input type="text" wire:model.defer="name" class="form-control">

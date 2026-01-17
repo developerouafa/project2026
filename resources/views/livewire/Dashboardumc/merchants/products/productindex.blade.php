@@ -65,8 +65,7 @@
                                 @endif
                             </td>
                             <td class="flex gap-2">
-                                {{-- <a href="{{ route('products.edit',$product->id) }}" class="text-blue-600">تعديل</a> --}}
-                                {{-- <a href="{{ route('products.images',$product->id) }}" class="text-purple-600">صور</a> --}}
+                                <button class="btn btn-sm btn-primary" wire:click="editproductnocolor({{ $product->id }})">Edit</button>
                                 <button wire:click="delete({{ $product->id }})"  class="btn btn-sm btn-danger">حذف</button>
                             </td>
                         </tr>
@@ -75,4 +74,9 @@
             </table>
         </div>
     </div>
+
+    {{-- @if($isOpen) --}}
+        @include('livewire.Dashboardumc.merchants.products.updateproductnocolor')
+    {{-- @endif --}}
+
 </div>
