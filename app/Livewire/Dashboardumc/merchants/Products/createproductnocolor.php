@@ -47,7 +47,7 @@ class createproductnocolor extends Component
 
             DB::beginTransaction();
                 $data['merchant_id'] = Auth::guard('merchants')->id();
-                $sectionid = Sections::find($this->parent_id);
+                $sectionid = Sections::findOrFail($this->parent_id);
                 $data['parent_id'] = $sectionid->id;
                 $data['section_id'] = $sectionid->parent_id;
                 Product::create($data);
@@ -62,7 +62,7 @@ class createproductnocolor extends Component
         }
         catch(\Exception $exception){
             DB::rollBack();
-            session()->flash('error', 'Deleted successfully');
+            session()->flash('error', 'An error occurred while saving');
             return redirect()->route('dashboard.products');
         }
     }

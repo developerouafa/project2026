@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboardumc\Merchants\Products;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class productindex extends Component
@@ -16,7 +17,15 @@ class productindex extends Component
     {
         try {
             DB::transaction(function () use ($id) {
-                Product::findOrFail($id)->delete();
+                $product = Product::findOrFail($id);
+
+                // حذف الصورة من storage
+                if ($product->image && Storage::disk('public')->exists($product->image)) {
+                    Storage::disk('public')->delete($product->image);
+                }
+
+                // حذف المنتج
+                $product->delete();
             });
             session()->flash('success', 'Deleted successfully');
             return redirect()->route('dashboard.products');

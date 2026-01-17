@@ -44,8 +44,8 @@ trait UploadImageTraitt
     }
 
     public function uploadImagePRnocolor(TemporaryUploadedFile $file, $folder){
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs($folder, $fileName, 'public'); // أو أي disk عندك
-            return $fileName;
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs($folder, $fileName, 'public');
+        return $path; // productnocolorimage/xxx.jpg
     }
 }
