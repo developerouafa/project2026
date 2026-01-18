@@ -8,7 +8,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Packageproducts extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'name',
@@ -20,6 +20,7 @@ class Packageproducts extends Model
         'Total_with_tax',
         'merchant_id',
     ];
+    public $translatable = ['name', 'notes'];
 
     /* =========================
            SCOPES
@@ -65,9 +66,9 @@ class Packageproducts extends Model
                 return $this->belongsTo(Merchant::class);
             }
 
-            // Product_Group Relation
-            public function product_groups()
+
+            public function product_group()
             {
-                return $this->hasMany(Product_Group::class, 'packageproduct_id');
+                return $this->belongsToMany(product::class,'Product_Group')->withPivot('quantity');
             }
 }

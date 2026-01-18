@@ -65,6 +65,12 @@ use App\Models\Sections;
 
                 // ############################# end Partie Products route ######################################
 
+                //############################# GroupProducts route ##########################################
+
+                    Route::view('Add_GroupProducts','livewire.Dashboardumc.merchants.GroupProducts.include_create')->name('Add_GroupProducts');
+
+                //############################# end GroupProducts route ######################################
+
             });
 
 require __DIR__.'/merchantsauth.php';

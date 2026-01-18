@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Packageproducts;
+use App\Models\pivot_product_group;
 use App\Models\Product;
 use App\Models\Product_Group;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,11 +25,10 @@ class ProductGroupSeeder extends Seeder
             $assignedProducts = $products->random(min(4, $products->count()));
 
             foreach ($assignedProducts as $product) {
-                Product_Group::create([
-                    'packageproduct_id' => $package->id,
+                pivot_product_group::create([
+                    'packageproducts_id' => $package->id,
                     'product_id'        => $product->id,
                     'quantity'          => rand(1, 5),
-                    'totalprice'        => rand(5, 9), // حساب تقريبي
                 ]);
             }
         }

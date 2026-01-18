@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product_Group extends Model
+class pivot_product_group extends Model
 {
     use HasFactory;
+    protected $table = 'Product_Group';
 
     protected $fillable = [
+        'id',
         'product_id',
         'packageproduct_id',
-        'quantity',
-        'totalprice',
+        'quantity'
     ];
 
     /* =========================
@@ -57,14 +58,23 @@ class Product_Group extends Model
     // Relations
 
             // Product Relation
-            public function product()
-            {
-                return $this->belongsTo(Product::class);
-            }
+            // public function product()
+            // {
+            //     return $this->belongsTo(Product::class);
+            // }
 
             // Packageproducts Relation
-            public function packageproduct()
-            {
-                return $this->belongsTo(Packageproducts::class);
-            }
+            // public function packageproduct()
+            // {
+            //     return $this->belongsTo(Packageproducts::class);
+            // }
+    public function product()
+    {
+        return $this->BelongsTo(product::class);
+    }
+
+    public function packageproduct()
+    {
+        return $this->BelongsTo(Packageproducts::class);
+    }
 }
