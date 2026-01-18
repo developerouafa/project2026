@@ -8,7 +8,6 @@
     @endif
 
     @if($show_table)
-        <h4>Hii3</h4>
         @include('livewire.Dashboardumc.merchants.GroupProducts.index')
     @else
         <form wire:submit.prevent="saveGroup" autocomplete="off">
