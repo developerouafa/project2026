@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('product_color_sizes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_color_id')
-                ->constrained()
+                ->constrained('product_colors')
                 ->cascadeOnDelete();
             $table->foreignId('size_id')
-                ->constrained()
+                ->constrained('sizes')
                 ->cascadeOnDelete();
 
             $table->integer('quantity')->default(0);

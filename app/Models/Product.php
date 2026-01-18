@@ -185,7 +185,7 @@ class Product extends Model
             // Product_Groups Relation
             public function product_groups()
             {
-                return $this->hasMany(Product_Group::class);
+                return $this->hasMany(pivot_product_group::class);
             }
 
 }

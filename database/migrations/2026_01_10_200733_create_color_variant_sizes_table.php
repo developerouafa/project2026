@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('color_variant_sizes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('color_variant_id')
-                ->constrained()
+                ->constrained('color_variants')
                 ->cascadeOnDelete();
             $table->foreignId('size_id')
-                ->constrained()
+                ->constrained('sizes')
                 ->cascadeOnDelete();
 
 
