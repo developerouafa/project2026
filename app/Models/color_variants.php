@@ -54,16 +54,17 @@ class color_variants extends Model
             }
 
     // Relations
-            public function productColor()
+
+            // Relation: ينتمي للون الرئيسي
+            public function product_color()
             {
                 return $this->belongsTo(Product_colors::class, 'product_color_id');
             }
 
+            // Relation: يحتوي على مقاسات
             public function sizes()
             {
-                return $this->belongsToMany(Sizes::class, 'color_variant_sizes')
-                            ->withPivot('sku')
-                            ->withTimestamps();
+                return $this->hasMany(Color_variant_sizes::class, 'color_variant_id');
             }
 
             public function colorVariants()
@@ -72,4 +73,5 @@ class color_variants extends Model
                             ->withPivot('sku')
                             ->withTimestamps();
             }
+
 }

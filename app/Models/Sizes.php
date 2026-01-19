@@ -28,10 +28,16 @@ class Sizes extends Model
     // Relations
             public function productColors()
             {
-                return $this->belongsToMany(Product_colors::class, 'product_color_sizes')
-                            ->withPivot('sku')
-                            ->withTimestamps();
+                return $this->belongsToMany(
+                    Product_colors::class,
+                    'product_color_sizes',
+                    'size_id',
+                    'product_color_id'
+                )
+                ->withPivot(['quantity', 'price', 'in_stock', 'sku'])
+                ->withTimestamps();
             }
+
 
             public function colorVariants()
             {

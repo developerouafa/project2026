@@ -76,8 +76,21 @@ class Product_colors extends Model
 
             public function sizes()
             {
-                return $this->belongsToMany(Sizes::class, 'product_color_sizes')
-                            ->withPivot('sku')
-                            ->withTimestamps();
+                return $this->belongsToMany(
+                    Sizes::class,           // Model المرتبط
+                    'product_color_sizes',  // اسم جدول pivot
+                    'product_color_id',     // العمود اللي يشير لـ Product_colors
+                    'size_id'               // العمود اللي يشير لـ Sizes
+                )
+                ->withPivot(['quantity', 'price', 'in_stock', 'sku'])
+                ->withTimestamps();
             }
+
+
+    // علاقة المقاسات لكل لون رئيسي
+    // public function sizes()
+    // {
+    //     return $this->hasMany(Color_variant_sizes::class, 'color_variant_id')
+    //                 ->whereNull('variant_id'); // إذا كنت تستخدم variant_id للفصل
+    // }
 }

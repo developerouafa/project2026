@@ -64,19 +64,24 @@ class Color_variant_sizes extends Model
 
     // Relations
 
-            public function colorVariant()
-            {
-                return $this->belongsTo(Color_variants::class);
-            }
 
-            public function size()
-            {
-                return $this->belongsTo(Sizes::class);
-            }
 
             public function promotions()
             {
                 return $this->hasMany(Promotions::class, 'color_variant_sizes_id');
             }
+
+
+                // Relation: ينتمي للون variant
+                public function color_variant()
+                {
+                    return $this->belongsTo(Color_variants::class, 'color_variant_id');
+                }
+
+                // Relation: ينتمي للمقاس
+                public function size()
+                {
+                    return $this->belongsTo(Sizes::class, 'size_id');
+                }
 
 }

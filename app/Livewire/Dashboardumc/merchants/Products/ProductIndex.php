@@ -101,52 +101,52 @@ class productindex extends Component
     }
 
     public function updateProduct()
-{
-    $this->validate([
-        'name'        => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'price'       => 'required|numeric',
-        'quantity'    => 'required|integer',
-        'status'      => 'required|boolean',
-        'parent_id'   => 'required|exists:sections,id',
-    ]);
+    {
+        $this->validate([
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price'       => 'required|numeric',
+            'quantity'    => 'required|integer',
+            'status'      => 'required|boolean',
+            'parent_id'   => 'required|exists:sections,id',
+        ]);
 
-    // try {
-    //     DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
-        $product = Product::findOrFail($this->product_id);
+            $product = Product::findOrFail($this->product_id);
 
-        // رفع صورة جديدة إذا تم اختيارها
-        if ($this->image) {
-            $product->image = $this->uploadImagePRnocolor($this->image, 'productnocolorimage');
-        }
+            // رفع صورة جديدة إذا تم اختيارها
+            if ($this->image) {
+                $product->image = $this->uploadImagePRnocolor($this->image, 'productnocolorimage');
+            }
 
-        $product->name        = $this->name;
-        $product->description = $this->description;
-        $product->price       = $this->price;
-        $product->quantity    = $this->quantity;
-        $product->in_stock    = $this->quantity > 0 ? 1 : 0;
-        $product->status      = $this->status;
+            $product->name        = $this->name;
+            $product->description = $this->description;
+            $product->price       = $this->price;
+            $product->quantity    = $this->quantity;
+            $product->in_stock    = $this->quantity > 0 ? 1 : 0;
+            $product->status      = $this->status;
 
-        $product->save();
+            $product->save();
 
-        // DB::commit();
+            // DB::commit();
 
-        session()->flash('success', 'تم تعديل المنتج بنجاح');
-        return redirect()->route('dashboard.products');
+            session()->flash('success', 'تم تعديل المنتج بنجاح');
+            return redirect()->route('dashboard.products');
 
-    // } catch (\Exception $e) {
-    //     DB::rollBack();
-    //     session()->flash('error', 'حدث خطأ أثناء التعديل');
-    //     return redirect()->route('dashboard.products');
-    // }
-}
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     session()->flash('error', 'حدث خطأ أثناء التعديل');
+        //     return redirect()->route('dashboard.products');
+        // }
+    }
 
     public function render()
     {
         $products = Product::latest()
             ->selectBasic()
-            ->byMerchant(auth()->guard('merchants')->user()->id)
+            ->byMerchant(auth()->guard('merchants')->id)
             ->get();
 
          return view('livewire.Dashboardumc.merchants.products.productindex', [

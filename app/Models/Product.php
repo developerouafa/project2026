@@ -162,12 +162,6 @@ class Product extends Model
                 return $this->belongsTo(Sections::class, 'parent_id');
             }
 
-            // Multi Images Relation
-            public function images()
-            {
-                return $this->hasMany(Multi_image_pr::class, 'product_id');
-            }
-
             // Product Colors Relation
             public function productColors()
             {
@@ -188,4 +182,9 @@ class Product extends Model
                 return $this->hasMany(pivot_product_group::class);
             }
 
+            // Multi images
+            public function multiImages()
+            {
+                return $this->hasMany(Multi_image_pr::class, 'product_id');
+            }
 }
