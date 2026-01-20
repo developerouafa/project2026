@@ -13,9 +13,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 'middleware' => ['client.auth', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'can_login_clients', 'xss']
             ], function() {
 
-                Route::get('/clients', function () {
-                    return view('Dashboard_UMC.clients.index');
-                });
+                    Route::view('/clients','livewire.Clients.Index')->name('Products');
 
                 //############################# Start Partie Profile Client ##########################################
 
