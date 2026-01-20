@@ -34,7 +34,8 @@ class DatabaseSeeder extends Seeder
             ProductColorSizesSeeder::class,
             PackageproductsSeeder::class,
             ProductGroupSeeder::class,
-            PromotionsSeeder::class
+            PromotionsSeeder::class,
+            ratingseeder::class,
         ]);
 
     }

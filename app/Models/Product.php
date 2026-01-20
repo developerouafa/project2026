@@ -187,4 +187,10 @@ class Product extends Model
             {
                 return $this->hasMany(Multi_image_pr::class, 'product_id');
             }
+
+            // Ratings
+            public function ratings()
+            {
+                return $this->hasMany(Rating::class);
+            }
 }
