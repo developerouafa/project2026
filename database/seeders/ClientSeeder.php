@@ -21,5 +21,6 @@ class ClientSeeder extends Seeder
             'email' => 'client@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
+
     }
 }

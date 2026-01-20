@@ -13,7 +13,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Client extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, SoftDeletes, HasApiTokens, HasTranslations, HasRoles;
+    use HasFactory, Notifiable, HasApiTokens, HasTranslations, HasRoles;
 
     protected $fillable = [
         'name',

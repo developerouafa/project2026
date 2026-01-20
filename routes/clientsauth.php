@@ -15,8 +15,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 Route::middleware('guest')->group(function () {
 
                     // Registration Routes
-                    Route::get('register/clients', [RegisteredClientController::class, 'create'])->name('register.clients');
-                    Route::post('register', [RegisteredClientController::class, 'store'])->name('registerstore.clients');
+                    // Route::get('register/clients', [RegisteredClientController::class, 'create'])->name('register.clients');
+                    Route::post('registerstoreclient', [RegisteredClientController::class, 'store'])->name('registerstore.clients');
 
                     // Login Routes
                     Route::get('login/clients', [AuthenticatedSessionController::class, 'create'])->name('login.clients');
