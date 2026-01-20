@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->boolean('can_login')->default(false);
             $table->string('account_state')->default('active');
-            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

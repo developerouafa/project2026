@@ -65,6 +65,8 @@ use App\Models\Sections;
 
                     Route::view('/dashboard/productscolor','livewire.Dashboardumc.merchants.ProductsColor.include_create')->name('dashboard.productscolor');
 
+                    Route::view('/dashboard/promotions','livewire.Dashboardumc.merchants.Promotions.index')->name('dashboard.promotions');
+
                 // ############################# end Partie Products route ######################################
 
                 //############################# GroupProducts route ##########################################

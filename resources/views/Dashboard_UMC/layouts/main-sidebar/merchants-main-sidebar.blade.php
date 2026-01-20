@@ -47,6 +47,7 @@
                         <ul class="slide-menu">
                             <li><a class="slide-item" href="{{ route('dashboard.products') }}">Products No Color</a></li>
                             <li><a class="slide-item" href="{{ route('dashboard.productscolor') }}">Products Color</a></li>
+                            <li><a class="slide-item" href="{{ route('dashboard.promotions') }}">Products Promotion</a></li>
                         </ul>
                     </li>
 

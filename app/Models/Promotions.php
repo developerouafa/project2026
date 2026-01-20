@@ -9,28 +9,40 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 class Promotions extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name',
-        'description',
-        'amount',
-        'percent',
-        'start_date',
-        'end_date',
-        'status',
-        'product_color_sizes_id',
-        'color_variant_sizes_id',
+        'price',
+        'product_id',
+        'merchant_id',
+        'start_time',
+        'end_time',
         'created_at',
         'updated_at'
     ];
 
-    // relations
-    public function productColorSize()
+
+
+    /*-------------------- Scope --------------------*/
+    public function scopeSelectpromotion(mixed $query)
     {
-        return $this->belongsTo(Product_color_sizes::class, 'product_color_sizes_id');
+        return $query->select('id', 'price', 'expired', 'product_id', 'merchant_id', 'start_time', 'end_time', 'created_at', 'updated_at');
     }
 
-    public function colorVariantSize()
+    public function scopeWithpromotion(mixed $query)
     {
-        return $this->belongsTo(Color_variant_sizes::class, 'color_variant_sizes_id');
+        return $query->with('product');
     }
+
+    /*-------------------- Relations --------------------*/
+
+    public function merchant()
+    {
+        return $this->belongsTo(merchant::class, 'merchant_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(product::class);
+    }
+
 }

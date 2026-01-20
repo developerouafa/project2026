@@ -13,24 +13,11 @@ return new class extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->boolean('status')->default(1);
-            $table->decimal('amount', 10, 2)->nullable(); // تخفيض مبلغ ثابت
-            $table->decimal('percent', 5, 2)->nullable(); // تخفيض بالنسبة %
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
-
-            $table->foreignId('product_color_sizes_id')
-                ->nullable()
-                ->constrained('product_color_sizes')
-                ->cascadeOnDelete();
-
-            $table->foreignId('color_variant_sizes_id')
-                ->nullable()
-                ->constrained('color_variant_sizes')
-                ->cascadeOnDelete();
-
+            $table->decimal('price',8,2);
+            $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('merchant_id')->references('id')->on('merchants')->onDelete('cascade')->onUpdate('cascade');
+            $table->date('start_time')->nullable();
+            $table->date('end_time')->nullable();
             $table->timestamps();
         });
     }
