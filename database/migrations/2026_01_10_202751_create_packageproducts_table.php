@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('Total_before_discount',8,2);
             $table->decimal('discount_value',8,2);
             $table->decimal('Total_after_discount',8,2);
-            $table->string('tax_rate');
+            $table->decimal('tax_rate');
             $table->decimal('Total_with_tax',8,2);
             $table->foreignId('merchant_id')->references('id')->on('merchants')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
