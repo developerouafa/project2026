@@ -3,6 +3,7 @@
 namespace App\Livewire\clients;
 
 use App\Models\Colors;
+use App\Models\Packageproducts;
 use App\Models\Product;
 use App\Models\Sections;
 use App\Models\Sizes;
@@ -16,7 +17,11 @@ class products extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $show_products = false;
-    public $search = '', $year = '',
+    public $packageproducts = false;
+    public $search = '';
+    public $searchpackage = '';
+    public
+    $year = '',
     $ratings = [],
     $parent_id,
     $minPrice,
@@ -24,7 +29,7 @@ class products extends Component
     $hasColor = null,
     $discountFilter = null,
     $color_id,
-    $size_id, $name, $description, $productData, $averageStars = 0, $reviewsCount = 0;
+    $size_id, $name, $description, $productData, $averageStars = 0, $reviewsCount = 0, $packages;
 
     public $selected = [];
 
@@ -85,6 +90,19 @@ class products extends Component
         }
     }
 
+    public function packageproduct()
+    {
+        $this->resetFilters();
+        $this->packageproducts = true;
+
+
+        $this->packages = Packageproducts::with([
+                'products',
+                'merchant'
+            ])
+            ->orderByDesc('id')
+            ->get();
+    }
 
     public function render()
     {

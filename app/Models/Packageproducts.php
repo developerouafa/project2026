@@ -60,6 +60,16 @@ class Packageproducts extends Model
 
     // Relations
 
+            public function products()
+            {
+                return $this->belongsToMany(
+                    Product::class,
+                    'Product_Group',
+                    'packageproducts_id',
+                    'product_id'
+                )->withPivot('quantity');
+            }
+
             // Merchant Relation
             public function merchant()
             {

@@ -6,6 +6,8 @@
                     @include('livewire.Clients.DetailsProduct')
 
                 {{-- ================= Details Products ================= --}}
+                @elseif ($packageproducts)
+                    @include('livewire.Clients.Offers')
                 @else
                     <div class="breadcrumb-header justify-content-between">
                         <div class="my-auto">
@@ -58,6 +60,13 @@
                             <div class="card">
                                 <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">Category</div>
                                 <div class="card-body pb-0">
+
+                                    <div class="form-group mt-2">
+                                        <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" wire:click="packageproduct">
+                                            Package Products
+                                        </button>
+                                    </div>
+
                                     <div class="form-group mt-2">
                                         <label>Section</label>
                                         <select wire:model.live="parent_id" class="form-control">
@@ -177,15 +186,14 @@
                                                             <button
                                                                 wire:click="show_details({{ $product->id }})"
                                                                 type="button"
-                                                                class="btn p-0 border-0 bg-transparent text-reset"
-                                                            >
+                                                                class="btn btn-primary p-0 border-5 text-reset">
                                                                 View
                                                             </button>
                                                         </div>
                                                         @if(empty($product->image))
                                                             <img class="w-100" src="{{URL::asset('assets/img/ecommerce/01.jpg')}}" alt="product-image">
                                                         @else
-                                                            <img src="{{ asset('storage/'.$product->image) }}" class="w-12 h-12">
+                                                            <img src="{{ asset('storage/'.$product->image) }}" class="w-100">
                                                         @endif
                                                         <a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
                                                         </a>

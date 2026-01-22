@@ -13,7 +13,7 @@ class pivot_product_group extends Model
     protected $fillable = [
         'id',
         'product_id',
-        'packageproduct_id',
+        'packageproducts_id',
         'quantity'
     ];
 
@@ -26,7 +26,7 @@ class pivot_product_group extends Model
             {
                 return $query->with([
                     'product_id',
-                    'packageproduct_id',
+                    'packageproducts_id',
                 ]);
             }
 
@@ -36,7 +36,7 @@ class pivot_product_group extends Model
                 return $query->select([
                     'id',
                     'product_id',
-                    'packageproduct_id',
+                    'packageproducts_id',
                     'quantity',
                     'totalprice',
                     'created_at',
@@ -47,7 +47,7 @@ class pivot_product_group extends Model
             // منتجات لحزمة معينة
             public function scopeByPackageproduct($query, $packageproductId)
             {
-                return $query->where('packageproduct_id', $packageproductId);
+                return $query->where('packageproducts_id', $packageproductId);
             }
 
             public function scopeByProduct($query, $productId)
@@ -55,19 +55,6 @@ class pivot_product_group extends Model
                 return $query->where('product_id', $productId);
             }
 
-    // Relations
-
-            // Product Relation
-            // public function product()
-            // {
-            //     return $this->belongsTo(Product::class);
-            // }
-
-            // Packageproducts Relation
-            // public function packageproduct()
-            // {
-            //     return $this->belongsTo(Packageproducts::class);
-            // }
     public function product()
     {
         return $this->BelongsTo(product::class);

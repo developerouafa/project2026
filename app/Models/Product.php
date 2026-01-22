@@ -438,4 +438,16 @@ class Product extends Model
             }
 
 
+
+            // package
+            public function packages()
+            {
+                return $this->belongsToMany(
+                    Packageproducts::class,
+                    'Product_Group',
+                    'product_id',
+                    'packageproducts_id'
+                )->withPivot('quantity');
+            }
+
 }
