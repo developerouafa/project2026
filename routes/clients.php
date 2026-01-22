@@ -13,7 +13,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 'middleware' => ['client.auth', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'can_login_clients', 'xss']
             ], function() {
 
-                    Route::view('/clients','livewire.Clients.Index')->name('Products');
+                    Route::view('/clients','livewire.Clients.Index')->name('Products.clients');
 
                 //############################# Start Partie Profile Client ##########################################
 

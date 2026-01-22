@@ -122,7 +122,7 @@
                                                 <select name="section_id" value="{{old('section_id')}}" class="form-control select2" style="width: 100%" class="form-control @error('section_id') is-invalid @enderror">
                                                     <option value="" selected disabled>{{__('Dashboard/sections_trans.sections')}}</option>
                                                         @forelse ($sections as $section)
-                                                            @if ($section->status == 0)
+                                                            @if ($section->status == 1)
                                                                 <option value="{{ $section->id }}"> {{ $section->name }} </option>
                                                             @endif
                                                             @empty

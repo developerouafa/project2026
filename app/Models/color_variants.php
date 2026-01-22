@@ -74,4 +74,13 @@ class color_variants extends Model
                             ->withTimestamps();
             }
 
+            public function colorVariantSizes()
+            {
+                return $this->hasMany(Color_variant_sizes::class, 'color_variant_id');
+            }
+
+            public function productColor()
+            {
+                return $this->belongsTo(Product_colors::class, 'product_color_id');
+            }
 }

@@ -71,7 +71,8 @@ class Product_colors extends Model
 
             public function variants()
             {
-                return $this->hasMany(Color_variants::class);
+                return $this->hasMany(Color_variants::class,
+                        'product_color_id');
             }
 
             public function sizes()
@@ -86,11 +87,13 @@ class Product_colors extends Model
                 ->withTimestamps();
             }
 
+            public function productColorSizes()
+            {
+                return $this->hasMany(Product_color_sizes::class, 'product_color_id');
+            }
 
-    // علاقة المقاسات لكل لون رئيسي
-    // public function sizes()
-    // {
-    //     return $this->hasMany(Color_variant_sizes::class, 'color_variant_id')
-    //                 ->whereNull('variant_id'); // إذا كنت تستخدم variant_id للفصل
-    // }
+            public function colorVariants()
+            {
+                return $this->hasMany(Color_variants::class, 'product_color_id');
+            }
 }

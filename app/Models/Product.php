@@ -168,12 +168,22 @@ class Product extends Model
                 return $this->hasMany(Product_colors::class);
             }
 
+            public function product_colors()
+            {
+                return $this->hasMany(Product_colors::class);
+            }
+
             //  Colors Relation
             public function colors()
             {
-                return $this->belongsToMany(Colors::class, 'product_colors')
-                            ->withPivot('has_variants')
-                            ->withTimestamps();
+                return $this->belongsToMany(
+                    Colors::class,
+                    'product_colors',
+                    'product_id', // foreign key على جدول Product_colors
+                    'color_id'    // foreign key على جدول Colors
+                )
+                ->withPivot('has_variants')
+                ->withTimestamps();
             }
 
             // Product_Groups Relation
@@ -193,4 +203,117 @@ class Product extends Model
             {
                 return $this->hasMany(Rating::class);
             }
+
+            // ⭐ حساب متوسط التقييم يدوياً
+            public function getAverageRatingAttribute()
+            {
+                if ($this->ratings_count == 0) {
+                    return 0;
+                }
+
+                return round($this->ratings_sum_stars / $this->ratings_count, 1);
+            }
+
+
+            // Promotions
+            public function promotions()
+            {
+                return $this->hasMany(Promotions::class);
+            }
+
+            // 🔹 تخفيض فعال دابا
+            public function currentPromotion()
+            {
+                return $this->hasOne(Promotions::class)
+                            ->where('start_time', '<=', now())
+                            ->where('end_time', '>=', now());
+            }
+
+            // 🔹 السعر بعد التخفيض
+            public function priceAfterPromotion()
+            {
+                if ($this->currentPromotion) {
+                    return $this->currentPromotion->price;
+                }
+                return $this->price; // السعر العادي
+            }
+
+            /**
+             * الحصول على السعر النهائي للمنتج
+             */
+            public function finalPrice()
+            {
+                // 1️⃣ إذا المنتج عنده ألوان
+                if ($this->colors()->exists()) {
+
+                    // نجيب أول لون + أول variant + أول size
+                    $firstColor = $this->colors()->first();
+                    if (!$firstColor) return $this->price; // fallback للسعر العادي
+
+                    $firstProductColor = $this->productColors()->where('color_id', $firstColor->id)->first();
+                    if (!$firstProductColor) return $this->price;
+
+                    // 2️⃣ إذا عندو variant sizes
+                    $variantSize = $firstProductColor->variants()
+                                        ->with('sizes')
+                                        ->first()?->sizes()
+                                        ->first();
+
+                    if ($variantSize) {
+                        return $variantSize->price;
+                    }
+
+                    // 3️⃣ fallback: سعر Product_color_sizes بدون variant
+                    $colorSize = $firstProductColor->sizes()->first();
+                    if ($colorSize) {
+                        return $colorSize->price;
+                    }
+
+                    // fallback للسعر العادي
+                    return $this->price;
+                }
+
+                // 2️⃣ إذا المنتج بدون ألوان
+                $productSize = $this->product_colors()->with('sizes')->first()?->sizes()->first();
+                if ($productSize) {
+                    return $productSize->price;
+                }
+
+                // fallback للسعر العادي
+                return $this->price;
+            }
+
+            public function scopeByMainColor($query, $colorId)
+            {
+                return $query->whereHas('productColors', function ($q) use ($colorId) {
+                    $q->where('color_id', $colorId);
+                });
+            }
+
+            public function scopeWithoutColors($query)
+            {
+                return $query->whereDoesntHave('productColors');
+            }
+
+            public function scopeBySize($query, $sizeId)
+            {
+                return $query->where(function ($q) use ($sizeId) {
+
+                    // 🔹 مقاسات بلا variants
+                    $q->whereHas('productColors.productColorSizes', function ($qq) use ($sizeId) {
+                        $qq->where('size_id', $sizeId)
+                        ->where('in_stock', 1)
+                        ->where('quantity', '>', 0);
+                    })
+
+                    // 🔹 مقاسات مع variants
+                    ->orWhereHas('productColors.colorVariants.colorVariantSizes', function ($qq) use ($sizeId) {
+                        $qq->where('size_id', $sizeId)
+                        ->where('in_stock', 1)
+                        ->where('quantity', '>', 0);
+                    });
+
+                });
+            }
+
 }
