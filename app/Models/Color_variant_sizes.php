@@ -65,7 +65,6 @@ class Color_variant_sizes extends Model
     // Relations
 
 
-
             public function promotions()
             {
                 return $this->hasMany(Promotions::class, 'color_variant_sizes_id');

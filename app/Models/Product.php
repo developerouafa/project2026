@@ -40,6 +40,7 @@ class Product extends Model
                     'merchant',
                     'section',
                     'parent',
+                    'multiImages'
                 ]);
             }
 
@@ -283,6 +284,66 @@ class Product extends Model
                 return $this->price;
             }
 
+            public function finalQuantity()
+            {
+                // 🟢 إذا المنتج عنده ألوان
+                if ($this->colors()->exists()) {
+
+                    // أول لون
+                    $firstColor = $this->colors()->first();
+                    if (!$firstColor) {
+                        return $this->quantity;
+                    }
+
+                    // product_color
+                    $productColor = $this->productColors()
+                        ->where('color_id', $firstColor->id)
+                        ->first();
+
+                    if (!$productColor) {
+                        return $this->quantity;
+                    }
+
+                    // 🟢 إذا عنده variants
+                    if ($productColor->variants()->exists()) {
+
+                        $variantSize = $productColor->variants()
+                            ->with('sizes')
+                            ->first()
+                            ?->sizes()
+                            ->first();
+
+                        if ($variantSize) {
+                            return $variantSize->quantity;
+                        }
+                    }
+
+                    // 🟢 بدون variants → sizes مباشرة
+                    $colorSize = $productColor->sizes()->first();
+                    if ($colorSize) {
+                        return $colorSize->quantity;
+                    }
+
+                    // fallback
+                    return $this->quantity;
+                }
+
+                // 🟢 إذا المنتج بدون ألوان ولكن عنده sizes مباشرة
+                $size = $this->productColors()
+                    ->with('sizes')
+                    ->first()
+                    ?->sizes()
+                    ->first();
+
+                if ($size) {
+                    return $size->quantity;
+                }
+
+                // 🟢 fallback النهائي
+                return $this->quantity;
+            }
+
+
             public function scopeByMainColor($query, $colorId)
             {
                 return $query->whereHas('productColors', function ($q) use ($colorId) {
@@ -315,5 +376,66 @@ class Product extends Model
 
                 });
             }
+
+
+
+            public function getAvailableSizes()
+            {
+                $available = [];
+
+                foreach ($this->productColors as $productColor) {
+
+                    // إذا المنتج عنده variant
+                    if($productColor->has_variants) {
+                        foreach($productColor->variants as $variant){
+                            foreach($variant->sizes as $size){
+                                if($size->in_stock > 0){
+                                    $available[$productColor->color->name]['variants'][$variant->name][] = [
+                                        'size' => $size->size->name,
+                                        'price' => $size->price,
+                                        'quantity' => $size->quantity,
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                    // إذا المنتج بدون variant
+                    else {
+                        foreach($productColor->sizes as $size){
+                            if($size->in_stock > 0){
+                                $available[$productColor->color->name]['sizes'][] = [
+                                    'size' => $size->size->name,
+                                    'price' => $size->price,
+                                    'quantity' => $size->quantity,
+                                ];
+                            }
+                        }
+                    }
+                }
+
+                return $available; // مصفوفة: اللون → variant → sizes
+            }
+
+
+            public function getTotalQtyProperty()
+            {
+                return array_sum($this->selected);
+            }
+
+            public function getTotalPriceProperty()
+            {
+                $total = 0;
+
+                foreach ($this->selected as $key => $qty) {
+                    [$color, $variant, $size] = array_pad(explode('|', $key), 3, null);
+
+                    // هنا جيب السعر من DB حسب size الحقيقي
+                    $price = 100; // مثال
+                    $total += $price * $qty;
+                }
+
+                return $total;
+            }
+
 
 }

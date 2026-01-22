@@ -15,6 +15,7 @@ class products extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public $show_products = false;
     public $search = '', $year = '',
     $ratings = [],
     $parent_id,
@@ -23,7 +24,9 @@ class products extends Component
     $hasColor = null,
     $discountFilter = null,
     $color_id,
-    $size_id;
+    $size_id, $name, $description, $productData, $averageStars = 0, $reviewsCount = 0;
+
+    public $selected = [];
 
     public function resetFilters()
     {
@@ -48,6 +51,40 @@ class products extends Component
     {
         $this->resetPage();
     }
+
+    public function show_details($id)
+    {
+        $this->resetFilters();
+        $this->show_products = true;
+
+        $this->productData = Product::findOrFail($id);
+
+        $this->reviewsCount = $this->productData->ratings->count();
+        if($this->reviewsCount > 0){
+            $this->averageStars = round($this->productData->ratings->avg('stars'));
+        }
+    }
+
+
+    public function toggleSelection($key, $checked)
+    {
+        if (!$checked) {
+            unset($this->selected[$key]);
+        } else {
+            $this->selected[$key] = $this->selected[$key] ?? 1;
+        }
+    }
+
+    public function updateQuantity($key)
+    {
+        if (
+            !isset($this->selected[$key]) ||
+            $this->selected[$key] <= 0
+        ) {
+            unset($this->selected[$key]);
+        }
+    }
+
 
     public function render()
     {

@@ -73,7 +73,7 @@ class Product_color_sizes extends Model
 
             public function size()
             {
-                return $this->belongsTo(Sizes::class);
+                return $this->belongsTo(Sizes::class, 'size_id');
             }
 
             public function promotions()

@@ -69,6 +69,11 @@ class Product_colors extends Model
                 return $this->belongsTo(Colors::class);
             }
 
+            public function color()
+            {
+                return $this->belongsTo(Colors::class, 'color_id');
+            }
+
             public function variants()
             {
                 return $this->hasMany(Color_variants::class,
@@ -96,4 +101,6 @@ class Product_colors extends Model
             {
                 return $this->hasMany(Color_variants::class, 'product_color_id');
             }
+
+
 }
