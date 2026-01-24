@@ -34,6 +34,6 @@ class OrderItem extends Model
     // 🔗 Package Product
     public function packageProduct()
     {
-        return $this->belongsTo(Packageproducts::class);
+        return $this->belongsTo(Packageproducts::class, 'package_product_id');
     }
 }

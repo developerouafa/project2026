@@ -5,20 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model
+class Refund extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'invoice_number',
         'order_id',
         'merchant_id',
+        'payment_id',
         'client_id',
-        'subtotal',
-        'tax',
-        'total',
+        'amount',
+        'reason',
         'status',
-        // 'draft','unpaid','paid','overdue','cancelled'
+        'processed_at',
+    ];
+
+    protected $casts = [
+        'amount' => 'decimal:2',
+        'processed_at' => 'datetime',
     ];
 
     // 🔗 Order
@@ -27,10 +31,16 @@ class Invoice extends Model
         return $this->belongsTo(Order::class);
     }
 
-    // 🔗 Merchant
+    // 🔗 Merchant (في حالة partial refund)
     public function merchant()
     {
         return $this->belongsTo(Merchant::class);
+    }
+
+    // 🔗 Payment
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
     }
 
     // 🔗 Client

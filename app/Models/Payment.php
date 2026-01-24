@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class payments extends Model
+class Payment extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,7 @@ class payments extends Model
         'client_id',
         'amount',
         'method',
+        'status',
         'reference',
         'description',
     ];
@@ -22,5 +23,10 @@ class payments extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function refunds()
+    {
+        return $this->hasMany(Refund::class);
     }
 }

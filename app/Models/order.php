@@ -14,6 +14,11 @@ class Order extends Model
         'merchant_id',
         'total',
         'status',
+        // pending
+        // confirmed
+        // Paid
+        // completed
+        // cancelled
     ];
 
     // 🔗 Client
@@ -43,6 +48,11 @@ class Order extends Model
     // 🔗 Invoice
     public function invoices()
     {
-        return $this->hasMany(Invoices::class);
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function refunds()
+    {
+        return $this->hasMany(Refund::class);
     }
 }

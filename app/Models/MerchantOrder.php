@@ -12,7 +12,7 @@ class MerchantOrder extends Model
     protected $fillable = [
         'order_id',
         'merchant_id',
-        'status',
+        'status', //pending, accepted, rejected, processing, delivered
         'accepted_at',
     ];
 

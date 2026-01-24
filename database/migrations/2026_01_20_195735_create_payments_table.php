@@ -22,6 +22,16 @@ return new class extends Migration
                 'bank_transfer'
             ]);
 
+            $table->enum('status', [
+                'pending',    // COD default
+                'paid',       // online paid (escrow)
+                'collected',  // COD collected
+                'failed',
+                'refunded',
+                'cancelled'
+            ])->default('pending');
+            $table->string('stripe_payment_id')->nullable(); // Stripe payment identifier
+
             $table->string('reference')->nullable(); // transaction id
             $table->text('description')->nullable();
             $table->timestamps();

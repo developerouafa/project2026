@@ -41,4 +41,9 @@ class Client extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+
+    public function refunds()
+    {
+        return $this->hasMany(Refund::class);
+    }
 }

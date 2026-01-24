@@ -18,6 +18,7 @@
         "spatie/laravel-html": "^3.12",
         "spatie/laravel-permission": "^6.24",
         "spatie/laravel-translatable": "^6.12",
+        "stripe/stripe-php": "^19.2",
         "yoeunes/toastr": "^3.3"
     },
     "require-dev": {

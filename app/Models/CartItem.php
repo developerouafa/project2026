@@ -34,7 +34,7 @@ class CartItem extends Model
     // 🔗 Package Product
     public function packageProduct()
     {
-        return $this->belongsTo(Packageproducts::class, 'packageproducts');
+        return $this->belongsTo(Packageproducts::class, 'package_product_id');
     }
 
 }

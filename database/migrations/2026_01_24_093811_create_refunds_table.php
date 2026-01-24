@@ -11,23 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('refunds', function (Blueprint $table) {
             $table->id();
-
-            $table->string('invoice_number')->unique();
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
-            $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
+            $table->foreignId('merchant_id')->nullable('merchants')->constrained()->nullOnDelete();
+            $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
             $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
-            $table->decimal('subtotal',10,2);
-            $table->decimal('tax',10,2)->default(0);
-            $table->decimal('total',10,2);
-            $table->enum('status', [
-                'draft',
-                'unpaid',
-                'paid',
-                'overdue',
-                'cancelled'
-            ])->default('draft');
+
+            $table->decimal('amount', 10, 2);
+            $table->string('reason')->nullable();
+
+            $table->enum('status', ['pending', 'processed', 'failed'])->default('pending');
+            $table->timestamp('processed_at')->nullable();
             $table->timestamps();
         });
     }
@@ -37,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('refunds');
     }
 };
