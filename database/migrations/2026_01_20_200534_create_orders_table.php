@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
+            $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
+            $table->decimal('total',10,2);
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

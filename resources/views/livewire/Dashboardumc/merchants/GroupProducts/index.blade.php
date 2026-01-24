@@ -1,7 +1,7 @@
 
 <div class="d-flex justify-content-between pb-1">
     <button class="btn btn-primary pull-right" wire:click="show_form_add" type="button">
-        {{__('Dashboard/services.addsubservice')}}
+        Add Package Product
     </button><br><br>
     <button class="btn btn-danger pull-left" wire:click="deleteall" type="button">
         {{__('Dashboard/messages.Deleteall')}}

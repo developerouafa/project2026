@@ -14,17 +14,15 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
-            $table->foreignId('client_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
             $table->decimal('amount', 10, 2);
 
             $table->enum('method', [
                 'cash',
-                'bank_transfer',
-                'gateway',
-                'receipt'
+                'bank_transfer'
             ]);
 
-            $table->string('reference')->nullable(); // رقم التحويل / transaction id
+            $table->string('reference')->nullable(); // transaction id
             $table->text('description')->nullable();
             $table->timestamps();
         });

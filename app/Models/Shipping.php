@@ -5,31 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Shipping extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'date',
         'client_id',
-        'merchant_id',
-        'status', //(active / converted)
+        'invoice_id',
+        'payment_id',
+        'debit',
+        'credit',
+        'source',
     ];
 
     // 🔗 Client
     public function client()
     {
         return $this->belongsTo(Client::class);
-    }
-
-    // 🔗 Merchant
-    public function merchant()
-    {
-        return $this->belongsTo(Merchant::class);
-    }
-
-    // 🔗 Cart Items
-    public function items()
-    {
-        return $this->hasMany(CartItem::class);
     }
 }

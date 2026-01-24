@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboardumc\merchants;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Products extends Component
@@ -20,7 +21,7 @@ class Products extends Component
     {
         $products = Product::latest()
             ->selectBasic()
-            ->byMerchant(auth()->guard('merchants')->user()->id)
+            ->byMerchant(Auth::guard('merchants')->id())
             ->searchByName($this->search)
             ->recentlyAdded()
             ->paginate(10);

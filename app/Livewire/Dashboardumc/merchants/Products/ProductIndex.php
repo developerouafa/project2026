@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboardumc\Merchants\Products;
 use App\Models\Product;
 use App\Models\Sections;
 use App\Traits\UploadImageTraitt;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -146,7 +147,7 @@ class productindex extends Component
     {
         $products = Product::latest()
             ->selectBasic()
-            ->byMerchant(auth()->guard('merchants')->id)
+            ->byMerchant(Auth::guard('merchants')->id())
             ->get();
 
          return view('livewire.Dashboardumc.merchants.products.productindex', [

@@ -11,17 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('merchant_orders', function (Blueprint $table) {
             $table->id();
 
-            $table->string('invoice_number')->unique();
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
-            $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
-            $table->decimal('subtotal',10,2);
-            $table->decimal('tax',10,2)->default(0);
-            $table->decimal('total',10,2);
-            $table->string('status')->default('unpaid');
+
+            $table->enum('status', [
+                'pending',
+                'accepted',
+                'rejected',
+                'processing',
+                'delivered'
+            ])->default('pending');
+
+            $table->timestamp('accepted_at')->nullable();
 
             $table->timestamps();
         });
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('merchant_orders');
     }
 };

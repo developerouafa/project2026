@@ -42,7 +42,7 @@
                 <div class="card-header">
                     <div class="col-md-12">
                         <button class="btn btn-outline-primary" wire:click.prevent="addService">
-                                {{__('Dashboard/services.addsubservice')}}
+                                Add Package Products
                         </button>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr class="table-primary">
-                                <th>{{__('Dashboard/services.nameservice')}}</th>
+                                <th>Name Package Products</th>
                                 <th width="200">{{__('Dashboard/services.number')}}</th>
                                 <th width="200"> {{__('Dashboard/services.Processes')}} </th>
                             </tr>
@@ -139,7 +139,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="color: red"{{__('Dashboard/services.Totalwithtax')}}</td>
+                                <td style="color: red">{{__('Dashboard/services.Totalwithtax')}}</td>
                                 <td>{{ number_format($total, 2) }}</td>
                             </tr>
                         </table>

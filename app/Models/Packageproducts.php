@@ -79,6 +79,6 @@ class Packageproducts extends Model
 
             public function product_group()
             {
-                return $this->belongsToMany(product::class,'Product_Group')->withPivot('quantity');
+                return $this->belongsToMany(Product::class,'Product_Group')->withPivot('quantity');
             }
 }
