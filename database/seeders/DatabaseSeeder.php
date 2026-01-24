@@ -36,6 +36,15 @@ class DatabaseSeeder extends Seeder
             ProductGroupSeeder::class,
             PromotionsSeeder::class,
             ratingseeder::class,
+            CartSeeder::class,
+            CartItemSeeder::class,
+            OrderSeeder::class,
+            OrderItemSeeder::class,
+            PaymentSeeder::class,
+            MerchantOrderSeeder::class,
+            InvoiceSeeder::class,
+            ShippingSeeder::class,
+            RefundSeeder::class,
         ]);
 
     }

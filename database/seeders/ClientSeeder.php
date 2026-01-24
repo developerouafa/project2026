@@ -21,6 +21,13 @@ class ClientSeeder extends Seeder
             'email' => 'client@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
-
+        Client::create([
+            'name' => fake()->name(),
+            'phone' => fake()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => Hash::make('password'),
+            'can_login' => true,
+            'account_state' => 'active',
+        ]);
     }
 }
