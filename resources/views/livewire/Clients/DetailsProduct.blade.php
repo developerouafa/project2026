@@ -132,8 +132,9 @@
                                                                                 <div class="border rounded p-2 m-1" style="min-width:200px">
                                                                                     <label class="d-flex align-items-center mb-1">
                                                                                         <input type="checkbox"
-                                                                                            wire:change="toggleSelection('{{ $key }}', $event.target.checked)"
+                                                                                            wire:change="toggleSelection('{{ $key }}', $event.target.checked, {{ $size['price'] }})"
                                                                                             wire:click="$toggle('selected.{{ $key }}')">
+
                                                                                         <strong class="ml-2">{{ $size['size'] }}</strong>
                                                                                     </label>
 
@@ -142,13 +143,11 @@
                                                                                             <input type="number"
                                                                                                 min="1"
                                                                                                 max="{{ $size['quantity'] }}"
-                                                                                                wire:model.lazy="selected.{{ $key }}"
-                                                                                                wire:change="updateQuantity('{{ $key }}')"
+                                                                                                wire:model.lazy="selected.{{ $key }}.qty"
+                                                                                                wire:change="updateQuantity('{{ $key }}', $event.target.value)"
                                                                                                 class="form-control form-control-sm"
                                                                                                 style="width:70px">
-                                                                                            <small class="ml-2 text-muted">
-                                                                                                / {{ $size['quantity'] }}
-                                                                                            </small>
+                                                                                            <small class="ml-2 text-muted">/ {{ $size['quantity'] }}</small>
                                                                                         </div>
                                                                                     @endif
 
@@ -169,19 +168,20 @@
                                                     @endif
 
                                                     {{-- ============ WITHOUT VARIANTS ============ --}}
-                                                    @if(isset($data['sizes']))
+                                                    @if(isset($data['sizesf']))
                                                         <div class="d-flex flex-wrap">
 
-                                                            @foreach($data['sizes'] as $size)
+                                                            @foreach($data['sizesf'] as $size)
                                                                 @php
                                                                     $key = $colorName.'|'.$size['size'];
                                                                 @endphp
 
                                                                 <div class="border rounded p-2 m-1" style="min-width:200px">
                                                                     <label class="d-flex align-items-center mb-1">
-                                                                        <input type="checkbox"
-                                                                            wire:change="toggleSelection('{{ $key }}', $event.target.checked)"
-                                                                            wire:click="$toggle('selected.{{ $key }}')">
+                                                                            <input type="checkbox"
+                                                                                wire:change="toggleSelection('{{ $key }}', $event.target.checked, {{ $size['price'] }})"
+                                                                                wire:click="$toggle('selected.{{ $key }}')">
+
                                                                         <strong class="ml-2">{{ $size['size'] }}</strong>
                                                                     </label>
 
@@ -190,19 +190,18 @@
                                                                             <input type="number"
                                                                                 min="1"
                                                                                 max="{{ $size['quantity'] }}"
-                                                                                wire:model.lazy="selected.{{ $key }}"
-                                                                                wire:change="updateQuantity('{{ $key }}')"
+                                                                                wire:model.lazy="selected.{{ $key }}.qty"
+                                                                                wire:change="updateQuantity('{{ $key }}', $event.target.value)"
                                                                                 class="form-control form-control-sm"
                                                                                 style="width:70px">
-                                                                            <small class="ml-2 text-muted">
-                                                                                / {{ $size['quantity'] }}
-                                                                            </small>
+                                                                            <small class="ml-2 text-muted">/ {{ $size['quantity'] }}</small>
                                                                         </div>
                                                                     @endif
 
                                                                     <small class="text-success d-block mt-1">
                                                                         ${{ number_format($size['price'],2) }}
                                                                     </small>
+
                                                                 </div>
 
                                                             @endforeach
@@ -216,12 +215,13 @@
                                         </div>
 
                                         {{-- ================= SUMMARY ================= --}}
+
                                         @if(count($selected))
                                             <div class="alert alert-success mt-4">
                                                 <strong>Selected Products:</strong>
                                                 <ul class="mb-1">
-                                                    @foreach($selected as $key => $qty)
-                                                        <li>{{ $key }} → Qty: {{ $qty }}</li>
+                                                    @foreach($selected as $key => $data)
+                                                        <li>{{ $key }} → Qty: {{ $data['qty'] }}, Price: ${{ number_format($data['price'],2) }}, Total: ${{ number_format($data['qty'] * $data['price'],2) }}</li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -260,7 +260,7 @@
                                     @endif
 
                                 <div class="action">
-                                    <button class="add-to-cart btn btn-success" type="button">ADD TO CART</button>
+                                    <button class="add-to-cart btn btn-success" type="button" wire:click="AddToCart">ADD TO CART</button>
                                 </div>
                             </div>
                         </div>

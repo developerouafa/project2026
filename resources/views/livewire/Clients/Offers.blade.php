@@ -1,5 +1,4 @@
 <div class="container">
-
     {{-- 📦 Packages --}}
     <div class="row">
         @forelse($packages as $package)
@@ -35,29 +34,29 @@
 
                         {{-- 💰 Totals --}}
                         <div class="border-top pt-2">
-                            <p>قبل التخفيض:
+                            <p>Befor Promotion :
                                 <strong>{{ $package->Total_before_discount }} DH</strong>
                             </p>
 
                             <p class="text-danger">
-                                التخفيض:
+                                Promotion :
                                 -{{ $package->discount_value }} DH
                             </p>
 
                             <p>
-                                بعد التخفيض:
+                                After Promotion :
                                 <strong>{{ $package->Total_after_discount }} DH</strong>
                             </p>
 
                             <p>
-                                الضريبة ({{ $package->tax_rate }}%):
+                                Tax ({{ $package->tax_rate }}%):
                                 <strong>
                                     {{ $package->Total_with_tax - $package->Total_after_discount }} DH
                                 </strong>
                             </p>
 
                             <h5 class="text-success">
-                                المجموع:
+                                Total :
                                 {{ $package->Total_with_tax }} DH
                             </h5>
                         </div>
@@ -66,7 +65,7 @@
 
                     <div class="card-footer text-center">
                         <button class="btn btn-primary w-100">
-                            🛒 أضف العرض للسلة
+                            🛒 Add To Cart
                         </button>
                     </div>
 
@@ -74,7 +73,7 @@
             </div>
         @empty
             <div class="col-12 text-center text-muted">
-                لا توجد عروض حالياً
+              No Package Product
             </div>
         @endforelse
     </div>

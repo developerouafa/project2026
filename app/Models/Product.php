@@ -378,43 +378,95 @@ class Product extends Model
             }
 
 
-
             public function getAvailableSizes()
             {
                 $available = [];
 
+                $this->loadMissing([
+                    'productColors.color',
+                    'productColors.sizesf.size',
+                    'productColors.variants.sizes.size',
+                ]);
+
                 foreach ($this->productColors as $productColor) {
 
-                    // إذا المنتج عنده variant
-                    if($productColor->has_variants) {
-                        foreach($productColor->variants as $variant){
-                            foreach($variant->sizes as $size){
-                                if($size->in_stock > 0){
-                                    $available[$productColor->color->name]['variants'][$variant->name][] = [
-                                        'size' => $size->size->name,
-                                        'price' => $size->price,
+                    $colorName = $productColor->color->name ?? 'Unknown';
+
+                    // 🟢 عندو variants
+                    if ($productColor->has_variants && $productColor->variants->count()) {
+
+                        foreach ($productColor->variants as $variant) {
+                            foreach ($variant->sizes as $size) {
+
+                                if ($size->quantity > 0) {
+                                    $available[$colorName]['variants'][$variant->name][] = [
+                                        'size'     => $size->size->name,
+                                        'price'    => $size->price,
                                         'quantity' => $size->quantity,
                                     ];
                                 }
+
                             }
                         }
+
                     }
-                    // إذا المنتج بدون variant
+                    // 🟡 عندو ألوان بلا variants
                     else {
-                        foreach($productColor->sizes as $size){
-                            if($size->in_stock > 0){
-                                $available[$productColor->color->name]['sizes'][] = [
-                                    'size' => $size->size->name,
-                                    'price' => $size->price,
+
+                        foreach ($productColor->sizesf as $size) {
+
+                            if ($size->quantity > 0) {
+                                $available[$colorName]['sizesf'][] = [
+                                    'size'     => $size->size->name,
+                                    'price'    => $size->price,
                                     'quantity' => $size->quantity,
                                 ];
                             }
+
                         }
                     }
                 }
 
-                return $available; // مصفوفة: اللون → variant → sizes
+                return $available;
             }
+
+// Test
+            // public function getAvailableSizes()
+            // {
+            //     $available = [];
+
+            //     foreach ($this->productColors as $productColor) {
+
+            //         // إذا المنتج عنده variant
+            //         if($productColor->has_variants) {
+            //             foreach($productColor->variants as $variant){
+            //                 foreach($variant->sizes as $size){
+            //                     if($size->in_stock > 0){
+            //                         $available[$productColor->color->name]['variants'][$variant->name][] = [
+            //                             'size' => $size->size->name,
+            //                             'price' => $size->price,
+            //                             'quantity' => $size->quantity,
+            //                         ];
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         // إذا المنتج بدون variant
+            //         else {
+            //             foreach($productColor->sizes as $size){
+            //                 if($size->in_stock > 0){
+            //                     $available[$productColor->color->name]['sizes'][] = [
+            //                         'size' => $size->size->name,
+            //                         'price' => $size->price,
+            //                         'quantity' => $size->quantity,
+            //                     ];
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            //     return $available; // مصفوفة: اللون → variant → sizes
+            // }
 
 
             public function getTotalQtyProperty()

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('package_product_id')->nullable()->constrained('packageproducts')->cascadeOnDelete();
 
             $table->string('color')->nullable();
+            $table->string('variant')->nullable();
             $table->string('size')->nullable();
 
             $table->integer('qty')->default(1);

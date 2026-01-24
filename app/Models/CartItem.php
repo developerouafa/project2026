@@ -14,6 +14,7 @@ class CartItem extends Model
         'product_id',
         'package_product_id',
         'color',
+        'variant',
         'size',
         'qty',
         'price',

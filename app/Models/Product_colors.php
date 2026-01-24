@@ -71,7 +71,7 @@ class Product_colors extends Model
 
             public function color()
             {
-                return $this->belongsTo(Colors::class, 'color_id');
+                return $this->belongsTo(Colors::class);
             }
 
             public function variants()
@@ -91,6 +91,12 @@ class Product_colors extends Model
                 ->withPivot(['quantity', 'price', 'in_stock', 'sku'])
                 ->withTimestamps();
             }
+
+            public function sizesf()
+            {
+                return $this->hasMany(Product_color_sizes::class, 'product_color_id');
+            }
+
 
             public function productColorSizes()
             {

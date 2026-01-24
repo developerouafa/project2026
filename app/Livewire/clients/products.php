@@ -2,13 +2,18 @@
 
 namespace App\Livewire\clients;
 
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Colors;
 use App\Models\Packageproducts;
 use App\Models\Product;
 use App\Models\Sections;
 use App\Models\Sizes;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class products extends Component
 {
@@ -26,12 +31,209 @@ class products extends Component
     $parent_id,
     $minPrice,
     $maxPrice,
+    $pricepr,
     $hasColor = null,
     $discountFilter = null,
     $color_id,
     $size_id, $name, $description, $productData, $averageStars = 0, $reviewsCount = 0, $packages;
 
     public $selected = [];
+
+    public $qty = 1;
+    public $package_product_id = null;
+
+    public function AddToCart()
+    {
+        // $this->productId = $productId;
+
+        // // ناخدو الكلاينت الحالي
+        // $client = Auth::guard('clients')->id();
+
+        // if (!$client) {
+        //     session()->flash('error', ' Error Login ');
+        //     return;
+        // }
+
+        // // نشوفو واش كاينة cart مفتوحة
+        // $cart = Cart::firstOrCreate(
+        //     [
+        //         'client_id' => $client,
+        //         'merchant_id' => Product::find($productId)->merchant_id, // نحصلو على الميرشانت ديال المنتج
+        //         'status' => 'active',
+        //     ]
+        // );
+
+        // // نشوفو واش المنتج موجود من قبل فـ cart
+        // $cartItem = $cart->items()->where('product_id', $productId)->first();
+
+        // if ($cartItem) {
+        //     // إذا كان موجود نزيدو الكمية
+        //     $cartItem->qty += $this->qty;
+        //     $cartItem->save();
+        // } else {
+        //     // إذا ماكانش موجود نضيفو الجديد
+        //     $product = Product::findOrFail($productId);
+
+        //     // Price
+        //     if($product->currentPromotion){
+        //         $price = $product->currentPromotion->price;
+        //     }
+        //     else{
+        //         $price = $product->finalPrice();
+        //     }
+
+        //     $cart->items()->create([
+        //         'product_id' => $productId,
+        //         'price' => $price, // ثمن المنتج
+        //     ]);
+        // }
+        //     session()->flash('success', ' Product added to cart successfully! ');
+
+                // ---------------------------------------
+
+        // if (empty($this->selected)) {
+        //     $this->addError('cart', 'Select at least one product');
+        //     return;
+        // }
+
+        // $clientId = Auth::guard('clients')->id(); // تأكد من guard
+
+        // // 🛒 Get or create cart
+        // $cart = Cart::firstOrCreate([
+        //     'client_id'   => $clientId,
+        //     'merchant_id' => $this->productData->merchant_id,
+        // ]);
+
+        // foreach ($this->selected as $key => $data) {
+
+        //     $qty   = $data['qty'] ?? 0;
+        //     $price = $data['price'] ?? $this->getPriceByKey($key);
+
+        //     if ($qty < 1) continue;
+
+
+        //         $stock = $this->getStockByKey($key);
+
+        //         if ($data['qty'] > $stock) {
+        //             session()->flash('error', 'Quantity exceeds stock');
+        //             return;
+        //         }
+
+        //     // تحليل المفتاح
+        //     $parts = explode('|', $key);
+
+        //     $color   = $parts[0] ?? null;
+        //     $variant = count($parts) === 3 ? $parts[1] : null;
+        //     $size    = count($parts) === 3 ? $parts[2] : ($parts[1] ?? null);
+
+        //     CartItem::create([
+        //         'cart_id'    => $cart->id,
+        //         'product_id' => $this->productData->id,
+        //         'color'      => $color,
+        //         'variant'    => $variant,
+        //         'size'       => $size,
+        //         'qty'   => $qty,
+        //         'price'      => $price,
+        //     ]);
+        // }
+
+        // // ✅ Reset
+        // $this->selected = [];
+
+        // session()->flash('success', 'Product added to cart successfully 🛒');
+
+
+        // ________________________________________________________________
+
+            if (empty($this->selected)) {
+                session()->flash('error', 'Select at least one product');
+                return;
+            }
+
+            try {
+
+                DB::transaction(function () {
+
+                    // ✅ تحقق كامل من stock قبل أي تسجيل
+                    foreach ($this->selected as $key => $data) {
+
+                        $qty = (int) ($data['qty'] ?? 0);
+                        if ($qty < 1) {
+                            throw new Exception('Invalid quantity');
+                        }
+
+                        $stock = $this->getStockByKey($key);
+
+                        if ($qty > $stock) {
+                            throw new Exception(
+                                'Quantity exceeds stock. Available: ' . $stock
+                            );
+                        }
+                    }
+
+                    // ✅ دابا فقط نسمحو بالتسجيل
+                    $clientId = Auth::guard('clients')->id();
+
+                    $cart = Cart::firstOrCreate([
+                        'client_id'   => $clientId,
+                        'merchant_id' => $this->productData->merchant_id,
+                    ]);
+
+                    foreach ($this->selected as $key => $data) {
+
+                        $qty   = (int) $data['qty'];
+                        $price = $data['price'] ?? $this->getPriceByKey($key);
+
+                        $parts = explode('|', $key);
+
+                        $color   = $parts[0] ?? null;
+                        $variant = count($parts) === 3 ? $parts[1] : null;
+                        $size    = count($parts) === 3 ? $parts[2] : ($parts[1] ?? null);
+
+                        CartItem::create([
+                            'cart_id'    => $cart->id,
+                            'product_id' => $this->productData->id,
+                            'color'      => $color,
+                            'variant'    => $variant,
+                            'size'       => $size,
+                            'qty'   => $qty,
+                            'price'      => $price,
+                        ]);
+                    }
+
+                });
+
+                // ✅ غير إلا داز كلشي
+                $this->selected = [];
+                session()->flash('success', 'Product added to cart successfully 🛒');
+
+            } catch (Exception $e) {
+
+                // ❌ أي خطأ → rollback تلقائي
+                session()->flash('error', $e->getMessage());
+                return;
+            }
+    }
+
+    private function getPriceByKey($key)
+    {
+        $parts = explode('|', $key);
+        $color   = $parts[0] ?? null;
+        $variant = count($parts) === 3 ? $parts[1] : null;
+        $size    = count($parts) === 3 ? $parts[2] : ($parts[1] ?? null);
+
+        $colors = $this->productData->getAvailableSizes();
+
+        if ($variant && isset($colors[$color]['variants'][$variant][$size])) {
+            return $colors[$color]['variants'][$variant][$size]['price'];
+        }
+
+        if (isset($colors[$color]['sizesf'][$size])) {
+            return $colors[$color]['sizesf'][$size]['price'];
+        }
+
+        return $this->productData->price; // fallback
+    }
 
     public function resetFilters()
     {
@@ -71,24 +273,75 @@ class products extends Component
     }
 
 
-    public function toggleSelection($key, $checked)
+    public function toggleSelection($key, $checked, $price)
     {
-        if (!$checked) {
-            unset($this->selected[$key]);
-        } else {
-            $this->selected[$key] = $this->selected[$key] ?? 1;
-        }
+            if($checked) {
+                $this->selected[$key] = [
+                    'qty' => 1,
+                    'price' => $price
+                ];
+            } else {
+                unset($this->selected[$key]);
+            }
     }
 
-    public function updateQuantity($key)
+    public function updateQuantity($key, $qty)
     {
-        if (
-            !isset($this->selected[$key]) ||
-            $this->selected[$key] <= 0
-        ) {
-            unset($this->selected[$key]);
+        if (!isset($this->selected[$key])) {
+            return;
         }
+
+        // stock ديال هاد الاختيار
+        $stock = $this->getStockByKey($key);
+
+        // تنظيف القيمة
+        $qty = (int) $qty;
+
+        if ($qty < 1) {
+            $qty = 1;
+        }
+
+        if ($qty > $stock) {
+            $qty = $stock;
+
+                    session()->flash('error', 'Stock limité');
+
+        }
+
+        $this->selected[$key]['qty'] = $qty;
     }
+
+    private function getStockByKey($key)
+    {
+        $parts = explode('|', $key);
+
+        $color   = $parts[0] ?? null;
+        $variant = count($parts) === 3 ? $parts[1] : null;
+        $size    = count($parts) === 3 ? $parts[2] : ($parts[1] ?? null);
+
+        $colors = $this->productData->getAvailableSizes();
+
+        // WITH VARIANT
+        if ($variant && isset($colors[$color]['variants'][$variant])) {
+            foreach ($colors[$color]['variants'][$variant] as $s) {
+                if ($s['size'] === $size) {
+                    return (int) $s['quantity'];
+                }
+            }
+        }
+
+        // WITHOUT VARIANT
+        if (isset($colors[$color]['sizesf'])) {
+            foreach ($colors[$color]['sizesf'] as $s) {
+                if ($s['size'] === $size) {
+                    return (int) $s['quantity'];
+                }
+            }
+        }
+
+        return 0;
+    }
+
 
     public function packageproduct()
     {

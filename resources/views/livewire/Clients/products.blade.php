@@ -1,6 +1,18 @@
 
 
             <div>
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 {{-- ================= Page Products ================= --}}
                 @if($show_products)
                     @include('livewire.Clients.DetailsProduct')
@@ -166,6 +178,7 @@
 
                             </div>
                         </div>
+
                         <div class="col-xl-9 col-lg-9 col-md-12">
                             <div class="card">
                                 <div class="card-body p-2">
@@ -175,7 +188,6 @@
                                 </div>
                             </div>
                             <div class="row row-sm">
-
                                 @forelse ($products as $product)
 
                                         <div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
@@ -195,7 +207,7 @@
                                                         @else
                                                             <img src="{{ asset('storage/'.$product->image) }}" class="w-100">
                                                         @endif
-                                                        <a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
+                                                        <a href="#" class="adtocart" wire:click="AddToCart({{ $product->id }})"> <i class="las la-shopping-cart "></i>
                                                         </a>
                                                     </div>
                                                     <div class="text-center pt-3">
@@ -233,7 +245,7 @@
                                                             </small>
 
                                                         </span>
-                                                        <h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">
+                                                        <h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger" wire:model="price">
                                                             @if($product->currentPromotion)
                                                                 <span class="text-danger font-weight-bold">
                                                                     ${{ number_format($product->currentPromotion->price, 2) }}
