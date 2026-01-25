@@ -291,21 +291,16 @@ class products extends Component
             return;
         }
 
-        // stock ديال هاد الاختيار
-        $stock = $this->getStockByKey($key);
+        $stock = $this->productData->getProductStockByKey($key);
 
-        // تنظيف القيمة
         $qty = (int) $qty;
-
         if ($qty < 1) {
             $qty = 1;
         }
 
         if ($qty > $stock) {
             $qty = $stock;
-
-                    session()->flash('error', 'Stock limité');
-
+            session()->flash('error', 'Stock limité');
         }
 
         $this->selected[$key]['qty'] = $qty;

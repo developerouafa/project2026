@@ -32,6 +32,13 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     });
                 //############################# end Partie Profile Client ######################################
 
+
+                //############################# GroupProducts route ##########################################
+
+                    Route::view('Cart', 'livewire.Clients.Cart')->name('Cart');
+
+                //############################# GroupProducts route ##########################################
+
             });
 
 require __DIR__.'/clientsauth.php';

@@ -491,6 +491,51 @@ class Product extends Model
 
 
 
+            public function getProductStockByKey(string $key): int
+            {
+                $parts = explode('|', $key);
+
+                $colorName = $parts[0] ?? null;
+                $variant   = count($parts) === 3 ? $parts[1] : null;
+                $sizeName  = count($parts) === 3 ? $parts[2] : ($parts[1] ?? null);
+
+                if (!$colorName || !$sizeName) {
+                    return 0;
+                }
+
+                // 🔎 color
+                $color = Colors::where('name', $colorName)->first();
+                if (!$color) return 0;
+
+                $productColor = Product_colors::where('product_id', $this->id)
+                    ->where('color_id', $color->id)
+                    ->first();
+
+                if (!$productColor) return 0;
+
+                // 🔎 size
+                $size = Sizes::where('name', $sizeName)->first();
+                if (!$size) return 0;
+
+                // 🟣 WITH VARIANT
+                if ($variant) {
+                    $variantModel = color_variants::where('product_color_id', $productColor->id)
+                        ->where('name', $variant)
+                        ->first();
+
+                    if (!$variantModel) return 0;
+
+                    return (int) Color_variant_sizes::where('color_variant_id', $variantModel->id)
+                        ->where('size_id', $size->id)
+                        ->value('quantity');
+                }
+
+                // 🔵 WITHOUT VARIANT
+                return (int) Product_color_sizes::where('product_color_id', $productColor->id)
+                    ->where('size_id', $size->id)
+                    ->value('quantity');
+            }
+
             // package
             public function packages()
             {

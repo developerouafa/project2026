@@ -140,13 +140,27 @@
 
                                                                                     @if(array_key_exists($key, $selected))
                                                                                         <div class="d-flex align-items-center">
-                                                                                            <input type="number"
+                                                                                            @if($this->productData->getProductStockByKey($key) > 0)
+
+                                                                                                <select
+                                                                                                    class="form-control form-control-sm"
+                                                                                                    wire:model="selected.{{ $key }}.qty"
+                                                                                                    wire:change="updateQuantity('{{ $key }}', $event.target.value)"
+                                                                                                >
+                                                                                                    @for($i = 1; $i <= $this->productData->getProductStockByKey($key); $i++)
+                                                                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                                                                    @endfor
+                                                                                                </select>
+                                                                                            @else
+                                                                                                <span class="text-danger">Out of stock</span>
+                                                                                            @endif
+                                                                                            {{-- <input type="number"
                                                                                                 min="1"
                                                                                                 max="{{ $size['quantity'] }}"
                                                                                                 wire:model.lazy="selected.{{ $key }}.qty"
                                                                                                 wire:change="updateQuantity('{{ $key }}', $event.target.value)"
                                                                                                 class="form-control form-control-sm"
-                                                                                                style="width:70px">
+                                                                                                style="width:70px"> --}}
                                                                                             <small class="ml-2 text-muted">/ {{ $size['quantity'] }}</small>
                                                                                         </div>
                                                                                     @endif
@@ -187,13 +201,28 @@
 
                                                                     @if(array_key_exists($key, $selected))
                                                                         <div class="d-flex align-items-center">
-                                                                            <input type="number"
+                                                                            @if($this->productData->getProductStockByKey($key) > 0)
+
+                                                                                <select
+                                                                                    class="form-control form-control-sm"
+                                                                                    wire:model="selected.{{ $key }}.qty"
+                                                                                    wire:change="updateQuantity('{{ $key }}', $event.target.value)"
+                                                                                >
+                                                                                    @for($i = 1; $i <= $this->productData->getProductStockByKey($key); $i++)
+                                                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                                                    @endfor
+                                                                                </select>
+                                                                            @else
+                                                                                <span class="text-danger">Out of stock</span>
+                                                                            @endif
+
+                                                                            {{-- <input type="number"
                                                                                 min="1"
                                                                                 max="{{ $size['quantity'] }}"
                                                                                 wire:model.lazy="selected.{{ $key }}.qty"
                                                                                 wire:change="updateQuantity('{{ $key }}', $event.target.value)"
                                                                                 class="form-control form-control-sm"
-                                                                                style="width:70px">
+                                                                                style="width:70px"> --}}
                                                                             <small class="ml-2 text-muted">/ {{ $size['quantity'] }}</small>
                                                                         </div>
                                                                     @endif
