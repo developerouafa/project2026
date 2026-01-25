@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\clients;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Client;
+use App\Models\addresses;
 use Illuminate\Http\Request;
 
-class ClientsController extends Controller
+class AddressesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +34,7 @@ class ClientsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Client $clients)
+    public function show(addresses $addresses)
     {
         //
     }
@@ -43,7 +42,7 @@ class ClientsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Client $clients)
+    public function edit(addresses $addresses)
     {
         //
     }
@@ -51,7 +50,7 @@ class ClientsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Client $clients)
+    public function update(Request $request, addresses $addresses)
     {
         //
     }
@@ -59,7 +58,7 @@ class ClientsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $clients)
+    public function destroy(addresses $addresses)
     {
         //
     }

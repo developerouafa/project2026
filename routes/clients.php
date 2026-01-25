@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\clients\Auth\ImageclientController;
 use App\Http\Controllers\clients\Auth\ProfileController;
+use App\Http\Controllers\clients\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -39,6 +40,14 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
                 //############################# GroupProducts route ##########################################
 
+                Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
+                    Route::get('/checkout/success', function () {
+                        return redirect()->route('Cart');
+                    })->name('checkout.success');
+
+                    Route::get('/checkout/cancel', function () {
+                        return redirect()->route('Cart');
+                    })->name('checkout.cancel');
             });
 
 require __DIR__.'/clientsauth.php';

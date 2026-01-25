@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('products')->nullable();
-            $table->foreignId('package_product_id')->constrained('packageproducts')->nullable();
+            $table->foreignId('product_id')->nullable()->constrained('products');
+            $table->foreignId('package_product_id')->nullable()->constrained('packageproducts');
 
             $table->string('color')->nullable();
             $table->string('size')->nullable();

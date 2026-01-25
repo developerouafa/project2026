@@ -15,6 +15,10 @@ class Payment extends Model
         'amount',
         'method',
         'status',
+        'stripe_id',
+        'pm_type',
+        'pm_last_four',
+        'trial_ends_at',
         'reference',
         'description',
     ];

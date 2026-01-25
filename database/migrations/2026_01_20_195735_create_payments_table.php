@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->enum('method', [
                 'cash',
-                'bank_transfer'
+                'stripe'
             ]);
 
             $table->enum('status', [
@@ -30,7 +30,10 @@ return new class extends Migration
                 'refunded',
                 'cancelled'
             ])->default('pending');
-            $table->string('stripe_payment_id')->nullable(); // Stripe payment identifier
+            $table->string('stripe_id')->nullable()->index();
+            $table->string('pm_type')->nullable();
+            $table->string('pm_last_four', 4)->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
 
             $table->string('reference')->nullable(); // transaction id
             $table->text('description')->nullable();

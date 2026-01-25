@@ -105,10 +105,79 @@
                             </div>
                         </div>
 
+                        <hr class="my-4">
+
+<h5 class="mb-3">معلومات الزبون و التوصيل</h5>
+
+@if(count($Addresse))
+    <div class="mb-3">
+        <label>اختر عنوان التوصيل:</label>
+        <select wire:model="selected_address" class="form-control">
+            <option value="">-- اختر عنوان --</option>
+            @foreach($Addresse as $address)
+                <option value="{{ $address->id }}">{{ $address->title }} - {{ $address->street }}, {{ $address->city }}</option>
+            @endforeach
+        </select>
+    </div>
+@endif
+
+<div class="row mb-2">
+    <div class="col-md-4">
+        <input type="text" wire:model="name" placeholder="الاسم" class="form-control">
+        @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+    <div class="col-md-4">
+        <input type="email" wire:model="email" placeholder="الإيميل" class="form-control">
+        @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+    <div class="col-md-4">
+        <input type="text" wire:model="phone" placeholder="الهاتف" class="form-control">
+        @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-6">
+        <input type="text" wire:model="street" placeholder="الشارع" class="form-control">
+        @error('street') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+    <div class="col-md-6">
+        <input type="text" wire:model="city" placeholder="المدينة" class="form-control">
+        @error('city') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-4">
+        <input type="text" wire:model="state" placeholder="الولاية" class="form-control">
+        @error('state') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+    <div class="col-md-4">
+        <input type="text" wire:model="postal_code" placeholder="الرمز البريدي" class="form-control">
+        @error('postal_code') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+    <div class="col-md-4">
+        <input type="text" wire:model="country" placeholder="الدولة" class="form-control">
+        @error('country') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+</div>
+
+
+<div class="mb-3">
+    <label class="form-label">طريقة الدفع</label>
+    <select wire:model="payment_method" class="form-control">
+        <option value="cash">الدفع عند الاستلام (COD)</option>
+        <option value="stripe">الدفع بالبطاقة (Stripe)</option>
+    </select>
+</div>
                         <div class="shopping-cart-footer">
                             <div class="column"><a class="btn btn-secondary" href="{{ route('Products.clients') }}">Back to Shopping</a></div>
                             <div class="column">
-                                <a class="btn btn-success" href="#">Checkout</a>
+
+                                <button wire:click="checkout" class="btn btn-success">
+                                    Checkout
+                                </button>
+
                             </div>
                         </div>
                     </div>

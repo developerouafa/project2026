@@ -31,7 +31,7 @@ class PaymentSeeder extends Seeder
                 'date' => now(),
                 'client_id' => $client->id,
                 'amount' => rand(100, 1000),
-                'method' => 'bank_transfer',
+                'method' => 'stripe',
                 'reference' => 'PAY-' . rand(1000, 9999),
                 'description' => 'Payment for order',
             ]);
