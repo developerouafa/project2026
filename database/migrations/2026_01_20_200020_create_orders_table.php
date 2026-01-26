@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
             $table->decimal('total',10,2);
             $table->enum('status', ['pending', 'confirmed', 'Paid', 'completed', 'cancelled'])->default('pending');
-
+            $table->timestamp('final_notification_sent_at')->nullable();
             $table->timestamps();
         });
     }

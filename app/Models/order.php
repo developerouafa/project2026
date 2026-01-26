@@ -14,6 +14,7 @@ class Order extends Model
         'merchant_id',
         'total',
         'status',
+        'final_notification_sent_at',
         // pending
         // confirmed
         // Paid

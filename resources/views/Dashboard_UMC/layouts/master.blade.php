@@ -49,3 +49,30 @@
         <!-- main-content closed -->
 	</body>
 </html>
+<script>
+    setInterval(function() {
+        $("#notifications_count").load(window.location.href + " #notifications_count");
+        $("#unreadNotifications").load(window.location.href + " #unreadNotifications");
+    }, 5000);
+
+    // Mark all read
+    $('#markAllRead').click(function() {
+        $.ajax({
+            url: '{{ route("client.notifications.markAllRead") }}',
+            method: 'POST',
+            data: {_token: '{{ csrf_token() }}'},
+            success: function(res) {
+                if(res.status === 'success'){
+                    // إعادة تحميل notifications list
+                    location.reload();
+                }
+            }
+        });
+    });
+
+    // Optional: polling every 10 seconds to update notifications count
+    setInterval(function(){
+        $('#notificationsCount').load(location.href + ' #notificationsCount');
+    }, 10000);
+
+</script>

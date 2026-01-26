@@ -4,9 +4,13 @@
 use App\Http\Controllers\clients\Auth\ImageclientController;
 use App\Http\Controllers\clients\Auth\ProfileController;
 use App\Http\Controllers\clients\StripeWebhookController;
+use App\Models\Client;
+use App\Notifications\OrderFinalStatusNotification;
+use App\Notifications\TestNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
+use Symfony\Component\HttpFoundation\Request;
 
         Route::group(
             [
@@ -48,6 +52,28 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                     Route::get('/checkout/cancel', function () {
                         return redirect()->route('Cart');
                     })->name('checkout.cancel');
+
+
+                    Route::post('/client/notifications/mark-all-read', function (Request $request) {
+                        $client = Auth::guard('clients')->user();
+                        if ($client) {
+                            $client->unreadNotifications->markAsRead();
+                        }
+                        return response()->json(['status' => 'success']);
+                    })->name('client.notifications.markAllRead');
+
+                    // Route::get('/test-notification', function () {
+                    //     $client = Client::first(); // خذ أول client موجود
+
+                    //     if (!$client) {
+                    //         return "No client found!";
+                    //     }
+
+                    //     // صيفط notification
+                    //     $client->notify(new TestNotification("Hello! This is a test notification."));
+
+                    //     return "Test notification sent to client ID: {$client->id}";
+                    // });
             });
 
 require __DIR__.'/clientsauth.php';

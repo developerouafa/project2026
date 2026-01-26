@@ -65,4 +65,11 @@
     const stripe = Stripe('{{ config("services.stripe.key") }}');
 </script>
 
+<script>
+    window.Echo.private(`App.Models.Client.${clientId}`)
+    .notification((notification) => {
+        console.log('New final order notification:', notification);
+        alert(notification.message); // مثال سريع
+    });
+</script>
 @livewireScripts
