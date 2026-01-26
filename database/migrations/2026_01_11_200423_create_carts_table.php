@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
             $table->foreignId('merchant_id')->constrained('merchants')->cascadeOnDelete();
-            $table->enum('status', ['active', 'converted'])->default('active');
             $table->timestamps();
         });
     }

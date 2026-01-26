@@ -39,6 +39,18 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    // 🔗 Addresse Order
+    public function addresse()
+    {
+        return $this->hasOne(Addresse::class);
+    }
+
+    // 🔗 Payment Order
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
     // 🔗 Merchant Orders
     public function merchantOrders()
     {
@@ -55,4 +67,5 @@ class Order extends Model
     {
         return $this->hasMany(Refund::class);
     }
+
 }

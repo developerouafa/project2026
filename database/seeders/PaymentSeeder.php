@@ -20,6 +20,7 @@ class PaymentSeeder extends Seeder
             Payment::create([
                 'date' => now(),
                 'client_id' => $client->id,
+                'order_id' => '1',
                 'amount' => rand(100, 1000),
                 'method' => 'cash',
                 'reference' => 'PAY-' . rand(1000, 9999),
@@ -30,6 +31,7 @@ class PaymentSeeder extends Seeder
             Payment::create([
                 'date' => now(),
                 'client_id' => $client->id,
+                'order_id' => '2',
                 'amount' => rand(100, 1000),
                 'method' => 'stripe',
                 'reference' => 'PAY-' . rand(1000, 9999),

@@ -11,6 +11,7 @@ class Addresse extends Model
 
     protected $fillable = [
         'client_id',     // الربط مع العميل
+        'order_id',     // الربط مع الطلبية
         'title',         // عنوان مثل: "المنزل" أو "العمل"
         'street',        // الشارع
         'city',          // المدينة
@@ -29,5 +30,11 @@ class Addresse extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    // 🔗 العلاقة مع الطلبية
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

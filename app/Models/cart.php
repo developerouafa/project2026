@@ -11,8 +11,7 @@ class Cart extends Model
 
     protected $fillable = [
         'client_id',
-        'merchant_id',
-        'status', //(active / converted)
+        'merchant_id'
     ];
 
     // 🔗 Client

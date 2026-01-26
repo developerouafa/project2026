@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('qty')->default(1);
             $table->decimal('price', 10, 2);
 
+            $table->enum('status', ['active', 'converted'])->default('active');
+
             $table->timestamps();
         });
     }

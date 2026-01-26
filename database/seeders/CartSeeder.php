@@ -22,7 +22,6 @@ class CartSeeder extends Seeder
             Cart::create([
                 'client_id' => $client->id,
                 'merchant_id' => $merchants->random()->id,
-                'status' => 'active',
             ]);
         }
     }

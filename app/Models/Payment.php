@@ -12,6 +12,7 @@ class Payment extends Model
     protected $fillable = [
         'date',
         'client_id',
+        'order_id',
         'amount',
         'method',
         'status',
@@ -27,6 +28,12 @@ class Payment extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    // 🔗 Order
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 
     public function refunds()

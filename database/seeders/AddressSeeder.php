@@ -19,6 +19,7 @@ class AddressSeeder extends Seeder
             // 🔹 عنوان افتراضي
             Addresse::create([
                 'client_id'   => $client->id,
+                'order_id'   => '1',
                 'title'       => 'المنزل',
                 'street'      => 'شارع السلام 123',
                 'city'        => 'الرباط',
@@ -32,6 +33,7 @@ class AddressSeeder extends Seeder
             // 🔹 عنوان إضافي
             Addresse::create([
                 'client_id'   => $client->id,
+                'order_id'   => '2',
                 'title'       => 'العمل',
                 'street'      => 'شارع محمد الخامس 45',
                 'city'        => 'الدار البيضاء',
@@ -42,18 +44,6 @@ class AddressSeeder extends Seeder
                 'default'     => false,
             ]);
 
-            // 🔹 عنوان إضافي عشوائي
-            Addresse::create([
-                'client_id'   => $client->id,
-                'title'       => 'آخر',
-                'street'      => 'شارع الحسن الثاني 78',
-                'city'        => 'مراكش',
-                'state'       => 'مراكش آسفي',
-                'postal_code' => '40000',
-                'country'     => 'Morocco',
-                'phone'       => '+212600000002',
-                'default'     => false,
-            ]);
         }
     }
 }

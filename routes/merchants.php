@@ -5,6 +5,7 @@ use App\Http\Controllers\merchants\Auth\ImagemerchantController;
 use App\Http\Controllers\merchants\Auth\ProfileController;
 use App\Http\Controllers\merchants\merchants\MerchantController;
 use App\Http\Controllers\merchants\merchants\RolesMerchantController;
+use App\Http\Controllers\merchants\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboardumc\merchants\Products;
@@ -74,6 +75,12 @@ use App\Models\Sections;
                     Route::view('Add_GroupProducts','livewire.Dashboardumc.merchants.GroupProducts.include_create')->name('Add_GroupProducts');
 
                 //############################# end GroupProducts route ######################################
+
+                //############################# Merchants Order route ##########################################
+
+                    Route::view('ordersmerchant','livewire.Dashboardumc.merchants.orders')->name('ordersmerchant');
+                    Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
+                //############################# end Merchants Order route ######################################
 
             });
 

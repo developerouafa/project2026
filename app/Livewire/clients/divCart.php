@@ -6,6 +6,7 @@ use App\Models\Addresse;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Colors;
+use App\Models\MerchantOrder;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Packageproducts;
@@ -48,7 +49,14 @@ class divCart extends Component
     {
         $clientId = Auth::guard('clients')->id();
 
-        $this->cart = Cart::with(['items.product'])->where('client_id', $clientId)->first();
+        $this->cart = Cart::with([
+            'items' => function ($q) {
+                $q->where('status', 'active'); // ✅ غير المنتجات النشطة
+            },
+            'items.product'
+        ])
+        ->where('client_id', $clientId)
+        ->first(); // cart ما يحتاجش status دابا
 
         if ($this->cart) {
             foreach ($this->cart->items as $item) {
@@ -147,6 +155,7 @@ class divCart extends Component
     // ✅ Checkout بدون بوابة دفع
     public function checkout()
     {
+
         $this->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email',
@@ -168,23 +177,9 @@ class divCart extends Component
 
             $client = Auth::guard('clients')->user();
 
-            /* =========================
-            * 1️⃣ Address
-            * ========================= */
-            $address = Addresse::create([
-                'client_id'   => $client->id,
-                'title'       => 'Checkout',
-                'street'      => $this->street,
-                'city'        => $this->city,
-                'state'       => $this->state,
-                'postal_code' => $this->postal_code,
-                'country'     => $this->country,
-                'phone'       => $this->phone,
-                'default'     => false,
-            ]);
 
             /* =========================
-            * 2️⃣ Order
+            * 1️⃣ Order
             * ========================= */
             $order = Order::create([
                 'client_id'   => $client->id,
@@ -193,6 +188,22 @@ class divCart extends Component
                 'status'      => $this->payment_method === 'cash'
                                     ? 'pending'
                                     : 'pending', // paid من بعد Stripe webhook
+            ]);
+
+            /* =========================
+            *  2️⃣ Address
+            * ========================= */
+            Addresse::create([
+                'client_id'   => $client->id,
+                'order_id'   => $order->id,
+                'title'       => 'Checkout',
+                'street'      => $this->street,
+                'city'        => $this->city,
+                'state'       => $this->state,
+                'postal_code' => $this->postal_code,
+                'country'     => $this->country,
+                'phone'       => $this->phone,
+                'default'     => false,
             ]);
 
             /* =========================
@@ -209,6 +220,12 @@ class divCart extends Component
                     'qty'               => $item->qty,
                     'price'             => $item->price,
                 ]);
+
+                MerchantOrder::create([
+                    'order_id'    => $order->id,
+                    'merchant_id' => $order->merchant_id,
+                    'status'      => 'pending',
+                ]);
             }
             /* =========================
             * 4️⃣ Payment
@@ -218,6 +235,7 @@ class divCart extends Component
             $payment = Payment::create([
                 'date'        => now(),
                 'client_id'   => $client->id,
+                'order_id'   => $order->id,
                 'amount'      => $this->subtotal,
                 'method'      => $this->payment_method,
                 'status'      => $this->payment_method === 'cash'
@@ -277,8 +295,12 @@ class divCart extends Component
             /* =========================
             * 6️⃣ COD case
             * ========================= */
-            DB::table('cart_items')->where('cart_id', $this->cart->id)->delete();
-            $this->cart->delete();
+                // DB::table('cart_items')->where('cart_id', $this->cart->id)->delete();
+                // $this->cart->delete();
+
+            foreach ($this->items as $item) {
+                CartItem::where('cart_id', $item->cart_id)->update(['status' => 'converted']);
+            }
 
             DB::commit();
 

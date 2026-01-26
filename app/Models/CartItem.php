@@ -19,6 +19,7 @@ class CartItem extends Model
         'size',
         'qty',
         'price',
+        'status', //(active / converted)
     ];
 
     // 🔗 Cart

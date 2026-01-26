@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->dateTime('date');
             $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->decimal('amount', 10, 2);
 
             $table->enum('method', [

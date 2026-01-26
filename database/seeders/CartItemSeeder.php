@@ -29,6 +29,7 @@ class CartItemSeeder extends Seeder
                 'size' => 'M',
                 'qty' => rand(1,5),
                 'price' => rand(50,200),
+                'status' => 'active',
             ]);
         }
     }
