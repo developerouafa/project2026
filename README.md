@@ -1,59 +1,319 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🛒 Multi-Vendor E-Commerce Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel · Livewire · Tailwind · Stripe
 
-## About Laravel
+🇬🇧 English
+📌 Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project is a full-stack multi-vendor e-commerce platform built primarily as a portfolio project to demonstrate advanced Laravel skills, while remaining open and scalable for real-world production use.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+It showcases clean architecture, complex database relationships, and real business workflows, commonly required in modern e-commerce systems.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+👥 User Types
 
-## Learning Laravel
+The system is structured around three main roles:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Users / Admins – system management & moderation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Merchants – manage products, orders, and packages
 
-## Laravel Sponsors
+Clients – browse products, place orders, and make payments
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Each role has its own authentication flow, permissions, and responsibilities.
 
-### Premium Partners
+🌍 Multilingual & UI
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Fully multilingual: Arabic 🇲🇦 & English 🇬🇧
 
-## Contributing
+Tailwind CSS responsive design
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Clean, modern UI with scalable components
 
-## Code of Conduct
+⚡ Livewire Integration
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+The project uses Laravel Livewire to build dynamic, reactive features without heavy JavaScript, especially for business-critical flows.
 
-## Security Vulnerabilities
+Livewire is mainly used for:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Checkout & order creation
 
-## License
+Cart updates (real-time)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Form validation without page reload
+
+Stateful components across the purchase flow
+
+This keeps the frontend fast and interactive, while maintaining backend logic inside Laravel.
+
+🔄 Checkout & Payment Flow (Livewire + Stripe)
+Client
+  ↓
+Livewire Checkout Component
+  ↓
+Create Order + Payment
+  ↓
+Stripe Checkout Session (metadata)
+  ↓
+Redirect to Stripe
+  ↓
+Stripe Webhook
+  ↓
+Update Payment & Order Status
+
+🧱 Core Features
+🛍 Product System
+
+Categories & subcategories (Sections)
+
+Products with:
+
+Colors
+
+Color variants
+
+Sizes
+
+SKU & stock per variant
+
+Simple & variant-based products
+
+Package products (bundles)
+
+🧑‍💼 Merchant System
+
+Merchant-owned products
+
+Merchant-specific orders
+
+Merchant order lifecycle:
+
+pending → accepted → processing → delivered
+
+🛒 Cart & Orders
+
+One cart per client & merchant
+
+Convert cart → order
+
+Order items & package items
+
+Merchant orders split from global orders
+
+💳 Payments & Accounting
+
+Stripe Checkout integration
+
+Webhook-based payment confirmation
+
+Payments, invoices, refunds
+
+Client accounts & fund tracking
+
+COD & online payment ready
+
+🚚 Shipping & Addresses
+
+Multiple addresses per client
+
+Shipping tracking per invoice
+
+🧠 Architecture Highlights
+
+Advanced Eloquent relationships
+
+Extensive use of:
+
+Query Scopes
+
+Soft Deletes
+
+Casts & Accessors
+
+Clean separation of concerns
+
+Highly readable & extendable codebase
+
+🎯 Project Goal
+
+This project is designed to be:
+
+✅ A strong Laravel portfolio project
+
+✅ A solid foundation for a real multi-vendor e-commerce platform
+
+It can easily be extended with:
+
+Admin dashboards
+
+REST / API & mobile apps
+
+Multi-currency support
+
+Advanced analytics & reports
+
+🛠 Tech Stack
+
+Backend: Laravel
+
+Reactive UI: Laravel Livewire
+
+Frontend: Tailwind CSS
+
+Auth & Roles: Laravel Auth + Spatie Roles
+
+Payments: Stripe (Checkout & Webhooks)
+
+Database: MySQL
+
+Languages: Arabic & English
+
+🇲🇦 العربية
+📌 نظرة عامة
+
+هذا المشروع عبارة عن منصة تجارة إلكترونية متعددة التجار، تم تطويرها أساسًا كـ مشروع Portfolio لعرض مستوى احترافي في Laravel، مع الحفاظ على بنية قابلة للتطوير والاستعمال في مشروع حقيقي.
+
+المشروع يعكس تعاملًا واقعيًا مع أنظمة التجارة الإلكترونية من حيث التصميم، العلاقات، وتدفقات العمل.
+
+👥 أنواع المستخدمين
+
+المنصة تعتمد على ثلاثة أدوار رئيسية:
+
+Users / Admins – إدارة النظام
+
+Merchants (التجار) – إدارة المنتجات والطلبات
+
+Clients (العملاء) – الشراء والدفع
+
+كل دور عنده نظام تسجيل وصلاحيات مستقل.
+
+🌍 تعدد اللغات والتصميم
+
+دعم كامل للعربية والإنجليزية
+
+تصميم متجاوب باستعمال Tailwind CSS
+
+واجهة نظيفة وقابلة للتوسعة
+
+⚡ استعمال Livewire
+
+تم استعمال Laravel Livewire لبناء واجهات تفاعلية بدون JavaScript معقد، خصوصًا في المراحل الحساسة.
+
+Livewire مستعمل في:
+
+Checkout وإنشاء الطلبات
+
+تحديث السلة مباشرة
+
+Validation بدون Reload
+
+Components بحالة (Stateful)
+
+هذا يعطي تجربة استخدام سلسة مع الحفاظ على منطق العمل داخل Laravel.
+
+🔄 مسار الشراء (Livewire + Stripe)
+العميل
+  ↓
+Livewire Checkout
+  ↓
+إنشاء Order + Payment
+  ↓
+Stripe Checkout Session
+  ↓
+التحويل إلى Stripe
+  ↓
+Stripe Webhook
+  ↓
+تحديث حالة الدفع والطلب
+
+🧱 المميزات الأساسية
+🛍️ نظام المنتجات
+
+أقسام وأقسام فرعية
+
+منتجات تدعم:
+
+الألوان
+
+الفاريانت
+
+المقاسات
+
+SKU والمخزون
+
+باكيجات المنتجات
+
+🧑‍💼 نظام التجار
+
+منتجات خاصة بكل تاجر
+
+طلبات مستقلة للتجار
+
+حالات الطلب (في الانتظار → مقبول → تم التسليم)
+
+🛒 السلة والطلبات
+
+سلة لكل عميل وتاجر
+
+تحويل السلة إلى طلب
+
+عناصر الطلب والباكيجات
+
+💳 الدفع والمحاسبة
+
+Stripe Checkout
+
+Webhooks لتأكيد الدفع
+
+فواتير، مدفوعات، Refunds
+
+دعم الدفع عند الاستلام
+
+🚚 الشحن والعناوين
+
+عدة عناوين لكل عميل
+
+تتبع الشحن حسب الفاتورة
+
+🧠 نقاط القوة المعمارية
+
+علاقات Eloquent متقدمة
+
+استعمال Scopes و SoftDeletes
+
+كود منظم وقابل للتطوير
+
+هيكلة واضحة وسهلة الفهم
+
+🎯 هدف المشروع
+
+المشروع يهدف إلى:
+
+✅ عرض مستوى احترافي في Laravel
+
+✅ توفير قاعدة قوية لمشروع تجارة إلكترونية حقيقي
+
+ويمكن توسيعه لاحقًا بإضافة:
+
+Dashboard متقدم
+
+API و Mobile Apps
+
+تعدد العملات
+
+تقارير وإحصائيات
+
+🧰 التقنيات المستعملة
+
+Backend: Laravel
+
+Reactive UI: Livewire
+
+Frontend: Tailwind CSS
+
+Auth & Roles: Laravel + Spatie
+
+Payments: Stripe
+
+Database: MySQL
+
+اللغات: العربية & الإنجليزية
