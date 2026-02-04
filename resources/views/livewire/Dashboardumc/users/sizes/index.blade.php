@@ -35,7 +35,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    <livewire:Dashboardumc.users.sizes.testcrud/>
+                    <livewire:Dashboardumc.users.sizes.SizesCRUD/>
                 </div>
             </div>
         </div>

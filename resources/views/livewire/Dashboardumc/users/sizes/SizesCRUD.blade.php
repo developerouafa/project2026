@@ -19,17 +19,15 @@
         </thead>
         <tbody>
             @foreach($sizes as $size)
-            <tr>
-                <td>{{ $size->id }}</td>
-                <td>{{ $size->name }}</td>
-                <td>{{ $size->description }}</td>
-                <td>
-
-                    <button class="btn btn-sm btn-primary" wire:click="edit({{ $size->id }})">Edit</button>
-                    <button class="btn btn-sm btn-danger" wire:click="delete({{ $size->id }})">Delete</button>
-                </td>
-            </tr>
-
+                <tr>
+                    <td>{{ $size->id }}</td>
+                    <td>{{ $size->name }}</td>
+                    <td>{{ $size->description }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" wire:click="edit({{ $size->id }})">Edit</button>
+                        <button class="btn btn-sm btn-danger" wire:click="delete({{ $size->id }})">Delete</button>
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>

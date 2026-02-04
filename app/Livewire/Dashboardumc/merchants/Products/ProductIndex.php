@@ -112,8 +112,8 @@ class productindex extends Component
             'parent_id'   => 'required|exists:sections,id',
         ]);
 
-        // try {
-        //     DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
             $product = Product::findOrFail($this->product_id);
 
@@ -131,16 +131,16 @@ class productindex extends Component
 
             $product->save();
 
-            // DB::commit();
+            DB::commit();
 
             session()->flash('success', 'تم تعديل المنتج بنجاح');
             return redirect()->route('dashboard.products');
 
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     session()->flash('error', 'حدث خطأ أثناء التعديل');
-        //     return redirect()->route('dashboard.products');
-        // }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('error', 'حدث خطأ أثناء التعديل');
+            return redirect()->route('dashboard.products');
+        }
     }
 
     public function render()

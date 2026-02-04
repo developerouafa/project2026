@@ -3,7 +3,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5>{{ $product_id ? 'Edit Product' : 'Add Product' }}</h5>
+                <h5>{{ 'Edit Product'  }}</h5>
                 <input type="hidden" wire:model="product_id">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

@@ -1,10 +1,10 @@
 
 <div class="d-flex justify-content-between pb-1">
     <button class="btn btn-primary pull-right" wire:click="show_form_add" type="button">
-        {{__('Dashboard/services.addsubservice')}}
+        Add Product Color
     </button><br><br>
     <button class="btn btn-danger pull-left" wire:click="deleteall" type="button">
-        {{__('Dashboard/messages.Deleteall')}}
+        Delete All
     </button><br><br>
 </div>
         <div class="table-responsive">
@@ -12,13 +12,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        {{-- <th>Photo</th> --}}
                         <th>Name</th>
-                        {{-- <th>Section</th>
-                        <th>Child</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Status</th> --}}
                         <th> Created_at </th>
                         <th> Updated_at </th>
                         <th> Processes </th>

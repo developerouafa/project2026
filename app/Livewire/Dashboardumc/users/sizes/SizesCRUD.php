@@ -5,7 +5,7 @@ namespace App\Livewire\Dashboardumc\users\sizes;
 use Livewire\Component;
 use App\Models\Sizes;
 
-class Testcrud extends Component
+class SizesCRUD extends Component
 {
     public $sizes, $name, $description, $size_id;
 
@@ -17,14 +17,13 @@ class Testcrud extends Component
 
     public function resetForm()
     {
-        $this->reset(['name','description','size_id']);
-        //  $this->dispatch('open-modal', id: 'add_sizes');
+        $this->reset(['name'=>'','description'=>'','size_id']);
     }
 
     public function render()
     {
         $this->sizes = Sizes::latest()->get();
-         return view('livewire.Dashboardumc.users.sizes.testcrud');
+         return view('livewire.Dashboardumc.users.sizes.SizesCRUD');
     }
 
     public function store()
@@ -40,9 +39,9 @@ class Testcrud extends Component
                 'description' => $this->description,
             ]
         );
-
-        $this->resetForm();
-        //  $this->dispatch('$refresh');     // 🔄 يعاود يجيب list
+        $this->name = '';
+        $this->description = '';
+        $this->size_id = '';
         session()->flash('success','Saved successfully');
 
         $this->dispatch('close-modal', id: 'add_sizes');
@@ -51,6 +50,8 @@ class Testcrud extends Component
 
     public function edit($id)
     {
+        $this->name = '';
+        $this->description = '';
         $size = Sizes::findOrFail($id);
         $this->size_id = $size->id;
 

@@ -14,8 +14,6 @@ use App\Livewire\Dashboardumc\users\sizesproducts\sizescreate;
 // use App\Livewire\Dashboardumc\Users\sizesproducts\SizesEdit;
 
 
-                // Route::get('/Dashboard/{page}', [AdminController::class, 'index']);
-
             Route::group(
                 [
                     'prefix' => LaravelLocalization::setLocale(),

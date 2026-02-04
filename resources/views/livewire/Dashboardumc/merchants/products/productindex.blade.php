@@ -1,11 +1,5 @@
 <div>
     <div class="flex justify-between mb-4">
-        <input type="text" wire:model.live="search" placeholder="بحث باسم المنتج..."
-               class="border p-2 rounded">
-
-        {{-- <a href="{{ route('products.create') }}" class="btn btn-primary">
-           Add Product
-        </a> --}}
         <button type="button" class="btn btn-main-primary" wire:click="createproductnocolor" >
             + Add Product No Color
         </button>
@@ -75,8 +69,6 @@
         </div>
     </div>
 
-    {{-- @if($isOpen) --}}
         @include('livewire.Dashboardumc.merchants.products.updateproductnocolor')
-    {{-- @endif --}}
 
 </div>

@@ -20,8 +20,7 @@ class MerchantController extends Controller
     //* Page Show merchants (Except the merchant who is logged in) & (Except for the Super Admin)
     public function index(Request $request)
     {
-        // $merchants = Merchant::orderBy('id','DESC')->where('id', '!=', '1')->where('id', '!=', Auth::guard('merchants')->id())->paginate(5);
-        $merchants = Merchant::orderBy('id','DESC')->paginate(5);
+        $merchants = Merchant::orderBy('id','DESC')->where('id', '!=', '1')->where('id', '!=', Auth::guard('merchants')->id())->paginate(5);
         return view('Dashboard_UMC.merchants.merchants.show_merchants',compact('merchants'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
