@@ -26,27 +26,27 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        // $token = $user->createToken('apitoken')->plainTextToken;
+        $token = $user->createToken('apitoken')->plainTextToken;
 
         return response()->json([
-            'user' => $user,
-            // 'token' => $token,
-        ]);
+            'user' => new \App\Http\Resources\UserResource($user),
+            'token' => $token,
+        ], 201);
     }
 
-    // التسجيل
+    // التسجيل (مكرر - يفضل حذفه أو دمجه، سأبقيه كما هو مع تحديث الاستجابة)
     public function registertwo(Request $request)
     {
         $user = User::create([
-            'name' => 'tytht',
-            'email' => 'tytht@gmail.com',
-            'password' => bcrypt('12345678'),
+            'name' => 'ououou',
+            'email' => 'ououou' . rand(1000, 9999) . '@gmail.com',
+            'password' => Hash::make('12345678'),
         ]);
 
         $token = $user->createToken('apitoken')->plainTextToken;
 
         return response()->json([
-            'user' => $user,
+            'user' => new \App\Http\Resources\UserResource($user),
             'token' => $token,
         ]);
     }
@@ -63,7 +63,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => '❌ بيانات غير صحيحة'], 401);
         }
 
@@ -71,7 +71,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'تم تسجيل الدخول بنجاح',
-            'user' => $user,
+            'user' => new \App\Http\Resources\UserResource($user),
             'token' => $token,
         ]);
     }
@@ -87,6 +87,6 @@ class AuthController extends Controller
     // جلب بيانات المستخدم الحالي
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        return new \App\Http\Resources\UserResource($request->user());
     }
 }
