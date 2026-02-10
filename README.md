@@ -1,319 +1,270 @@
-🛒 Multi-Vendor E-Commerce Platform
-
-Laravel · Livewire · Tailwind · Stripe
-
-🇬🇧 English
-📌 Overview
-
-This project is a full-stack multi-vendor e-commerce platform built primarily as a portfolio project to demonstrate advanced Laravel skills, while remaining open and scalable for real-world production use.
-
-It showcases clean architecture, complex database relationships, and real business workflows, commonly required in modern e-commerce systems.
-
-👥 User Types
-
-The system is structured around three main roles:
-
-Users / Admins – system management & moderation
-
-Merchants – manage products, orders, and packages
-
-Clients – browse products, place orders, and make payments
-
-Each role has its own authentication flow, permissions, and responsibilities.
-
-🌍 Multilingual & UI
-
-Fully multilingual: Arabic 🇲🇦 & English 🇬🇧
-
-Tailwind CSS responsive design
-
-Clean, modern UI with scalable components
-
-⚡ Livewire Integration
-
-The project uses Laravel Livewire to build dynamic, reactive features without heavy JavaScript, especially for business-critical flows.
-
-Livewire is mainly used for:
-
-Checkout & order creation
-
-Cart updates (real-time)
-
-Form validation without page reload
-
-Stateful components across the purchase flow
-
-This keeps the frontend fast and interactive, while maintaining backend logic inside Laravel.
-
-🔄 Checkout & Payment Flow (Livewire + Stripe)
-Client
+# 🛒 Multi-Vendor E-Commerce Platform
+> **Full-stack multi-vendor e-commerce platform** built with Laravel, showcasing enterprise-level architecture, complex database relationships, and real-world payment integration.
+---
+## 🎯 **Project Highlights**
+This is a **production-ready** multi-vendor marketplace demonstrating:
+✅ **Advanced Laravel Architecture** – Eloquent relationships, query scopes, soft deletes, API resources  
+✅ **Complex Business Logic** – Multi-role auth system, merchant order lifecycle, inventory management  
+✅ **Reactive UI** – Laravel Livewire for dynamic checkout & cart management  
+✅ **Payment Integration** – Stripe Checkout + Webhooks for secure payment processing  
+✅ **Scalable Codebase** – Clean separation of concerns, extendable structure  
+✅ **Multilingual Support** – Full Arabic & English localization  
+**Built for:** Portfolio demonstration, technical hiring assessments, and real-world deployment.
+---
+## 🏗️ **Architecture Overview**
+### **Multi-Role System**
+The platform supports three distinct user types with isolated authentication flows:
+| Role | Responsibilities | Authentication |
+|------|-----------------|----------------|
+| **Admin/User** | System management, moderation, analytics | `users` table |
+| **Merchant** | Product management, order fulfillment | `merchants` table + dedicated routes |
+| **Client** | Shopping, payments, order tracking | `clients` table + dedicated auth |
+### **Core Technical Features**
+#### **Advanced Product Catalog**
+```php
+Product → ProductColors → ColorVariants → Sizes → SKU + Stock
+         → PackageProducts (bundles)
+         → Sections (categories/subcategories)
+```
+- **Variant-based inventory** with color + size combinations
+- **Package products** (bundled items)
+- **Multi-image support** per product
+- **Promotions & discounts** system
+#### **Order & Payment Flow**
+```
+Client adds to Cart → Livewire Checkout → Create Order + Payment Record
   ↓
-Livewire Checkout Component
+Stripe Checkout Session (with metadata)
   ↓
-Create Order + Payment
+Redirect to Stripe → Payment Success/Failure
   ↓
-Stripe Checkout Session (metadata)
+Stripe Webhook → Update Payment Status → Split Merchant Orders
   ↓
-Redirect to Stripe
-  ↓
-Stripe Webhook
-  ↓
-Update Payment & Order Status
-
-🧱 Core Features
-🛍 Product System
-
-Categories & subcategories (Sections)
-
-Products with:
-
-Colors
-
-Color variants
-
-Sizes
-
-SKU & stock per variant
-
-Simple & variant-based products
-
-Package products (bundles)
-
-🧑‍💼 Merchant System
-
-Merchant-owned products
-
-Merchant-specific orders
-
-Merchant order lifecycle:
-
-pending → accepted → processing → delivered
-
-🛒 Cart & Orders
-
-One cart per client & merchant
-
-Convert cart → order
-
-Order items & package items
-
-Merchant orders split from global orders
-
-💳 Payments & Accounting
-
-Stripe Checkout integration
-
-Webhook-based payment confirmation
-
-Payments, invoices, refunds
-
-Client accounts & fund tracking
-
-COD & online payment ready
-
-🚚 Shipping & Addresses
-
-Multiple addresses per client
-
-Shipping tracking per invoice
-
-🧠 Architecture Highlights
-
-Advanced Eloquent relationships
-
-Extensive use of:
-
-Query Scopes
-
-Soft Deletes
-
-Casts & Accessors
-
-Clean separation of concerns
-
-Highly readable & extendable codebase
-
-🎯 Project Goal
-
-This project is designed to be:
-
-✅ A strong Laravel portfolio project
-
-✅ A solid foundation for a real multi-vendor e-commerce platform
-
-It can easily be extended with:
-
-Admin dashboards
-
-REST / API & mobile apps
-
-Multi-currency support
-
-Advanced analytics & reports
-
-🛠 Tech Stack
-
-Backend: Laravel
-
-Reactive UI: Laravel Livewire
-
-Frontend: Tailwind CSS
-
-Auth & Roles: Laravel Auth + Spatie Roles
-
-Payments: Stripe (Checkout & Webhooks)
-
-Database: MySQL
-
-Languages: Arabic & English
-
-🇲🇦 العربية
-📌 نظرة عامة
-
-هذا المشروع عبارة عن منصة تجارة إلكترونية متعددة التجار، تم تطويرها أساسًا كـ مشروع Portfolio لعرض مستوى احترافي في Laravel، مع الحفاظ على بنية قابلة للتطوير والاستعمال في مشروع حقيقي.
-
-المشروع يعكس تعاملًا واقعيًا مع أنظمة التجارة الإلكترونية من حيث التصميم، العلاقات، وتدفقات العمل.
-
-👥 أنواع المستخدمين
-
-المنصة تعتمد على ثلاثة أدوار رئيسية:
-
-Users / Admins – إدارة النظام
-
-Merchants (التجار) – إدارة المنتجات والطلبات
-
-Clients (العملاء) – الشراء والدفع
-
-كل دور عنده نظام تسجيل وصلاحيات مستقل.
-
-🌍 تعدد اللغات والتصميم
-
-دعم كامل للعربية والإنجليزية
-
-تصميم متجاوب باستعمال Tailwind CSS
-
-واجهة نظيفة وقابلة للتوسعة
-
-⚡ استعمال Livewire
-
-تم استعمال Laravel Livewire لبناء واجهات تفاعلية بدون JavaScript معقد، خصوصًا في المراحل الحساسة.
-
-Livewire مستعمل في:
-
-Checkout وإنشاء الطلبات
-
-تحديث السلة مباشرة
-
-Validation بدون Reload
-
-Components بحالة (Stateful)
-
-هذا يعطي تجربة استخدام سلسة مع الحفاظ على منطق العمل داخل Laravel.
-
-🔄 مسار الشراء (Livewire + Stripe)
-العميل
-  ↓
-Livewire Checkout
-  ↓
-إنشاء Order + Payment
+Merchant processes order: pending → accepted → shipped → delivered
+```
+**Key implementations:**
+- Webhook-based payment confirmation (prevents race conditions)
+- Merchant-specific order splitting from global orders
+- COD (Cash on Delivery) + Online payment support
+- Invoice generation with shipping tracking
+#### **Merchant Order Lifecycle**
+Each merchant receives their own `MerchantOrder` with status tracking:
+- `pending` → `accepted` → `processing` → `shipped` → `delivered`
+- Refund handling with payment rollback
+- Commission calculations ready (extendable)
+---
+## 🛠️ **Tech Stack**
+### **Backend**
+- **Laravel 12** – Latest framework features (PHP 8.2+)
+- **Laravel Sanctum** – API authentication for mobile/SPA apps
+- **Spatie Permission** – Role & permission management
+- **Laravel Telescope** – Debug & monitoring (development)
+### **Frontend**
+- **Laravel Livewire 4** – Reactive components without heavy JS
+- **Tailwind CSS** – Modern, responsive UI
+- **Alpine.js** – Lightweight interactions
+### **Database**
+- **MySQL** – Relational database with 30+ migrations
+- **Eloquent ORM** – Advanced relationships (polymorphic, many-to-many with pivot data)
+### **Payments & Integrations**
+- **Stripe PHP SDK** – Checkout Sessions + Webhooks
+- **Astrotomic Translatable** – Database-level translations
+- **Laravel Localization** – Route-based language switching
+### **Development Tools**
+- **Laravel Debugbar** – Performance profiling
+- **PHPUnit** – Test suite ready
+- **Composer Scripts** – `composer dev` for full dev environment
+---
+## 📦 **Key Features**
+### **For Clients**
+✔ Product browsing with filters (category, color, size)  
+✔ Multi-merchant cart management  
+✔ Real-time checkout with Livewire  
+✔ Secure Stripe payments  
+✔ Order tracking & history  
+✔ Multiple shipping addresses  
+✔ Product reviews & ratings  
+### **For Merchants**
+✔ Product CRUD with variants  
+✔ Inventory management (SKU, stock levels)  
+✔ Order dashboard with status updates  
+✔ Sales analytics (extendable)  
+✔ Shipping label integration ready  
+### **For Admins**
+✔ User/merchant/client management  
+✔ Role & permission assignment  
+✔ Order moderation  
+✔ System-wide analytics  
+✔ Payment reconciliation  
+---
+## 🚀 **Installation**
+```bash
+# Clone repository
+git clone https://github.com/developerouafa/project2026.git
+cd project2026
+# Install dependencies & setup
+composer setup
+# This runs: composer install, .env setup, key generation, migrations, npm install & build
+# Configure environment
+cp .env.example .env
+# Update database credentials, Stripe keys in .env
+# Run migrations & seed (optional)
+php artisan migrate --seed
+# Start development server
+composer dev
+# Runs: Laravel server + queue worker + Vite + Pail (logs)
+```
+**Requirements:**
+- PHP 8.2+
+- MySQL 8.0+
+- Composer 2.x
+- Node.js 18+
+---
+## 🧪 **API Endpoints**
+The project includes a RESTful API ready for mobile apps:
+```php
+POST   /api/registerapi    # Client registration
+POST   /api/loginapi        # Authentication
+GET    /api/user            # Get authenticated user (Sanctum)
+POST   /api/logout          # Logout
+// Protected routes (auth:sanctum)
+GET    /api/sizesapi        # List all sizes
+POST   /api/sizesapistore   # Create size (admin)
+PUT    /api/sizesapiupdate/{id}
+DELETE /api/sizesapidestroy/{id}
+```
+**Implemented:**
+- API Resources for clean JSON responses
+- Sanctum token authentication
+- CORS configured for external apps
+---
+## 🎓 **What This Project Demonstrates**
+### **Laravel Expertise**
+- ✅ Complex Eloquent relationships (15+ models interconnected)
+- ✅ Service layer pattern for business logic
+- ✅ Resource transformers for API responses
+- ✅ Event-driven architecture (webhooks)
+- ✅ Query optimization (eager loading, scopes)
+### **Real-World Skills**
+- ✅ Payment gateway integration (Stripe)
+- ✅ Multi-tenant architecture (merchant isolation)
+- ✅ Stateful UI with Livewire (cart, checkout)
+- ✅ Database design for e-commerce
+- ✅ Security (CSRF, XSS protection, SQL injection prevention)
+### **Production Readiness**
+- ✅ Migration system for database versioning
+- ✅ Environment-based configuration
+- ✅ Error handling & logging
+- ✅ Scalable file structure
+- ✅ Ready for CI/CD integration
+---
+## 📈 **Future Enhancements**
+This project is designed to be extended with:
+🔹 **Admin Dashboard** – Full analytics with charts  
+🔹 **Mobile Apps** – Using existing API endpoints  
+🔹 **Multi-Currency** – International payment support  
+🔹 **Advanced Search** – Elasticsearch/Meilisearch integration  
+🔹 **Notifications** – Email/SMS for order updates  
+🔹 **Inventory Alerts** – Low stock warnings  
+# 🛒 منصة تجارة إلكترونية متعددة التجار
+> **منصة متكاملة** مبنية بـ Laravel، تعرض معمارية على مستوى المؤسسات، علاقات قاعدة بيانات معقدة، وتكامل دفع حقيقي.
+---
+## 🎯 **نقاط القوة**
+✅ **معمارية Laravel احترافية** – علاقات Eloquent متقدمة، query scopes، API resources  
+✅ **منطق أعمال معقد** – نظام تسجيل متعدد الأدوار، دورة حياة طلبات التجار  
+✅ **واجهة تفاعلية** – Livewire للدفع وإدارة السلة  
+✅ **تكامل الدفع** – Stripe Checkout + Webhooks  
+✅ **كود قابل للتوسع** – بنية نظيفة ومنظمة  
+✅ **دعم متعدد اللغات** – العربية والإنجليزية  
+---
+## 🏗️ **المعمارية التقنية**
+### **نظام متعدد الأدوار**
+| الدور | المسؤوليات | المصادقة |
+|------|------------|----------|
+| **مدير النظام** | إدارة ومراقبة | `users` table |
+| **التاجر** | إدارة المنتجات والطلبات | `merchants` مع routes خاصة |
+| **العميل** | التسوق والدفع | `clients` مع auth منفصل |
+### **نظام المنتجات المتقدم**
+- **مخزون حسب المتغيرات** (لون + مقاس)
+- **منتجات باكيج** (حزم)
+- **صور متعددة** لكل منتج
+- **نظام عروض وتخفيضات**
+### **تدفق الطلب والدفع**
+```
+العميل → سلة → Livewire Checkout → إنشاء طلب + سجل دفع
   ↓
 Stripe Checkout Session
   ↓
-التحويل إلى Stripe
+الدفع عبر Stripe
   ↓
-Stripe Webhook
+Stripe Webhook → تحديث حالة الدفع → تقسيم طلبات التجار
   ↓
-تحديث حالة الدفع والطلب
-
-🧱 المميزات الأساسية
-🛍️ نظام المنتجات
-
-أقسام وأقسام فرعية
-
-منتجات تدعم:
-
-الألوان
-
-الفاريانت
-
-المقاسات
-
-SKU والمخزون
-
-باكيجات المنتجات
-
-🧑‍💼 نظام التجار
-
-منتجات خاصة بكل تاجر
-
-طلبات مستقلة للتجار
-
-حالات الطلب (في الانتظار → مقبول → تم التسليم)
-
-🛒 السلة والطلبات
-
-سلة لكل عميل وتاجر
-
-تحويل السلة إلى طلب
-
-عناصر الطلب والباكيجات
-
-💳 الدفع والمحاسبة
-
-Stripe Checkout
-
-Webhooks لتأكيد الدفع
-
-فواتير، مدفوعات، Refunds
-
-دعم الدفع عند الاستلام
-
-🚚 الشحن والعناوين
-
-عدة عناوين لكل عميل
-
-تتبع الشحن حسب الفاتورة
-
-🧠 نقاط القوة المعمارية
-
-علاقات Eloquent متقدمة
-
-استعمال Scopes و SoftDeletes
-
-كود منظم وقابل للتطوير
-
-هيكلة واضحة وسهلة الفهم
-
-🎯 هدف المشروع
-
-المشروع يهدف إلى:
-
-✅ عرض مستوى احترافي في Laravel
-
-✅ توفير قاعدة قوية لمشروع تجارة إلكترونية حقيقي
-
-ويمكن توسيعه لاحقًا بإضافة:
-
-Dashboard متقدم
-
-API و Mobile Apps
-
-تعدد العملات
-
-تقارير وإحصائيات
-
-🧰 التقنيات المستعملة
-
-Backend: Laravel
-
-Reactive UI: Livewire
-
-Frontend: Tailwind CSS
-
-Auth & Roles: Laravel + Spatie
-
-Payments: Stripe
-
-Database: MySQL
-
-اللغات: العربية & الإنجليزية
+التاجر يعالج: قيد الانتظار → مقبول → جاري الشحن → تم التسليم
+```
+**التطبيقات الرئيسية:**
+- تأكيد الدفع عبر Webhooks (يمنع التعارضات)
+- تقسيم طلبات التجار تلقائيًا
+- دعم الدفع عند الاستلام + الدفع أونلاين
+- إنشاء فواتير مع تتبع الشحن
+---
+## 🛠️ **التقنيات المستعملة**
+### **Backend**
+- Laravel 12 | Sanctum | Spatie Permission | Telescope
+### **Frontend**
+- Livewire 4 | Tailwind CSS | Alpine.js
+### **Database**
+- MySQL | 30+ migrations | Eloquent ORM
+### **الدفع والتكاملات**
+- Stripe PHP SDK | Laravel Localization
+---
+## 📦 **المميزات الأساسية**
+### **للعملاء**
+✔ تصفح المنتجات مع الفلاتر  
+✔ إدارة السلة  
+✔ دفع آمن عبر Stripe  
+✔ تتبع الطلبات  
+✔ عناوين شحن متعددة  
+✔ تقييم المنتجات  
+### **للتجار**
+✔ إدارة المنتجات والمتغيرات  
+✔ إدارة المخزون (SKU، المخزون)  
+✔ لوحة الطلبات  
+✔ تحليلات المبيعات (قابلة للتوسع)  
+### **للمدراء**
+✔ إدارة المستخدمين  
+✔ تعيين الأدوار والصلاحيات  
+✔ مراقبة الطلبات  
+✔ إحصائيات شاملة  
+---
+## 🚀 **التثبيت**
+```bash
+# استنساخ المشروع
+git clone https://github.com/developerouafa/project2026.git
+cd project2026
+# تثبيت المكتبات والإعداد
+composer setup
+# تكوين البيئة
+cp .env.example .env
+# قم بتحديث بيانات قاعدة البيانات و Stripe keys
+# تشغيل الخادم
+composer dev
+```
+**المتطلبات:**
+- PHP 8.2+
+- MySQL 8.0+
+- Composer 2.x
+- Node.js 18+
+---
+## 🎓 **ما يعرضه هذا المشروع**
+### **خبرة Laravel**
+✅ علاقات Eloquent معقدة (15+ موديل مترابطة)  
+✅ API Resources للاستجابات النظيفة  
+✅ معمارية موجهة للأحداث (webhooks)  
+✅ تحسين الاستعلامات (eager loading، scopes)  
+### **مهارات عملية**
+✅ تكامل بوابة دفع (Stripe)  
+✅ معمارية متعددة المستأجرين  
+✅ واجهة بحالة مع Livewire  
+✅ تصميم قاعدة بيانات للتجارة الإلكترونية  
+✅ الأمان (CSRF، XSS، SQL injection prevention)  
+---
